@@ -21,10 +21,15 @@ like such a claim should be treated as a bug.
    - None of these touches Boolean P vs NP. The VP≠VNP paper explains exactly where its proof
      breaks for Boolean circuits.
 
+2. Independent rebuild of Anthropic's Lean proofs of ETH-false and VP≠VNP. **Both build, and they use
+   only the standard axioms** (`experiments/lean-rebuild/README.md`). The comparator was not run.
+3. `lit/IMPLICATIONS.md`: why none of the 2026 results settles P vs NP.
+
 ## In progress
 
-- Independent rebuild of the Lean proofs for `eth/` and `vp-vnp/`, with logs in
-  `experiments/lean-rebuild/`.
+- Feasibility study for a Lean proof that E^NP lacks circuits of size ε·n·√log n/log log n,
+  which would be the first machine-checked superlinear bound
+  (`experiments/enp-superlinear/PLAN.md`).
 - Reading the frontier from primary sources: the OpenAI ETH paper and the Nov 2026 follow-ups.
   The goal is to pick one bounded, machine-checkable original contribution.
 

@@ -1,0 +1,11 @@
+source: /mnt/lean/anthropics-formal-math-11b6c7e/
+--- vp-vnp
+=== vp-vnp start Tue Nov 24 08:14:03 UTC 2026
+=== build exit 0
+'Solution.mainTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Solution.mainTheoremApprox' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Solution.separation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Solution.separationClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Solution.permanent_over_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+=== axioms exit 0 end Tue Nov 24 08:19:32 UTC 2026
+DONE
