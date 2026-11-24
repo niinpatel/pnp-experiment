@@ -96,3 +96,20 @@ All entries below are [V-listing] in the ECCC 2026 index (eccc.weizmann.ac.il/ye
 Known non-relativizing, non-naturalizing successes:
 - Williams' ACC lower bounds: NEXP ⊄ ACC⁰ (2011), then NQP ⊄ ACC⁰ (Murray & Williams 2018).
 - The algorithms-to-lower-bounds program that the 2026 E^NP results come from.
+
+## 3. OpenAI `openai/math` catalogue
+
+Label for this section: **[catalogue summary read, paper not read]** unless noted otherwise.
+The repository README lists 722 manuscripts in 374 families, produced by an unnamed internal model. About 42% of the top-line results are formalized in Lean.
+- **Family 378, "The Exponential Time Hypothesis is False" (2026-10-25).**
+  - Claim: #k-SAT in (n+m)^{O_k(1)}·2^{n/(log n)^{1/2+o(1)}}, plus superlinear circuit lower bounds for E^NP.
+  - Lean scope [V-primary: lean/docs/378.md]: formalizes only the counting algorithm, at rate 2^{O_k(n (log log n)²/√log n)}. **The E^NP circuit lower bound is not formalized there.**
+- **Family 379, "VP and VNP are different" (2026-11-23).** The border-circuit bound is exp(Ω((log n)^{5/4})) over every field. The two labs' VP ≠ VNP results were independent and concurrent.
+- **Family 103:** L = RL = BPL.
+- **Family 102:** claims a proof of the Unique Games Conjecture.
+- **Family 112:** a language in P that needs 2^{ω(√n)} gates in depth-3 (OR–AND–OR) circuits.
+- **Family 108:** a cubic lower bound for permanent vs determinant (border determinantal complexity).
+- **Family 107:** a matrix multiplication algorithm with ω ≤ 9/4.
+- **Family 136:** a quasilinear PCP for PPAD.
+- **Withdrawals** [V-primary: history.md, 2026-10-07]: three Hodge-related manuscripts were withdrawn after a sign error. AI-produced, unformalized claims can therefore be wrong.
+- **P vs NP:** grepping CONTENTS.md for "P vs NP", "P ≠ NP" and "P = NP" turns up **no family that claims to resolve it**.

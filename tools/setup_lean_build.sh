@@ -11,17 +11,19 @@ if [ ! -x "$HOME/.elan/bin/elan" ]; then
   bash "$BUILD/elan-init.sh" -y --default-toolchain none > "$LOGS/elan.log" 2>&1
 fi
 export PATH="$HOME/.elan/bin:$PATH"
+# Root disk is only 10 GB: keep the Mathlib cache on the build volume (a RAM tmpfs at /mnt/lean).
+export XDG_CACHE_HOME="$BUILD/.cache"; mkdir -p "$XDG_CACHE_HOME"
 SRC=$(ls -d "$BUILD"/anthropics-formal-math-*/ | head -1)
 echo "source: $SRC" > "$LOGS/summary.log"
-for proj in eth vp-vnp; do
+for proj in ${PROJECTS:-eth vp-vnp}; do
   cd "$SRC/$proj" || continue
   { echo "=== $proj start $(date -u)"; cat lean-toolchain
     lake exe cache get
-    /usr/bin/time -v lake build
+    lake build
     echo "=== build exit $?"
     lake env lean scripts/PrintAxioms.lean
     echo "=== axioms exit $? end $(date -u)"
   } > "$LOGS/$proj.log" 2>&1
-  { echo "--- $proj"; grep -E "^===|depends on axioms|error|Maximum resident|Elapsed" "$LOGS/$proj.log" | tail -20; } >> "$LOGS/summary.log"
+  { echo "--- $proj"; grep -E "^===|depends on axioms|error:" "$LOGS/$proj.log" | tail -20; } >> "$LOGS/summary.log"
 done
 echo DONE >> "$LOGS/summary.log"
