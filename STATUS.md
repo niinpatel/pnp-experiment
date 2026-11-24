@@ -1,4 +1,4 @@
-# STATUS: P vs NP attempt (final report, 2026-11-24)
+# STATUS: P vs NP attempt (report so far; work in progress since 2026-11-24 ~12:00 UTC)
 
 ## Where the work is
 
@@ -58,7 +58,7 @@ Any document here that reads like a resolution claim should be treated as a bug.
 
 - A Boolean transfer of the VP≠VNP proof. Paper §2.5 shows where it breaks, and nothing there could be machine-checked.
 - Any direct proof attempt at P ≠ NP or P = NP. Every known route faces the relativization, natural-proofs and algebrization barriers. I would not have been able to verify a "proof", and producing an unverifiable one would violate "make no mistakes".
-- Improving the 2^{m/√log m} rate. It is open; the only lever identified is cheaper pieces with ρ < 1/√2. If it were improved, `generalTransfer` would turn it into a stronger, machine-checked E^NP lower bound.
+- **IN PROGRESS (user-approved, capped):** improving the 2^{m/√log m} rate. It is open; the only lever identified is cheaper pieces with ρ < 1/√2, which is Majdoddin's Open problem 1. The work is staged: a problem spec first, then only the families that escape all proven bounds, then adversarial refutation and Lean for any gain. Any gain is a **conjecture** until Lean passes.
 
 ## Caveats
 
