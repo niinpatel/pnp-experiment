@@ -1,0 +1,118 @@
+
+partitions c=1 (control): limit 2^(a-1) = 0.7071 (a=0.500)
+  lam=  20 h=    49 rho_counted=0.7564 D(2h)/D(h)=1.5085 (ratio/2=0.7542)
+  lam=  50 h=   238 rho_counted=0.7318 D(2h)/D(h)=1.4622 (ratio/2=0.7311)
+  lam= 100 h=   852 rho_counted=0.7213 D(2h)/D(h)=1.4422 (ratio/2=0.7211)
+  lam= 200 h=  3189 rho_counted=0.7152 D(2h)/D(h)=1.4302 (ratio/2=0.7151)
+  lam= 400 h= 12271 rho_counted=0.7116 D(2h)/D(h)=1.4232 (ratio/2=0.7116)
+
+3-coloured c=3: limit 2^(a-1) = 0.7071 (a=0.500)
+  lam=  20 h=    21 rho_counted=0.7903 D(2h)/D(h)=1.5434 (ratio/2=0.7717)
+  lam=  50 h=    91 rho_counted=0.7437 D(2h)/D(h)=1.4854 (ratio/2=0.7427)
+  lam= 100 h=   311 rho_counted=0.7298 D(2h)/D(h)=1.4574 (ratio/2=0.7287)
+  lam= 200 h=  1123 rho_counted=0.7200 D(2h)/D(h)=1.4397 (ratio/2=0.7199)
+  lam= 400 h=  4227 rho_counted=0.7146 D(2h)/D(h)=1.4290 (ratio/2=0.7145)
+
+24-coloured c=24: limit 2^(a-1) = 0.7071 (a=0.500)
+  lam=  20 h=     6 rho_counted=0.8437 D(2h)/D(h)=1.6636 (ratio/2=0.8318)
+  lam=  50 h=    22 rho_counted=0.8111 D(2h)/D(h)=1.5783 (ratio/2=0.7891)
+  lam= 100 h=    62 rho_counted=0.7707 D(2h)/D(h)=1.5292 (ratio/2=0.7646)
+  lam= 200 h=   193 rho_counted=0.7467 D(2h)/D(h)=1.4908 (ratio/2=0.7454)
+  lam= 400 h=   650 rho_counted=0.7319 D(2h)/D(h)=1.4632 (ratio/2=0.7316)
+
+MacMahon c_n=n (plane partitions): limit 2^(a-1) = 0.7937 (a=0.667)
+  lam=  20 h=    24 rho_counted=0.8499 D(2h)/D(h)=1.6789 (ratio/2=0.8394)
+  lam=  50 h=    82 rho_counted=0.8184 D(2h)/D(h)=1.6334 (ratio/2=0.8167)
+  lam= 100 h=   219 rho_counted=0.8081 D(2h)/D(h)=1.6139 (ratio/2=0.8069)
+  lam= 200 h=   598 rho_counted=0.8013 D(2h)/D(h)=1.6024 (ratio/2=0.8012)
+  lam= 400 h=  1660 rho_counted=0.7981 D(2h)/D(h)=1.5957 (ratio/2=0.7979)
+
+c_n=C(n+1,2) (d=3 free-field): limit 2^(a-1) = 0.8409 (a=0.750)
+  lam=  20 h=    18 rho_counted=0.9109 D(2h)/D(h)=1.7618 (ratio/2=0.8809)
+  lam=  50 h=    54 rho_counted=0.8636 D(2h)/D(h)=1.7170 (ratio/2=0.8585)
+  lam= 100 h=   131 rho_counted=0.8510 D(2h)/D(h)=1.6983 (ratio/2=0.8492)
+  lam= 200 h=   325 rho_counted=0.8458 D(2h)/D(h)=1.6879 (ratio/2=0.8440)
+
+c_n=C(n+2,3) (d=4 free-field): limit 2^(a-1) = 0.8706 (a=0.800)
+  lam=  20 h=    15 rho_counted=0.9411 D(2h)/D(h)=1.8122 (ratio/2=0.9061)
+  lam=  50 h=    43 rho_counted=0.8982 D(2h)/D(h)=1.7663 (ratio/2=0.8831)
+  lam= 100 h=    99 rho_counted=0.8801 D(2h)/D(h)=1.7480 (ratio/2=0.8740)
+  lam= 200 h=   233 rho_counted=0.8714 D(2h)/D(h)=1.7382 (ratio/2=0.8691)
+
+rank-N Heisenberg (N-coloured partitions), N free (may depend on lam): min over N
+  lam=  50 N=             1 h=   238 rho=0.7318 D(2h)/D(h)=1.4622
+  lam=  50 N=             2 h=   129 rho=0.7406 D(2h)/D(h)=1.4750
+  lam=  50 N=             4 h=    72 rho=0.7481 D(2h)/D(h)=1.4942
+  lam=  50 N=             8 h=    43 rho=0.7659 D(2h)/D(h)=1.5207
+  lam=  50 N=            16 h=    27 rho=0.7819 D(2h)/D(h)=1.5560
+  lam=  50 N=            32 h=    19 rho=0.8251 D(2h)/D(h)=1.5962
+  lam=  50 N=            64 h=    14 rho=0.8619 D(2h)/D(h)=1.6424
+  lam=  50 N=           128 h=    11 rho=0.9034 D(2h)/D(h)=1.6893
+  lam=  50 N=           256 h=     9 rho=0.9388 D(2h)/D(h)=1.7336
+  lam=  50 N=           512 h=     7 rho=0.9043 D(2h)/D(h)=1.7768
+  lam=  50 N=          1024 h=     6 rho=0.9145 D(2h)/D(h)=1.8081
+  lam=  50 N=          4096 h=     5 rho=0.9826 D(2h)/D(h)=1.8503
+  lam=  50 N=         16384 h=     4 rho=0.9671 D(2h)/D(h)=1.8809
+  lam=  50 N=         65536 h=     4 rho=1.1270 D(2h)/D(h)=1.8969
+  lam=  50 N=       1048576 h=     3 rho=1.1051 D(2h)/D(h)=1.9247
+  lam=  50 N=      16777216 h=     3 rho=1.3451 D(2h)/D(h)=1.9377
+  lam=  50 N=    1073741824 h=     2 rho=1.1542 D(2h)/D(h)=1.9562
+  lam=  50 N= 1099511627776 h=     2 rho=1.5542 D(2h)/D(h)=1.9673
+  -> lam=50: min rho over N = 0.7318 at N=1
+  lam= 100 N=             1 h=   852 rho=0.7213 D(2h)/D(h)=1.4422
+  lam= 100 N=             2 h=   447 rho=0.7256 D(2h)/D(h)=1.4505
+  lam= 100 N=             4 h=   242 rho=0.7331 D(2h)/D(h)=1.4634
+  lam= 100 N=             8 h=   136 rho=0.7423 D(2h)/D(h)=1.4827
+  lam= 100 N=            16 h=    81 rho=0.7571 D(2h)/D(h)=1.5097
+  lam= 100 N=            32 h=    52 rho=0.7812 D(2h)/D(h)=1.5446
+  lam= 100 N=            64 h=    35 rho=0.7984 D(2h)/D(h)=1.5881
+  lam= 100 N=           128 h=    26 rho=0.8345 D(2h)/D(h)=1.6347
+  lam= 100 N=           256 h=    20 rho=0.8571 D(2h)/D(h)=1.6833
+  lam= 100 N=           512 h=    16 rho=0.8709 D(2h)/D(h)=1.7287
+  lam= 100 N=          1024 h=    14 rho=0.9181 D(2h)/D(h)=1.7646
+  lam= 100 N=          4096 h=    11 rho=0.9716 D(2h)/D(h)=1.8193
+  lam= 100 N=         16384 h=     9 rho=0.9977 D(2h)/D(h)=1.8554
+  lam= 100 N=         65536 h=     8 rho=1.0588 D(2h)/D(h)=1.8789
+  lam= 100 N=       1048576 h=     6 rho=1.0558 D(2h)/D(h)=1.9109
+  lam= 100 N=      16777216 h=     5 rho=1.0910 D(2h)/D(h)=1.9295
+  lam= 100 N=    1073741824 h=     4 rho=1.1235 D(2h)/D(h)=1.9469
+  lam= 100 N= 1099511627776 h=     3 rho=1.1525 D(2h)/D(h)=1.9632
+  -> lam=100: min rho over N = 0.7213 at N=1
+  lam= 200 N=             1 h=  3189 rho=0.7152 D(2h)/D(h)=1.4302
+  lam= 200 N=             2 h=  1642 rho=0.7178 D(2h)/D(h)=1.4354
+  lam= 200 N=             4 h=   862 rho=0.7220 D(2h)/D(h)=1.4437
+  lam= 200 N=             8 h=   466 rho=0.7285 D(2h)/D(h)=1.4567
+  lam= 200 N=            16 h=   263 rho=0.7387 D(2h)/D(h)=1.4760
+  lam= 200 N=            32 h=   157 rho=0.7535 D(2h)/D(h)=1.5031
+  lam= 200 N=            64 h=   100 rho=0.7725 D(2h)/D(h)=1.5386
+  lam= 200 N=           128 h=    68 rho=0.7930 D(2h)/D(h)=1.5819
+  lam= 200 N=           256 h=    50 rho=0.8213 D(2h)/D(h)=1.6293
+  lam= 200 N=           512 h=    39 rho=0.8501 D(2h)/D(h)=1.6772
+  lam= 200 N=          1024 h=    32 rho=0.8793 D(2h)/D(h)=1.7210
+  lam= 200 N=          4096 h=    23 rho=0.9032 D(2h)/D(h)=1.7901
+  lam= 200 N=         16384 h=    19 rho=0.9591 D(2h)/D(h)=1.8330
+  lam= 200 N=         65536 h=    16 rho=0.9859 D(2h)/D(h)=1.8624
+  lam= 200 N=       1048576 h=    12 rho=1.0024 D(2h)/D(h)=1.8988
+  lam= 200 N=      16777216 h=    10 rho=1.0473 D(2h)/D(h)=1.9198
+  lam= 200 N=    1073741824 h=     8 rho=1.0894 D(2h)/D(h)=1.9392
+  lam= 200 N= 1099511627776 h=     6 rho=1.1279 D(2h)/D(h)=1.9573
+  -> lam=200: min rho over N = 0.7152 at N=1
+  lam= 400 N=             1 h= 12271 rho=0.7116 D(2h)/D(h)=1.4232
+  lam= 400 N=             2 h=  6243 rho=0.7132 D(2h)/D(h)=1.4263
+  lam= 400 N=             4 h=  3215 rho=0.7157 D(2h)/D(h)=1.4314
+  lam= 400 N=             8 h=  1689 rho=0.7200 D(2h)/D(h)=1.4397
+  lam= 400 N=            16 h=   914 rho=0.7267 D(2h)/D(h)=1.4527
+  lam= 400 N=            32 h=   516 rho=0.7366 D(2h)/D(h)=1.4721
+  lam= 400 N=            64 h=   308 rho=0.7508 D(2h)/D(h)=1.4993
+  lam= 400 N=           128 h=   196 rho=0.7686 D(2h)/D(h)=1.5350
+  lam= 400 N=           256 h=   134 rho=0.7909 D(2h)/D(h)=1.5781
+  lam= 400 N=           512 h=    98 rho=0.8152 D(2h)/D(h)=1.6259
+  lam= 400 N=          1024 h=    76 rho=0.8392 D(2h)/D(h)=1.6741
+  lam= 400 N=          4096 h=    53 rho=0.8909 D(2h)/D(h)=1.7549
+  lam= 400 N=         16384 h=    40 rho=0.9075 D(2h)/D(h)=1.8103
+  lam= 400 N=         65536 h=    33 rho=0.9351 D(2h)/D(h)=1.8456
+  lam= 400 N=       1048576 h=    24 rho=0.9463 D(2h)/D(h)=1.8881
+  lam= 400 N=      16777216 h=    20 rho=1.0011 D(2h)/D(h)=1.9117
+  lam= 400 N=    1073741824 h=    15 rho=0.9904 D(2h)/D(h)=1.9336
+  lam= 400 N= 1099511627776 h=    11 rho=1.0126 D(2h)/D(h)=1.9532
+  -> lam=400: min rho over N = 0.7116 at N=1

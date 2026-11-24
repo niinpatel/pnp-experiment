@@ -1,0 +1,20 @@
+c=1: th*F(th) nonincreasing on grid: True
+   E=   312 S(E)=    43.073 lnD(E)=    40.285 gap=  2.788 (ln E=5.74)  S(2E)/S(E)=1.4317  D(2E)/D(E)=1.4570
+   E=  1250 S(E)=    88.110 lnD(E)=    84.956 gap=  3.153 (ln E=7.13)  S(2E)/S(E)=1.4244  D(2E)/D(E)=1.4380
+   E=  5000 S(E)=   178.455 lnD(E)=   174.945 gap=  3.510 (ln E=8.52)  S(2E)/S(E)=1.4200  D(2E)/D(E)=1.4275
+   E= 10000 S(E)=   253.412 lnD(E)=   249.726 gap=  3.686 (ln E=9.21)  S(2E)/S(E)=1.4186  D(2E)/D(E)=1.4241
+c=24: th*F(th) nonincreasing on grid: True
+   E=    62 S(E)=    72.749 lnD(E)=    69.867 gap=  2.882 (ln E=4.13)  S(2E)/S(E)=1.5118  D(2E)/D(E)=1.5292
+   E=   250 S(E)=   164.826 lnD(E)=   161.443 gap=  3.383 (ln E=5.52)  S(2E)/S(E)=1.4754  D(2E)/D(E)=1.4839
+   E=  1000 S(E)=   355.563 lnD(E)=   351.747 gap=  3.816 (ln E=6.91)  S(2E)/S(E)=1.4515  D(2E)/D(E)=1.4559
+   E=  2000 S(E)=   516.114 lnD(E)=   512.098 gap=  4.017 (ln E=7.60)  S(2E)/S(E)=1.4431  D(2E)/D(E)=1.4462
+c=2^20: th*F(th) nonincreasing on grid: True
+   E=     3 S(E)=    41.293 lnD(E)=    39.797 gap=  1.496 (ln E=1.10)  S(2E)/S(E)=1.8993  D(2E)/D(E)=1.9247
+   E=    12 S(E)=   148.537 lnD(E)=   146.368 gap=  2.168 (ln E=2.48)  S(2E)/S(E)=1.8880  D(2E)/D(E)=1.8988
+   E=    50 S(E)=   547.550 lnD(E)=   544.673 gap=  2.877 (ln E=3.91)  S(2E)/S(E)=1.8734  D(2E)/D(E)=1.8774
+   E=   100 S(E)=  1025.792 lnD(E)=  1022.569 gap=  3.222 (ln E=4.61)  S(2E)/S(E)=1.8649  D(2E)/D(E)=1.8673
+c=n (MacMahon): th*F(th) nonincreasing on grid: True
+   E=    46 S(E)=    25.550 lnD(E)=    22.839 gap=  2.711 (ln E=3.83)  S(2E)/S(E)=1.5923  D(2E)/D(E)=1.6510
+   E=   187 S(E)=    65.424 lnD(E)=    62.181 gap=  3.243 (ln E=5.23)  S(2E)/S(E)=1.5897  D(2E)/D(E)=1.6163
+   E=   750 S(E)=   165.551 lnD(E)=   161.803 gap=  3.748 (ln E=6.62)  S(2E)/S(E)=1.5884  D(2E)/D(E)=1.6005
+   E=  1500 S(E)=   262.968 lnD(E)=   258.974 gap=  3.994 (ln E=7.31)  S(2E)/S(E)=1.5881  D(2E)/D(E)=1.5962
