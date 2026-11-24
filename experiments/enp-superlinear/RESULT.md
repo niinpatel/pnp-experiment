@@ -24,7 +24,9 @@
 
 **In words:** let r be any rate that is positive, antitone, tends to 0, and has m·r(m) monotone. Suppose some Mathlib Turing machine with finite alphabets decides 3-SAT within ⌊C·2^{3C·m·r(m)}⌋ steps, measured in the number m of clauses. The condition applies to formulas with at least one clause, no repeated clause, and every variable occurring. Then some language in E^NP has, for some ε > 0, no circuits of size ⌊ε·(n+1)/r(n)⌋ at infinitely many n.
 
-**Why it matters:** any future faster 3-SAT algorithm, supplied as a Turing machine, gives a machine-checked E^NP lower bound immediately.
+**Why it matters:** suppose someone proves a clause-rate bound of exactly this form, on this encoding: a Mathlib `TM2ComputableAux` machine on `SatM.enc 3 φ`, with the stated preconditions. A machine-checked E^NP lower bound then follows at once.
+
+**Not tight for fast-decaying rates.** For r(m) = m^{-1/2}, the direct argument allows circuits of size about n², while the theorem gives ε·n^{1.5}. Tightness is not claimed outside the polylog-type regime, where it matches the standard argument.
 
 **Non-vacuous:** `corCircuitsSqrtLogInf_of_general` derives the √log theorem from it. It instantiates r(m) = 1/√log₂(m+2) using the development's own deciding machine.
 

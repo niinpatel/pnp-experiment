@@ -30,6 +30,8 @@ like such a claim should be treated as a bug.
    (`Superlinear.corCircuitsSqrtLogInf`). A first milestone proved the weaker
    ε·n·√(log n)/log log n.
    - **Lean development:** 1918 lines, on top of Anthropic's `eth` development (commit 11b6c7e).
+   - **Theorem names:** `Superlinear.corCircuitsSqrtLogInf` (main), `Superlinear.corCircuitsSuperlinInf`
+     (the first milestone, with the log log factor), and `Superlinear.generalTransfer`.
    - **Also proved:** a reusable **general transfer theorem** (`Superlinear.generalTransfer`): any
      3-SAT Turing machine running in 2^{O(m·r(m))} gives E^NP ⊄ SIZE(ε·n/r(n)) infinitely often.
    - **Checked:** a from-scratch rebuild against upstream pinned at 11b6c7e passes, using only the
@@ -51,4 +53,4 @@ like such a claim should be treated as a bug.
 ## Spend log (rough, self-estimated from session token counts at guessed prices; advisor calls not counted)
 
 - About $117 by the end of the first Lean result (2026-11-24, ~09:00 UTC). Gemini: 2 small calls.
-- After the general theorem (2026-11-24, ~10:00 UTC), counting this session's own tokens only: about $60 at $5/$25 per Mtok, or about $180 at $15/$75 (`tools/spend.py`). Advisor calls are not counted.
+- After the general theorem (2026-11-24, ~10:00 UTC), at published Opus 5.5 prices ($4/$20 per Mtok, cache reads $0.20, cache writes about $5): about $47 of this session's tokens, including subagents (`tools/spend.py` token counts). Advisor calls (Fable 5.2) are not in the logs, so estimate about $10–15 more. **Total about $60 of the $489 budget.**

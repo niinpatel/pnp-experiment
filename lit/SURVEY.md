@@ -104,7 +104,7 @@ The repository README lists 722 manuscripts in 374 families, produced by an unna
 - **Family 378, "The Exponential Time Hypothesis is False" (2026-10-25).**
   - Claim: #k-SAT in (n+m)^{O_k(1)}·2^{n/(log n)^{1/2+o(1)}}, plus superlinear circuit lower bounds for E^NP.
   - Lean scope [V-primary: lean/docs/378.md]: formalizes only the counting algorithm, at rate 2^{O_k(n (log log n)²/√log n)}. **The E^NP circuit lower bound is not formalized there.**
-- **Family 379, "VP and VNP are different" (2026-11-23).** The border-circuit bound is exp(Ω((log n)^{5/4})) over every field. The two labs' VP ≠ VNP results were independent and concurrent.
+- **Family 379, "VP and VNP are different" (2026-11-23).** The border-circuit bound is exp(Ω((log n)^{5/4})) over every field. Both labs' VP ≠ VNP manuscripts are dated 2026-11-23. Neither paper I read states whether the work was independent.
 - **Family 103:** L = RL = BPL.
 - **Family 102:** claims a proof of the Unique Games Conjecture.
 - **Family 112:** a language in P that needs 2^{ω(√n)} gates in depth-3 (OR–AND–OR) circuits.

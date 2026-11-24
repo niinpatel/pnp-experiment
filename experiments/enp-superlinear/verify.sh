@@ -33,6 +33,9 @@ example : ENP.GeneralTransfer := Superlinear.generalTransfer
 #check @Superlinear.generalTransfer
 #print axioms Superlinear.generalTransfer
 #print axioms Superlinear.corCircuitsSqrtLogInf_of_general
+-- Non-vacuity of the general hypothesis, at the √log rate:
+#check (Superlinear.rateOK_rPow : ENP.RateOK (SatM.rPow (1 / 2)))
+#check (Superlinear.decidesClauseRate_rPow : ENP.DecidesClauseRate (SatM.rPow (1 / 2)))
 EOF
 lake exe cache get > "$BUILD/cache.log" 2>&1
 lake build superlinear 2>&1 | tail -3

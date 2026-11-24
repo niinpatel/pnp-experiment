@@ -63,8 +63,10 @@ This is my own reasoning (Claude, 2026-11-24), built on the sources in `SURVEY.m
   - Via this route, the SAT algorithm would have to beat 2^n by a superpolynomial factor on
     *polynomial-size* circuits.
   - The tensor-network method only reaches about n·√log n gates.
-- **Reasoning: where the frontier sits.** Improving 2^{m/√log m} to 2^{m/(log m)^c}
-  would give E^NP ⊄ SIZE(n·(log n)^c). That is a natural next step, and an open problem.
+- **Where the frontier sits.** Improving 2^{m/√log m} to 2^{m/(log m)^c}, as a 3-SAT
+  Turing machine in the stated encoding, would give E^NP ⊄ SIZE(ε·n·(log n)^c). This is now a
+  **Lean theorem**, `Superlinear.generalTransfer`, from this session. The algorithmic
+  improvement itself is open.
 
 ## 4. Other 2026 results
 
