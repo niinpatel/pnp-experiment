@@ -19,7 +19,7 @@ It proves log K_ℓ = (3x_0+6)·2^ℓ − O(ℓ) and ½ρ^ℓ ≤ e_ℓ ≤ 0.85
 
 - log K_{ℓ+1} = β·log K_ℓ + O(ℓ),
 - e_{ℓ+1} = ρ_ℓ·e_ℓ + δ(K_ℓ), with ρ_ℓ → ρ summably (as ρ + 3ζ_ℓ does),
-- δ(K) = o((log K)^{−α'}).
+- Σ_ℓ δ(K_ℓ)·ρ^{−ℓ} < ∞, for example δ(K) = O((log K)^{−α'−ε}). (Corrected in review: δ(K) = o((log K)^{−α'}), first written here, is not enough for e_ℓ = Θ(ρ^ℓ); the exponent α' is unaffected.)
 
 Then e_ℓ = Θ(ρ^ℓ) and log K_ℓ = Θ(β^ℓ), so
 
@@ -34,7 +34,7 @@ With β = 2 and ρ = 1/√2 this gives α' = ½. The script reproduces Thm A(a),
 - **Additive term:** 3/K, 1/K² and 1/√K leave α' unchanged, because K is doubly exponential in ℓ. Even δ = 1/log K is inert unless α' ≥ 1.
 - **Overheads, K ≤ m^{1/9}:** constants only, since log K = Θ(log m) either way ((45), p.29).
 
-**Conclusion (our derivation).** No balancing of costs produces the 1/2: it is log₂(1/ρ) at ρ = 1/√2 with K squared per level, and ρ = 1/√2 = 2^{a−1} with a = ½, the Hardy–Ramanujan exponent in log p(E) ≈ c√E ([A] App. H, (77), p.49: "if it grew like E^a ... ρ = 2^{a−1}"). From actual partition numbers, counted ρ_B falls 0.756 → 0.715 for λ = 20 → 200 (slowly to 0.7071).
+**Conclusion (our derivation).** No balancing of costs produces the 1/2: it is log₂(1/ρ) at ρ = 1/√2 with K squared per level, and ρ = 1/√2 = 2^{a−1} with a = ½, the Hardy–Ramanujan exponent in log p(E) ≈ c√E ([A] App. H, (77), p.49: "if it grew like E^a ... ρ = 2^{a−1}"). From actual partition numbers and [A]'s own definitions, counted ρ_B falls 0.875 → 0.736 for λ = 20 → 200 (slowly to 0.7071). (Corrected in review: 0.756 → 0.715, first written here, belongs to an idealized cumulative profile.)
 
 ## Q2. OpenAI: where (log n)^{1/2+o(1)} comes from
 
@@ -55,7 +55,7 @@ With β = 2 and ρ = 1/√2 this gives α' = ½. The script reproduces Thm A(a),
 - **Main barrier (Thm 4.13, p.41).** Every grid algorithm has e(K) ≥ 1/log₂K: **α' ≤ 1**, not ½. On α' = ½: "no lower bound of this form is proved for them" (p.42). This caps α' = log(1/ρ)/log β; it does not ban β < 2. "Squaring is forced" (p.34) is [M]'s sentence; its "structured merged tables" paragraph (p.47) is labelled *argued*.
 - **Non-grid balanced homogeneous two-merge levels.** Thm 4.12 (p.40) gives 1/e ≤ (log₂K)³ (α' ≤ 3). This is what excludes 2^{n^{1−c}}; [M] calls the exponent 3 "an artefact of the proof".
 - **Two-merge floor (Prop 4.8, p.37):** ρ ≥ ½.
-- **The only √log-specific statement is Prop 4.24 (p.48, proved),** for pieces "in the shape of App. B" (graded space, profile D(E) = log dim V_{≤E}, windows W = H = 2h):
+- **The only √log-specific statement is Prop 4.24 (p.48, proved),** for pieces "in the shape of App. B" (graded space, profile D(E) = log dim V_{≤E}, windows W and H free; App. B has W = H = 2h). Corrected in review: only the concave-profile bound is the proved proposition; the power-profile and 5/8 statements below are unnumbered remarks after its proof.
   - any concave profile gives ρ ≥ 2/3;
   - a power profile D = cE^a gives ρ ≥ max(2^{a−1}, 2^{−a}) ≥ 1/√2, with equality only at a = ½, so **App. B is optimal among power profiles when both windows are at least 2h**. Correction from Stage 1 re-check (`lit/RHO_SPEC.md`): with free windows the bound weakens to ρ ≥ 2^{−a}. For the partition profile (a = ½), no choice of windows beats 1/√2. The 2^{−a} branch comes from the pigeonhole need for some piece of full rank 2^{2λ} (D(4h) ≥ 2λ);
   - a window H = h would give 5/8; going below 1/√2 needs a "kinked profile ... we know no such algebra".
@@ -81,6 +81,8 @@ With β = 2 and ρ = 1/√2 this gives α' = ½. The script reproduces Thm A(a),
 **Bottom line.** Raising the 1/2 in [A]'s framework needs a cheaper crossing decomposition (ρ < 1/√2; [M] Open problem 1), not parameter tuning.
 
 ## Conjecture 2: computational check
+
+> **Prior work found in review (2026-11-24).** Naves de Brito, hexagon:2610.00692 (2026-10-31), states that Theorem B of [A] is rank-tight up to a polynomial factor. That is the content of this check, as a theorem, three weeks earlier. I read the abstract only. See `SURVEY.md` §6.
 
 **Verdict: negative.** The true flattening ranks of the App. B pieces fall short of the counted bounds of (54)–(55) only by a lower-order amount, and the shortfall vanishes relative to the bound as h grows. No ρ below 1/√2 shows up.
 
@@ -114,7 +116,7 @@ With β = 2 and ρ = 1/√2 this gives α' = ½. The script reproduces Thm A(a),
 | 9 | −3 | 684 | 653 | 0.955 | 0.993 |
 | 9 | −9 | 97 | 96 | 0.990 | 0.998 |
 
-- **Empirical law.** The following fits all 55 unsaturated (h, s) cases with h ≤ 9 exactly (`deficit_analysis.py`); it was fitted to the data and is *not proved*. With k = s + h:
+- **Empirical law.** The following fits all 55 computed unsaturated (h, s) cases with h ≤ 9 exactly (`deficit_analysis.py`; for h = 8 and 9 only s ≤ −3 was run, so these are not all such cases); it was fitted to the data and is *not proved*. With k = s + h:
   - rank_row(s) = R_row(s) − Σ_{w≤k} p(w) − [k ≥ 1],
   - and the shortfall is 0 for k < 0.
   - Read this way, the intermediate weights at most s+h contribute nothing; the rank comes from the top h weights.

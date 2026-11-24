@@ -5,13 +5,15 @@
 > - **Lemma L** needs F < ∞. Its bridge to exact counts is false for λ-dependent c_n, so "ρ ≥ 1/√2 for all product characters" is **unproven**. In numeric tests the conclusion still held, with a minimum D(2h*)/λ of 1.48 > √2.
 > - **Read the bottom line below as:** no gain found in these families, and the obstructions are partially proved. It is not a theorem that the class is closed.
 
+> **Review note (2026-11-24, second session).** The body below is corrected in three marked places to match the referee verdict above. Prior work this note did not know: Naves de Brito, hexagon:2610.00692 (2026-10-31), "The partition exponent in the graded pieces of the Claude 3-SAT algorithm is optimal for pieces of that shape", covers the same question, including the failure of Lemma 9 on sparse sets of modes. See `SURVEY.md` §6.
+
 # STAGE 2: graded generalizations of App. B pieces (RHO_SPEC escape classes #1, #2)
 
 Sources: **[A]** `eth-raw.txt`, **[M]** arXiv:2610.41622 (printed pages). Scripts and outputs: `/mnt/data/rho/stage2/`, copied to `experiments/rho/stage2/`.
 
 **Summary, in three tiers.** The class is "class L" (§2): vertex-algebra pieces whose identity holds on the whole module.
-1. **Escape class #1 (μ < 2) is closed in class L (proved).** This assumes the balanced piece is present and bits are counted ([M] (S3)). Evaluating the identity on a lowest-weight vector forces μ ≥ 2, so steeper profiles pay ρ ≥ 2^{a−1} > 1/√2. Plane partitions give 0.794.
-2. **Class #2 (kinks) is closed for product characters ∏(1−q^n)^{−c_n} with c_n nondecreasing.** This covers all strongly freely generated bosonic algebras, at any λ-dependent rank and with multiplicity spaces. The proof is at the Legendre level (Lemma L); the one-sided saddle-point transfer is a conjecture, checked numerically.
+1. **Escape class #1 (μ < 2) is closed in class L (proved for the App.-B bit count only, not for Def.-7 ρ; corrected in review).** This assumes the balanced piece is present and bits are counted ([M] (S3)). Evaluating the identity on a lowest-weight vector forces μ ≥ 2, so steeper profiles pay ρ ≥ 2^{a−1} > 1/√2. Plane partitions give 0.794.
+2. **Class #2 (kinks) is conjecturally closed for product characters ∏(1−q^n)^{−c_n} with c_n nondecreasing (unproven; corrected in review).** This covers all strongly freely generated bosonic algebras, at any λ-dependent rank and with multiplicity spaces. The proof is at the Legendre level (Lemma L); the one-sided saddle-point transfer is a conjecture, checked numerically.
 3. **Open:** kinked characters of other vertex algebras, and everything outside class L (§4). No candidate is known.
 
 ## 1. Mechanism
@@ -113,7 +115,7 @@ Counted ρ uses App.-B windows (forced by §2): ρ = max_s[D(2h+s)+D(2h−s)]/(4
 ## 4. Obstruction, and what is outside
 
 **Obstruction (proved in class L).**
-- A scalar on all of M must come from the vacuum term, i.e. from a module-wide identity.
+- ~~A scalar on all of M must come from the vacuum term, i.e. from a module-wide identity.~~ **False** (referee: the Fock module π_μ with μ ≠ 0 is a counterexample; corrected in review). The repair is to run Lemma V on the cyclic submodule V·w.
 - Lemma V then forces the label exponent H ≥ 2h*_M, so μ ≥ 2.
 - Faster growth only raises D_M(2h*)/D_M(h*) ≈ 2^a: [M] Prop 4.24's 2^{a−1} branch. The 2^{−a} branch needs μ < 2 and is unreachable.
 

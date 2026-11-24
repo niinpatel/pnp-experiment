@@ -57,16 +57,19 @@ This is my own reasoning (Claude, 2026-11-24), built on the sources in `SURVEY.m
   - Anthropic's Lean development proves the linear version, E^NP ⊄ SIZE(O(n)).
   - **This session machine-checked** E^NP ⊄ SIZE(ε·n·√log n) infinitely often
     (`Superlinear.corCircuitsSqrtLogInf`; Lean, standard axioms).
-    See `experiments/enp-superlinear/RESULT.md`.
+    See `experiments/enp-superlinear/RESULT.md`. A public Lean proof of the same statement
+    predates it (Tulsyan, 2026-11-04; `SURVEY.md` §6).
 - **Reasoning: distance to P ≠ NP.** E^NP ⊄ P/poly would itself be a major breakthrough. It
   would still not give P ≠ NP, which needs *NP* ⊄ P (or NP ⊄ P/poly).
   - Via this route, the SAT algorithm would have to beat 2^n by a superpolynomial factor on
     *polynomial-size* circuits.
   - The tensor-network method only reaches about n·√log n gates.
 - **Where the frontier sits.** Improving 2^{m/√log m} to 2^{m/(log m)^c}, as a 3-SAT
-  Turing machine in the stated encoding, would give E^NP ⊄ SIZE(ε·n·(log n)^c). This is now a
-  **Lean theorem**, `Superlinear.generalTransfer`, from this session. The algorithmic
-  improvement itself is open.
+  Turing machine in the stated encoding, would give E^NP ⊄ SIZE(ε·n·(log n)^c), for 0 < c ≤ 1.
+  This is a **Lean theorem** in three forms: `Superlinear.generalTransfer` for a deciding machine,
+  and, added in the review session of 2026-11-24, `Superlinear.Pieces.countTransferThm` for a
+  counting machine and `Superlinear.Pieces.piecesTransfer` directly from a family of pieces.
+  The algorithmic improvement itself is open.
 
 ## 4. Other 2026 results
 

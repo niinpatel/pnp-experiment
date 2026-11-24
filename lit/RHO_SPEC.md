@@ -1,3 +1,9 @@
+> **Review note (2026-11-24, second session; details in `REVIEW.md` §3).**
+> - Corrections made in place below are marked "corrected in review".
+> - The labels (S1)–(S6) and (F1)/(F2) are this note's own. [M] uses the same labels for other things; only (L1)–(L5) are [M]'s.
+> - "Re-checked line by line" covers three results of [M]: Prop 4.6/4.8, Thm 4.13 and Prop 4.24. The others cited here were not re-derived.
+> - Prior work this note did not know: Naves de Brito, hexagon:2610.00692 (2026-10-31), proves the power-profile floor max(2^{α−1}, 2^{−α}) ≥ 1/√2 for graded families of the App.-B shape. See `SURVEY.md` §6.
+
 # RHO_SPEC: what "ρ < 1/√2" means, what excludes it, what is left (Stage 1)
 
 Sources: **[A]** Anthropic paper (`eth-raw.txt`; printed pages). **[M]** Majdoddin, arXiv:2610.41622v1 (printed pages). **Lean**: `/mnt/data/lean/anthropics-formal-math-11b6c7e/eth/proof/`. Scripts: `/mnt/data/rho/scripts/` (`profiles.py/.out`, `Ax.lean`).
@@ -28,12 +34,12 @@ Sources: **[A]** Anthropic paper (`eth-raw.txt`; printed pages). **[M]** Majdodd
 - **The rate theorem.** `GeneralPieces.thmRunningTime_c_m : ∀ ρ c, AppRunningTime.Exist ρ c → SatM.CountInRate (SatM.rPow (AppRunningTime.alpha' ρ))`. I checked it with `#check` and `#print axioms` (`Ax.lean`); the only axioms are propext, Classical.choice and Quot.sound.
   Here `alpha' ρ = logb 2 (1/ρ)`, `rPow α m = 1/(log₂(m+2))^α`, and `CountInRate r` means one TM2 machine counts #k-SAT within ⌊C·2^{C·k·m·r(m)}⌋ steps.
 - **Generic front end.** `DefGenPieces.of_par_realizes` (`rates/GeneralPieces/DefGenPieces/Conv.lean:70`) turns programs satisfying `Par`/`Keeps`/`Realizes` into `IsPieces`.
-- **Transfer.** `Superlinear.generalTransfer : ∀ r, RateOK r → DecidesClauseRate r → E^NP ⊄ i.o.-SIZE(⌊ε(n+1)/r(n)⌋)`; its axioms are clean.
+- **Transfer.** `Superlinear.generalTransfer : ∀ r, RateOK r → DecidesClauseRate r → E^NP ⊄ SIZE(⌊ε(n+1)/r(n)⌋)`, meaning no such circuits at infinitely many lengths; its axioms are clean. (Corrected in review: "⊄ i.o.-SIZE", first written here, would denote the stronger almost-everywhere bound, which is not what is proved.)
 - **Missing (from a grep of `superlinear/`).**
   - `rateOK_rPow` (`General.lean:116`) is proved for α = ½ only.
   - `decidesClauseRate_rPow` (:142) is also α = ½ only. It goes through `RecursionWithPieces.tiedAllCal.decides`, which is tied to the App-B pieces (`IsPiecesB`).
   - There is no generic `CountInRate r → DecidesClauseRate r`. The two bounds agree at k = 3.
-- **What a machine-checked E^NP ⊄ i.o.-SIZE(ε·n·(log n)^{α′}) needs.**
+- **What a machine-checked E^NP ⊄ SIZE(ε·n·(log n)^{α′}) needs.** (Items 2 and 3 were proved in the review session of 2026-11-24: `Superlinear.Pieces.piecesTransfer`. Item 1 is still open.)
   1. `Exist ρ c` for the new pieces: programs, PolyT proofs, the identity, the factorizations, and `caps` for all λ.
   2. `RateOK (rPow α)` for 0 < α ≤ 1. This is routine, from ln(1+x) ≥ x/(1+x).
   3. Count-to-decide glue: either a TM post-composition with "count ≠ 0", or `TiedAt` generalized to any `IsPieces`.
@@ -50,8 +56,8 @@ Sources: **[A]** Anthropic paper (`eth-raw.txt`; printed pages). **[M]** Majdodd
    - **Checking:** exact arithmetic on 2^{4b} entries. Bit lengths stay polynomial because the factors are products of per-block factors.
    - **Necessary conditions (our derivation).**
      - Pigeonhole ([M] Prop 4.6) gives some a_j ≥ 2b − log|J|.
-     - Splitting each B_j into rank-one terms in its cheaper direction gives Σ_j 2^{min(c_j^row, c_j^col)} ≥ P(N) ≥ s ≥ N. Here P(N) is the least number of terms of row- or column-rank 1 summing to the crossing, s the least number of products in a sum-of-squares identity; [A] App G p.46 quotes P(N) ≥ s from [HWY11], and App H p.47 quotes s ≥ N.
-     - Hence **two-piece identities have ρ ≥ ¾ − O(1/b)**. F2 needs at least 3 pieces, at least one of them with both costs ≳ b.
+     - Splitting each B_j into rank-one terms in its cheaper direction gives Σ_j 2^{min(c_j^row, c_j^col)} ≥ P(N) ≥ N. Here P(N) is the least number of terms of row- or column-rank 1 summing to the crossing ([A] App G p.45). P(N) ≥ N has a direct proof: fix y = u; the crossing becomes the N×N identity in (x, v), and every term of row- or column-rank 1 becomes a matrix of rank at most 1. (Corrected in review: the chain "P(N) ≥ s ≥ N" first written here cited [A] for a step [A] does not make.)
+     - Hence, using the pigeonhole in each direction separately, **two-piece identities have ρ ≥ ¾ − O(1/b)**. F2 needs at least 3 pieces, at least one of them with both costs ≳ b.
 
 **Correction to the brief.** "Fixed-size identities give only 11/12 or ≈0.896" describes the *known* identities only ([A] App H pp.47–48):
 
@@ -63,14 +69,14 @@ Sources: **[A]** Anthropic paper (`eth-raw.txt`; printed pages). **[M]** Majdodd
 | single bit | log 12/4 ≈ 0.896 | rank count |
 
 - **Rank counts are not shown to be Def.-7 certificates.** Def. 7(c) needs integer factorizations of polynomial bit length. Generic elimination gives entries of up to ≈2^{2λ} bits (our derivation). [A] App G p.46 says the same of Hrubeš's ≈0.905.
-- **No theorem stops a finite identity from beating 1/√2.** Finite App-B instances do not do it: ρ_B(λ) falls to 1/√2 from above (0.756 at λ = 20, 0.715 at λ = 200). So graded families reach 1/√2 *only in the limit*.
+- **No theorem stops a finite identity from beating 1/√2.** Finite App-B instances do not do it: ρ_B(λ) falls to 1/√2 from above. With [A]'s own definitions (h least with p(h) ≥ 2^λ) it is 0.875 at λ = 20 and 0.736 at λ = 200. (Corrected in review: 0.756 and 0.715, first written here, belong to an idealized cumulative profile.) So graded families reach 1/√2 *only in the limit*.
 
 ## 4. Exclusion map (re-checked line by line)
 
 | Result | Hypotheses | Conclusion | Check |
 |---|---|---|---|
 | **Prop 4.6, 4.8** ([M] p.37) | 4.6: any identity with \|I\| pieces. 4.8: C meets 2 groups of each of 2 merges; fractions θ and 1−θ of the blocks take the 4.6 pieces for S₁ and S₂. If m = λ, the fractions are taken over the configurations of a type (homogeneity). | 4.6: some piece has log-rank ≥ rm − log\|I\|. 4.8: the mixed term pays ≥ θr₁ and ≥ (1−θ)r₂, so the rectangle gives ρ ≥ ½. | Correct. The ρ here is the **per-merge fraction paid by a mixed term**. For Def. 7's per-piece sum, ½ is simply Prop 4.6 plus c^col ≥ 0 ([A] p.48), and it is built into Lean (`rho_ge`). |
-| **Thm 4.13** (p.41) | (i) Only a×b grid levels: rows and columns are the merges; configurations are row edges, column edges and rectangles. (ii) Per-block identities with λ/m → ∞; the single-block case is Cor 4.19 (p.44), loss < 10⁻²¹. (iii) Cost model (L5): a term costs at least the solution of its merged instance, which depends only on its weights. (iv) Base exponent ≥ 1/log₂n. | f(ab) ≤ f(a) + f(b), so **α′ ≤ 1** | Re-derived: equalizing gives x₁x₂/(x₁+x₂) because i₁+i₂+t = 1; the boundary case uses concavity of log. Correct. **Model-internal**: it binds this class of algorithms, not machines. Independent of ρ. |
+| **Thm 4.13** (p.41) | (i) Only a×b grid levels: rows and columns are the merges; configurations are row edges, column edges and rectangles. (ii) Per-block identities with λ/m → ∞; the single-block case is Thm 4.18 (sides ≥ 3 or 2×2, with a loss factor), of which Cor 4.19 (p.44) is the instance for Theorem A's schedule, loss < 10⁻²¹. (iii) Cost model (L5): a term costs at least the solution of its merged instance, which depends only on its weights. (iv) Base exponent ≥ 1/log₂n. | f(ab) ≤ f(a) + f(b), so **α′ ≤ 1** | Re-derived: equalizing gives x₁x₂/(x₁+x₂) because i₁+i₂+t = 1; the boundary case uses concavity of log. Correct. **Model-internal**: it binds this class of algorithms, not machines. Independent of ρ. |
 | **Prop 4.24** (p.48) | (S1) Graded V, D(E) = log₂ dim V_{≤E}, D(h) ≥ λ. (S2) A_s factors through V_{≤s+H} row-wise and through V_{≤W−s} column-wise. This is a rank upper bound, used only in the pigeonhole step D(W+H) ≥ 2λ − o(λ). (S3) **Counted** bits ≥ D(window) − o(λ); this constrains the factorization, not the rank. (S4) D concave on [h, W+H]. (S5) (W+H)/2 ≥ µh. (S6) log\|I\| = o(λ). | ρ_B ≥ ½(1 + (µ−1)/(2µ−1)); µ = 2 gives 2/3 | Correct. It uses only the symmetric piece s*, so a min(row, col) refinement of Def. 7 is no escape either. |
 
 **Prop 4.24's remarks, checked numerically (`profiles.out`; our derivation).**
@@ -91,8 +97,8 @@ Sources: **[A]** Anthropic paper (`eth-raw.txt`; printed pages). **[M]** Majdodd
 |---|---|---|---|---|
 | 1 | App-B shape with **µ < 2, a > ½** | App B's window 2h | (2µ)^a ≥ 2 and µ^a < √2 (e.g. a = ¾, µ ∈ [1.26, 1.59)). Needs analogues of Lemmas 9 and 10, labels cheaper than states, and a state profile steeper than √E. A steeper profile at µ = 2 alone is worse (2^{a−1}). | Low. Steep profiles lose the two-order factorization (fermions: ρ → 1, [M] p.48). Modular characters give log dim ~ C√E (conjecture, Cardy), so the algebra must be non-modular. |
 | 2 | **Kinked profile**, µ = 2 | (S4) or power form | Concave case: D(2h)/D(h) ∈ [4/3, √2) together with D(4h) ≥ 2λ, giving ρ ∈ [2/3, 1/√2). A step profile reaches ½, but that just restates ideal pieces. | Low. [M] knows no such algebra (p.48). |
-| 3 | **Def.-7 pieces outside the shape**: arbitrary 4-leg families, F2 identities, rank far below counted bits | (S1)–(S3) | max_i(c^row + c^col) < 2.83λ. Constrained only by Prop 4.6, the P(N) condition and Prop 4.22 (third split). This is [M] Open problem 1 (p.50). | Unknown. Our App-B rank check was negative. Search is infeasible at b ≳ 8. |
-| 4 | **≥ 3 merges / hyperedge pieces** | (L3), grid | Needs a new Theorem A; the Lean is not parametric here | The floors are only argued ([M] §4.8) |
-| 5 | **Non-grid; OpenAI App D** | grid / [M]'s class | Non-grid two-merge levels are still capped by Thm 4.12 (α′ ≤ 3, p.40). App D is another mechanism. | Off-target for ρ |
+| 3 | **Def.-7 pieces outside the shape**: arbitrary 4-leg families, F2 identities, rank far below counted bits | (S1)–(S3) | max_i(c^row + c^col) < 2.83λ. Constrained only by Prop 4.6, the P(N) condition and Prop 4.22 (third split). This is [M] Open problem 1 (p.50). | Unknown. Our App-B rank check was negative. Unstructured search is infeasible at b ≳ 8; structured searches were not tried here, and others have tried some (`SURVEY.md` §6). |
+| 4 | **≥ 3 merges / hyperedge pieces** | (L3), grid | Needs a new Theorem A; the Lean is not parametric here | The floors are only argued ([M] §4.8); the one proved result is Prop 4.23 (ρ = 1 for k-local pieces on the AG(2,3) configuration) |
+| 5 | **Non-grid; OpenAI App D** | grid / [M]'s class | Non-grid two-merge levels that are balanced and homogeneous are capped by Thm 4.12 (α′ ≤ 3, p.40); other two-merge levels are not covered. App D is another mechanism. | Off-target for ρ |
 
 **Bottom line.** Classes 1–3 escape every proven bound. Prop 4.24 is the only √log-specific result, and Thm 4.13 caps α′ at 1. No candidate object is known. **Recommendation:** end the attempt here, unless someone supplies either a graded algebra with non-modular growth and a two-order factorization (classes 1–2), or an F2 identity (class 3).

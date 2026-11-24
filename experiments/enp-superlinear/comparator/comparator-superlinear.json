@@ -1,0 +1,18 @@
+{
+  "challenge_module": "SuperlinearChallenge",
+  "solution_module": "SuperlinearSolution",
+  "theorem_names": [
+    "Superlinear.corCircuitsSuperlinInf",
+    "Superlinear.corCircuitsSqrtLogInf",
+    "Superlinear.generalTransfer",
+    "Superlinear.Pieces.countTransferThm",
+    "Superlinear.Pieces.piecesTransfer"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

@@ -20,6 +20,7 @@ import Superlinear.Main
 import Superlinear.Sanity
 import Superlinear.MainSqrtLog
 import Superlinear.General
+import Superlinear.PiecesMain
 -- The final theorem has exactly the type of the Mathlib-only statement.
 example : ENP.CorCircuitsSuperlinInf := Superlinear.corCircuitsSuperlinInf
 #check @Superlinear.corCircuitsSuperlinInf
@@ -36,6 +37,18 @@ example : ENP.GeneralTransfer := Superlinear.generalTransfer
 -- Non-vacuity of the general hypothesis, at the √log rate:
 #check (Superlinear.rateOK_rPow : ENP.RateOK (SatM.rPow (1 / 2)))
 #check (Superlinear.decidesClauseRate_rPow : ENP.DecidesClauseRate (SatM.rPow (1 / 2)))
+-- Added 2026-11-24 (review session): a counting rate, or a family of pieces, gives the bound.
+example : ENP.CountTransfer := Superlinear.Pieces.countTransferThm
+#check @Superlinear.Pieces.countTransferThm
+#print axioms Superlinear.Pieces.countTransferThm
+example : ENP.PiecesTransfer := Superlinear.Pieces.piecesTransfer
+#check @Superlinear.Pieces.piecesTransfer
+#print axioms Superlinear.Pieces.piecesTransfer
+#print axioms Superlinear.Pieces.piecesTransfer'
+-- Non-vacuity of the pieces statement (it gives the sqrt-log theorem at the Appendix B pieces):
+#check (Superlinear.Pieces.sqrtLog_of_pieces : ENP.CorCircuitsSqrtLogInf)
+#print axioms Superlinear.Pieces.sqrtLog_of_pieces
+#check @Superlinear.Pieces.range_of_exist
 EOF
 lake exe cache get > "$BUILD/cache.log" 2>&1
 lake build superlinear 2>&1 | tail -3
@@ -44,6 +57,6 @@ lake env lean proof/superlinear/CheckType.lean
 echo "=== check exit $?"
 grep -rn "sorry\|^axiom\|native_decide\|implemented_by\|set_option\|unsafe\|opaque\|extern\|macro\|elab" proof/superlinear --include=*.lean | grep -v CheckType || echo "no sorry/axiom/native_decide/implemented_by/set_option/unsafe/opaque/extern/macro/elab in new files"
 # Replay every new module's declarations through the kernel again (leanchecker; non-fresh mode, imports from .olean).
-for m in Statement StatementSqrtLog StatementGeneral Engine Arith Arith2 ArithGen Host Host2 FormC Chain Main MainSqrtLog Sanity General; do
+for m in Statement StatementSqrtLog StatementGeneral StatementPieces Engine Arith Arith2 ArithGen Host Host2 FormC Chain Main MainSqrtLog Sanity General PiecesRateOK PiecesCountTransfer PiecesBridge PiecesMain; do
   lake env leanchecker "Superlinear.$m" && echo "leanchecker Superlinear.$m OK" || echo "leanchecker Superlinear.$m FAILED"
 done
