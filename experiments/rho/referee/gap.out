@@ -1,0 +1,9 @@
+lam=60 w=40 E=40: S/ln2=   62.06 bits, D=   60.00 bits, gap=   2.06 bits
+lam=60 w=40 E=79: S/ln2=  120.66 bits, D=   65.32 bits, gap=  55.34 bits
+lam=60 w=40 E=80: S/ln2=  122.15 bits, D=  119.00 bits, gap=   3.15 bits
+lam=120 w=80 E=80: S/ln2=  122.07 bits, D=  120.00 bits, gap=   2.07 bits
+lam=120 w=80 E=159: S/ln2=  240.65 bits, D=  126.32 bits, gap= 114.33 bits
+lam=120 w=80 E=160: S/ln2=  242.15 bits, D=  239.00 bits, gap=   3.15 bits
+lam=240 w=160 E=160: S/ln2=  242.07 bits, D=  240.00 bits, gap=   2.07 bits
+lam=240 w=160 E=319: S/ln2=  480.65 bits, D=  247.32 bits, gap= 233.33 bits
+lam=240 w=160 E=320: S/ln2=  482.15 bits, D=  479.00 bits, gap=   3.15 bits

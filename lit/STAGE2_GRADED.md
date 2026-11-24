@@ -1,3 +1,10 @@
+> **Referee verdict (independent adversarial check; `lit/STAGE2_REFEREE.md`): both claims are CORRECT WITH GAPS.**
+> - **Theorem G** bounds the App.-B *bit count*, not Def.-7 ρ, which needs only log rank. "Class L" also needs the identity on all of M, while Def. 7 needs it only on the states. So it rules out a **subclass** of constructions, not Majdoddin's Open problem 1.
+> - **A false sentence in §4.** It says a scalar on all of M must come from the vacuum term; the Heisenberg Fock module π_μ is a counterexample. The fix is to run Lemma V on V·w.
+> - **H must be assumed poly(λ).**
+> - **Lemma L** needs F < ∞. Its bridge to exact counts is false for λ-dependent c_n, so "ρ ≥ 1/√2 for all product characters" is **unproven**. In numeric tests the conclusion still held, with a minimum D(2h*)/λ of 1.48 > √2.
+> - **Read the bottom line below as:** no gain found in these families, and the obstructions are partially proved. It is not a theorem that the class is closed.
+
 # STAGE 2: graded generalizations of App. B pieces (RHO_SPEC escape classes #1, #2)
 
 Sources: **[A]** `eth-raw.txt`, **[M]** arXiv:2610.41622 (printed pages). Scripts and outputs: `/mnt/data/rho/stage2/`, copied to `experiments/rho/stage2/`.

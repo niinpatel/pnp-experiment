@@ -1,4 +1,4 @@
-# STATUS: P vs NP attempt (report so far; work in progress since 2026-11-24 ~12:00 UTC)
+# STATUS: P vs NP attempt (final report, updated 2026-11-24 after the faster-3-SAT attempt)
 
 ## Where the work is
 
@@ -58,7 +58,16 @@ Any document here that reads like a resolution claim should be treated as a bug.
 
 - A Boolean transfer of the VP≠VNP proof. Paper §2.5 shows where it breaks, and nothing there could be machine-checked.
 - Any direct proof attempt at P ≠ NP or P = NP. Every known route faces the relativization, natural-proofs and algebrization barriers. I would not have been able to verify a "proof", and producing an unverifiable one would violate "make no mistakes".
-- **IN PROGRESS (user-approved, capped):** improving the 2^{m/√log m} rate. It is open; the only lever identified is cheaper pieces with ρ < 1/√2, which is Majdoddin's Open problem 1. The work is staged: a problem spec first, then only the families that escape all proven bounds, then adversarial refutation and Lean for any gain. Any gain is a **conjecture** until Lean passes.
+- **Attempted, capped, and ended negative (2026-11-24):** improving the 2^{m/√log m} rate.
+  - **Stage 1** (`lit/RHO_SPEC.md`):
+    - the Lean rate theorem is parametric in the pieces (`GeneralPieces.thmRunningTime_c_m`), so a new pieces family would plug in;
+    - Majdoddin's limits, re-checked line by line, hold under their hypotheses;
+    - three classes of construction escape every proven bound, but none has a known candidate.
+  - **Stage 2** (`lit/STAGE2_GRADED.md`): the natural generalizations are worse than Appendix B.
+    - Plane partitions and d-dimensional analogues give ρ ≈ 0.79–0.87.
+    - Coloured partitions are best at one colour.
+    - The trade-off obstructions are partially proved. An adversarial referee (`lit/STAGE2_REFEREE.md`) found both proofs correct **with gaps**, and they do not close Majdoddin's Open problem 1.
+  - **Outcome:** no improvement, and no claim of one. The open directions are general Def.-7 pieces whose true rank is far below their bit count, and levels with three or more merges.
 
 ## Caveats
 

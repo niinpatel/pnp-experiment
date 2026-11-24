@@ -1,0 +1,7 @@
+new worst r=D(2h*)/lam=2.0172 rho=1.0086 h*=73 steps w=[73] log2 c=[61.0]
+new worst r=D(2h*)/lam=1.9830 rho=0.9915 h*=83 steps w=[1, 78] log2 c=[0.2, 54.9]
+new worst r=D(2h*)/lam=1.9614 rho=0.9807 h*=4 steps w=[1, 71] log2 c=[16.6, 16.8]
+new worst r=D(2h*)/lam=1.7615 rho=0.8808 h*=9 steps w=[1, 24, 81] log2 c=[8.7, 61.9, 71.5]
+new worst r=D(2h*)/lam=1.4956 rho=0.7478 h*=99 steps w=[1, 77] log2 c=[2.0, 16.5]
+new worst r=D(2h*)/lam=1.4797 rho=0.7398 h*=125 steps w=[1] log2 c=[1.9]
+final worst (1.4796903427124795, 0.7398451713562397, 125, [1], [1.9])
