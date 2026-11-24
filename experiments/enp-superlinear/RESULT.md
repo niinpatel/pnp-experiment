@@ -57,7 +57,14 @@ gates. The circuits may use any 2-input gate.
 - **The statement relies on another file's definitions.** `Statement.lean` uses `InENP`, `DecidedAt`, `Circuit` and `eval` from the original development's statement files. I read them myself, and they match the textbook notions: a deterministic oracle machine with time 2^{c(n+1)} and a SAT oracle, and circuits over the full binary basis.
 - **ε is existential, not explicit.** It depends on the constants of the padding machine and the engine.
 - **Infinitely often only.** The bound holds at infinitely many lengths, which is the standard form for this kind of result.
-- **No second-kernel check.** The original development uses Comparator/nanoda; I did not set that up here. `#print axioms` runs inside Lean with the library loaded.
+- **Kernel checking.**
+  - `leanchecker` replays the declarations of all 12 new modules through the Lean kernel, and every module exits 0. It runs in non-fresh mode, with imports taken from .olean files.
+  - Not set up: Comparator, and the independent nanoda kernel that the original development uses.
+  - A grep of the new files finds no `set_option`, `unsafe`, `opaque`, `extern`, `macro`/`elab`, `sorry`, `axiom`, `native_decide` or `implemented_by`.
+- **The clean-room build was run twice.**
+  - First run: in a tmpfs that reused the build directory of an earlier check.
+  - Second run: fully from scratch, in an empty directory, with upstream pinned at 11b6c7e. A copy of that tarball is at `gs://pnp-experiment/formal-math-11b6c7e.tar.gz`.
+  - Both runs passed. `verify-output.log` is from the second.
 
 ## Who did the work
 

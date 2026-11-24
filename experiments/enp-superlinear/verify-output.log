@@ -1,7 +1,7 @@
-extracted to /mnt/lean/verify ['.cache', 'cache.log', 'anthropics-formal-math-11b6c7e']
-source tree: /mnt/lean/verify/anthropics-formal-math-11b6c7e/
-✔ [4444/4446] Built Superlinear.Host2 (2.9s)
-✔ [4445/4446] Built Superlinear.MainSqrtLog (1.9s)
+extracted to /mnt/lean/fresh ['anthropics-formal-math-11b6c7e']
+source tree: /mnt/lean/fresh/anthropics-formal-math-11b6c7e/
+✔ [4444/4446] Built Superlinear.Host2 (2.0s)
+✔ [4445/4446] Built Superlinear.MainSqrtLog (2.0s)
 Build completed successfully (4446 jobs).
 === build exit 0
 Superlinear.corCircuitsSuperlinInf : ENP.CorCircuitsSuperlinInf

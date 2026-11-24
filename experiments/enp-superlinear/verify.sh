@@ -35,3 +35,7 @@ echo "=== build exit ${PIPESTATUS[0]}"
 lake env lean proof/superlinear/CheckType.lean
 echo "=== check exit $?"
 grep -rn "sorry\|^axiom\|native_decide\|implemented_by" proof/superlinear || echo "no sorry/axiom/native_decide/implemented_by in new files"
+# Replay every new module's declarations through the kernel again (leanchecker; non-fresh mode, imports from .olean).
+for m in Statement StatementSqrtLog Engine Arith Arith2 Host Host2 FormC Chain Main MainSqrtLog Sanity; do
+  lake env leanchecker "Superlinear.$m" && echo "leanchecker Superlinear.$m OK" || echo "leanchecker Superlinear.$m FAILED"
+done
