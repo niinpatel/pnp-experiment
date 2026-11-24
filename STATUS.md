@@ -1,64 +1,72 @@
-# STATUS: P vs NP attempt (always reads as the final report so far)
+# STATUS: P vs NP attempt (final report, 2026-11-24)
 
-**Where the work is:** branch `worktree-pnp-work`, at
-`/home/nitinpatel278/pnp-experiment/.claude/worktrees/pnp-work`. It is not merged into `main`.
-To see it: `cd /home/nitinpatel278/pnp-experiment && git log worktree-pnp-work`.
+## Where the work is
 
-## Answer so far
+- **Branch and location:** branch `worktree-pnp-work`, in the worktree at
+  `/home/nitinpatel278/pnp-experiment/.claude/worktrees/pnp-work`. It is **not merged into
+  `main`**, which still holds only INSTRUCTIONS.md.
+- **To view it:** `cd /home/nitinpatel278/pnp-experiment && git log worktree-pnp-work`.
+- **To get it onto main yourself:** `git merge worktree-pnp-work`.
+- **Second copy:** a git bundle at `gs://pnp-experiment/pnp-work.bundle`.
+  - Restore with `git clone pnp-work.bundle pnp-work` after downloading it.
+  - The pinned upstream Lean source is at `gs://pnp-experiment/formal-math-11b6c7e.tar.gz`.
 
-**P vs NP is not resolved, here or anywhere else as of 2026-11-24.** I have no proof of either
-P = NP or P ≠ NP, and I make no claim to one. Any document in this repository that looks
-like such a claim should be treated as a bug.
+## Answer
 
-## Done
+**P vs NP is not resolved.** I have no proof of P = NP or of P ≠ NP and claim none. As of
+2026-11-24 nobody else has an accepted resolution either. The best AI-lab results of late
+2026 (VP ≠ VNP; ETH refuted) explicitly do not settle it; `lit/IMPLICATIONS.md` explains why.
+Any document here that reads like a resolution claim should be treated as a bug.
 
-1. Literature survey of the state as of Nov 2026, with each claim labelled by verification level:
-   `lit/SURVEY.md`. The main facts:
-   - AI-produced, Lean-formalized results, not yet checked by humans:
-     - **VP ≠ VNP** over every field (Claude/Anthropic).
-     - **ETH refuted**: #3-SAT in 2^{O(m/√log m)} (Claude/Anthropic and OpenAI, Oct 2026).
-   - Consequence: E^NP lacks linear-size circuits; per OpenAI, it lacks circuits of size c·n√log n.
-   - None of these touches Boolean P vs NP. The VP≠VNP paper explains exactly where its proof
-     breaks for Boolean circuits.
+## What was done
 
-2. Independent rebuild of Anthropic's Lean proofs of ETH-false and VP≠VNP. **Both build, and they use
-   only the standard axioms** (`experiments/lean-rebuild/README.md`). The comparator was not run.
-3. `lit/IMPLICATIONS.md`: why none of the 2026 results settles P vs NP.
+1. **Literature survey** of the state as of Nov 2026, in `lit/SURVEY.md`. Each claim is labelled with its verification level.
+   - The main finding: AI-produced results, formalized in Lean and not yet checked by humans, now include:
+     - VP ≠ VNP over every field (Claude/Anthropic and OpenAI, 2026-11-23);
+     - ETH refuted, with #3-SAT in 2^{O(m/√log m)} (Claude/Anthropic and OpenAI, Oct 2026);
+     - L = BPL, NL = UL, and others.
+   - No credible P vs NP resolution exists. I found one Lean "P ≠ NP" package that relies on two extra axioms, and it is flagged in the survey.
+2. **Independent rebuild** of Anthropic's Lean proofs of ETH-false and VP≠VNP. Both build, and
+   both use only the standard axioms (`experiments/lean-rebuild/README.md`). The comparator was not run.
+3. **Implications analysis** in `lit/IMPLICATIONS.md`: what the 2026 results do and do not imply
+   for P vs NP.
+4. **New, machine-checked in this session:** a superlinear circuit lower bound for E^NP
+   (`experiments/enp-superlinear/RESULT.md`).
+   - **`Superlinear.corCircuitsSqrtLogInf`:** some language in E^NP has no circuits of size
+     ε·n·√(log n) over all fan-in-2 gates, at infinitely many input lengths.
+   - **`Superlinear.generalTransfer`:** any 3-SAT Turing machine with clause rate 2^{O(m·r(m))}
+     gives E^NP ⊄ SIZE(ε·n/r(n)) infinitely often. It is shown non-vacuous, because the √log
+     theorem is derived from it.
+   - **`Superlinear.corCircuitsSuperlinInf`:** the first, weaker milestone, with an extra log log n factor.
+   - **Size:** 1918 lines of Lean on top of Anthropic's `eth` development, commit 11b6c7e.
+   - **Verification:**
+     - a from-scratch rebuild with upstream pinned;
+     - exact type match with the Mathlib-only statement files;
+     - only the axioms propext, Classical.choice and Quot.sound;
+     - `leanchecker` replay of all 15 new modules;
+     - no sorry, axiom, native_decide, set_option, unsafe or extern in the new files.
+     - To re-run: `experiments/enp-superlinear/verify.sh /mnt/lean/verify-again`. The build directory needs about 15 GB, and the root disk has only 10 GB, so use a tmpfs: `sudo mount -t tmpfs -o size=48G tmpfs /mnt/lean`.
+   - **Novelty:** the mathematics is OpenAI's paper-only Corollary 1.4, so it is not new. To my knowledge this is the **first machine-checked superlinear circuit lower bound for E^NP**.
+     Its distance to P vs NP is large; see `lit/IMPLICATIONS.md` §3.
+5. **Where the √log comes from** (`lit/SQRTLOG_BARRIER.md`, sourced).
+   - **Formula** (our derivation): the rate exponent is log(1/ρ)/log β. In Anthropic's analysis β = 2 and ρ = 1/√2, which traces back to the Hardy–Ramanujan partition count.
+   - **No proven barrier** exists at √log.
+   - **Computational check, negative:** I computed exact ranks of the paper's Appendix B pieces for h ≤ 9. They give no gain in ρ (`experiments/sqrtlog/`).
 
-4. **New result, machine-checked in this session:** E^NP has no circuits of size
-   **ε·n·√(log n)**, infinitely often, over all fan-in-2 gates
-   (`Superlinear.corCircuitsSqrtLogInf`). A first milestone proved the weaker
-   ε·n·√(log n)/log log n.
-   - **Lean development:** 1918 lines, on top of Anthropic's `eth` development (commit 11b6c7e).
-   - **Theorem names:** `Superlinear.corCircuitsSqrtLogInf` (main), `Superlinear.corCircuitsSuperlinInf`
-     (the first milestone, with the log log factor), and `Superlinear.generalTransfer`.
-   - **Also proved:** a reusable **general transfer theorem** (`Superlinear.generalTransfer`): any
-     3-SAT Turing machine running in 2^{O(m·r(m))} gives E^NP ⊄ SIZE(ε·n/r(n)) infinitely often.
-   - **Checked:** a from-scratch rebuild against upstream pinned at 11b6c7e passes, using only the
-     standard axioms. `leanchecker` replays all 15 new modules, and non-vacuity lemmas are proved.
-   - **Novelty:** the mathematics is known on paper (it matches OpenAI's Cor 1.4, c·n·√log n). To my knowledge this is the **first machine-checked superlinear circuit
-     lower bound for E^NP**.
-   - **Details:** `experiments/enp-superlinear/RESULT.md`.
+## Not attempted (open; judged not achievable or not checkable within this budget)
 
-## In progress
+- A Boolean transfer of the VP≠VNP proof. Paper §2.5 shows where it breaks, and nothing there could be machine-checked.
+- Any direct proof attempt at P ≠ NP or P = NP. Every known route faces the relativization, natural-proofs and algebrization barriers. I would not have been able to verify a "proof", and producing an unverifiable one would violate "make no mistakes".
+- Improving the 2^{m/√log m} rate. It is open; the only lever identified is cheaper pieces with ρ < 1/√2. If it were improved, `generalTransfer` would turn it into a stronger, machine-checked E^NP lower bound.
 
-- Nothing is running. The log log factor was removed within the cap.
+## Caveats
 
-5. `lit/SQRTLOG_BARRIER.md` traces where the 1/2 in 2^{m/√log m} comes from.
-   - **Formula** (our derivation from the paper): the rate exponent is α' = log(1/ρ)/log β. Anthropic has β = 2 and ρ = 1/√2, and the 1/√2 traces back to the Hardy–Ramanujan partition count.
-   - **No proven barrier** exists at 1/2. Majdoddin shows that grid algorithms are capped at α' ≤ 1.
-   - **The only lever** is cheaper "pieces", with ρ < 1/√2. Through `generalTransfer`, that would give E^NP ⊄ SIZE(n·(log n)^{log₂(1/ρ)}). This is a conjecture; nothing was proved.
-   - **Computational check, negative.** Exact ranks of the paper's Appendix B pieces for h ≤ 9 fall
-     only slightly below the paper's counted bounds, and the gap shrinks with h. A fitted law,
-     which is not proved, gives no improvement to ρ. Scripts are in `experiments/sqrtlog/`.
+- **Unchecked foundations:** every Lean result here rests on Anthropic's development, which no human mathematician has checked. The meaning of the statement files was checked by reading them, not by machine.
+- **`/mnt/lean` is RAM:** the build directories there vanish on reboot, but everything needed to rebuild is in the repo and the bucket.
 
-## Explicitly not attempted (open, beyond this budget)
+## Spend (estimated)
 
-- Improving the #SAT rate past 2^{m/√log m}, which would give stronger E^NP bounds.
-- Transferring the VP≠VNP proof to Boolean circuits. Paper §2.5 explains why it breaks;
-  `lit/IMPLICATIONS.md` §1 discusses it.
-
-## Spend log (rough, self-estimated from session token counts at guessed prices; advisor calls not counted)
-
-- About $117 by the end of the first Lean result (2026-11-24, ~09:00 UTC). Gemini: 2 small calls.
-- After the general theorem (2026-11-24, ~10:00 UTC), at published Opus 5.5 prices ($4/$20 per Mtok, cache reads $0.20, cache writes about $5): about $47 of this session's tokens, including subagents (`tools/spend.py` token counts). Advisor calls (Fable 5.2) are not in the logs, so estimate about $10–15 more. **Total about $60 of the $489 budget.**
+- **Claude tokens:** about $72 for this session's tokens, including subagents, at published Opus 5.5 prices ($4/$20 per Mtok, cache reads $0.20). Advisor calls are not in the logs; estimate about $15 more.
+- **Total:** about **$85–90 of the $489** budget.
+- **Google Cloud:** 2 small Gemini calls, and about 10 MB of GCS storage.
+- **Measurement:** `tools/spend.py` gives the token counts.
