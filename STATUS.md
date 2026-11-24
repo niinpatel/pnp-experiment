@@ -29,9 +29,11 @@ like such a claim should be treated as a bug.
    **ε·n·√(log n)**, infinitely often, over all fan-in-2 gates
    (`Superlinear.corCircuitsSqrtLogInf`). A first milestone proved the weaker
    ε·n·√(log n)/log log n.
-   - **Lean development:** 1488 lines, on top of Anthropic's `eth` development (commit 11b6c7e).
-   - **Checked:** a clean-room rebuild passes, using only the standard axioms, and a
-     non-vacuity lemma is proved.
+   - **Lean development:** 1918 lines, on top of Anthropic's `eth` development (commit 11b6c7e).
+   - **Also proved:** a reusable **general transfer theorem** (`Superlinear.generalTransfer`): any
+     3-SAT Turing machine running in 2^{O(m·r(m))} gives E^NP ⊄ SIZE(ε·n/r(n)) infinitely often.
+   - **Checked:** a from-scratch rebuild against upstream pinned at 11b6c7e passes, using only the
+     standard axioms. `leanchecker` replays all 15 new modules, and non-vacuity lemmas are proved.
    - **Novelty:** the mathematics is known on paper (it matches OpenAI's Cor 1.4, c·n·√log n). To my knowledge this is the **first machine-checked superlinear circuit
      lower bound for E^NP**.
    - **Details:** `experiments/enp-superlinear/RESULT.md`.
@@ -49,3 +51,4 @@ like such a claim should be treated as a bug.
 ## Spend log (rough, self-estimated from session token counts at guessed prices; advisor calls not counted)
 
 - About $117 by the end of the first Lean result (2026-11-24, ~09:00 UTC). Gemini: 2 small calls.
+- After the general theorem (2026-11-24, ~10:00 UTC), counting this session's own tokens only: about $60 at $5/$25 per Mtok, or about $180 at $15/$75 (`tools/spend.py`). Advisor calls are not counted.

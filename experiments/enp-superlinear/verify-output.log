@@ -1,8 +1,8 @@
-extracted to /mnt/lean/fresh ['anthropics-formal-math-11b6c7e']
-source tree: /mnt/lean/fresh/anthropics-formal-math-11b6c7e/
-✔ [4444/4446] Built Superlinear.Host2 (2.0s)
-✔ [4445/4446] Built Superlinear.MainSqrtLog (2.0s)
-Build completed successfully (4446 jobs).
+extracted to /mnt/lean/fresh2 ['anthropics-formal-math-11b6c7e']
+source tree: /mnt/lean/fresh2/anthropics-formal-math-11b6c7e/
+✔ [4460/4462] Built Superlinear.MainSqrtLog (1.0s)
+✔ [4461/4462] Built Superlinear.General (2.1s)
+Build completed successfully (4462 jobs).
 === build exit 0
 Superlinear.corCircuitsSuperlinInf : ENP.CorCircuitsSuperlinInf
 'Superlinear.corCircuitsSuperlinInf' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -10,5 +10,23 @@ Superlinear.corCircuitsSuperlinInf : ENP.CorCircuitsSuperlinInf
 Superlinear.corCircuitsSqrtLogInf : ENP.CorCircuitsSqrtLogInf
 'Superlinear.corCircuitsSqrtLogInf' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Superlinear.sizeT_superlinear' depends on axioms: [propext, Classical.choice, Quot.sound]
+Superlinear.generalTransfer : ENP.GeneralTransfer
+'Superlinear.generalTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Superlinear.corCircuitsSqrtLogInf_of_general' depends on axioms: [propext, Classical.choice, Quot.sound]
 === check exit 0
-no sorry/axiom/native_decide/implemented_by in new files
+no sorry/axiom/native_decide/implemented_by/set_option/unsafe/opaque/extern/macro/elab in new files
+leanchecker Superlinear.Statement OK
+leanchecker Superlinear.StatementSqrtLog OK
+leanchecker Superlinear.StatementGeneral OK
+leanchecker Superlinear.Engine OK
+leanchecker Superlinear.Arith OK
+leanchecker Superlinear.Arith2 OK
+leanchecker Superlinear.ArithGen OK
+leanchecker Superlinear.Host OK
+leanchecker Superlinear.Host2 OK
+leanchecker Superlinear.FormC OK
+leanchecker Superlinear.Chain OK
+leanchecker Superlinear.Main OK
+leanchecker Superlinear.MainSqrtLog OK
+leanchecker Superlinear.Sanity OK
+leanchecker Superlinear.General OK

@@ -19,6 +19,7 @@ cat > proof/superlinear/CheckType.lean <<'EOF'
 import Superlinear.Main
 import Superlinear.Sanity
 import Superlinear.MainSqrtLog
+import Superlinear.General
 -- The final theorem has exactly the type of the Mathlib-only statement.
 example : ENP.CorCircuitsSuperlinInf := Superlinear.corCircuitsSuperlinInf
 #check @Superlinear.corCircuitsSuperlinInf
@@ -28,14 +29,18 @@ example : ENP.CorCircuitsSqrtLogInf := Superlinear.corCircuitsSqrtLogInf
 #check @Superlinear.corCircuitsSqrtLogInf
 #print axioms Superlinear.corCircuitsSqrtLogInf
 #print axioms Superlinear.sizeT_superlinear
+example : ENP.GeneralTransfer := Superlinear.generalTransfer
+#check @Superlinear.generalTransfer
+#print axioms Superlinear.generalTransfer
+#print axioms Superlinear.corCircuitsSqrtLogInf_of_general
 EOF
 lake exe cache get > "$BUILD/cache.log" 2>&1
 lake build superlinear 2>&1 | tail -3
 echo "=== build exit ${PIPESTATUS[0]}"
 lake env lean proof/superlinear/CheckType.lean
 echo "=== check exit $?"
-grep -rn "sorry\|^axiom\|native_decide\|implemented_by" proof/superlinear || echo "no sorry/axiom/native_decide/implemented_by in new files"
+grep -rn "sorry\|^axiom\|native_decide\|implemented_by\|set_option\|unsafe\|opaque\|extern\|macro\|elab" proof/superlinear --include=*.lean | grep -v CheckType || echo "no sorry/axiom/native_decide/implemented_by/set_option/unsafe/opaque/extern/macro/elab in new files"
 # Replay every new module's declarations through the kernel again (leanchecker; non-fresh mode, imports from .olean).
-for m in Statement StatementSqrtLog Engine Arith Arith2 Host Host2 FormC Chain Main MainSqrtLog Sanity; do
+for m in Statement StatementSqrtLog StatementGeneral Engine Arith Arith2 ArithGen Host Host2 FormC Chain Main MainSqrtLog Sanity General; do
   lake env leanchecker "Superlinear.$m" && echo "leanchecker Superlinear.$m OK" || echo "leanchecker Superlinear.$m FAILED"
 done

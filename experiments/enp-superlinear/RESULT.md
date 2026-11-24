@@ -18,6 +18,18 @@
 - **Earlier result:** the weaker n·√log n / log log n version below was the first milestone, and the new theorem implies it (`corCircuitsSuperlinInf_of_sqrtLog`).
 - **Clean-room check:** `verify.sh` checks both theorems; see `verify-output.log`.
 
+## General transfer theorem (reusable)
+
+`Superlinear.generalTransfer : ENP.GeneralTransfer` (statement in `StatementGeneral.lean`)
+
+**In words:** let r be any rate that is positive, antitone, tends to 0, and has m·r(m) monotone. Suppose some Mathlib Turing machine with finite alphabets decides 3-SAT within ⌊C·2^{3C·m·r(m)}⌋ steps, measured in the number m of clauses. The condition applies to formulas with at least one clause, no repeated clause, and every variable occurring. Then some language in E^NP has, for some ε > 0, no circuits of size ⌊ε·(n+1)/r(n)⌋ at infinitely many n.
+
+**Why it matters:** any future faster 3-SAT algorithm, supplied as a Turing machine, gives a machine-checked E^NP lower bound immediately.
+
+**Non-vacuous:** `corCircuitsSqrtLogInf_of_general` derives the √log theorem from it. It instantiates r(m) = 1/√log₂(m+2) using the development's own deciding machine.
+
+**Size:** 427 new lines (`StatementGeneral`, `ArithGen`, `General`). The library now has 1918 lines in total.
+
 ## First milestone (weaker, kept)
 
 ## Theorem (Lean 4, Mathlib, standard axioms only)
@@ -58,7 +70,7 @@ gates. The circuits may use any 2-input gate.
 - **ε is existential, not explicit.** It depends on the constants of the padding machine and the engine.
 - **Infinitely often only.** The bound holds at infinitely many lengths, which is the standard form for this kind of result.
 - **Kernel checking.**
-  - `leanchecker` replays the declarations of all 12 new modules through the Lean kernel, and every module exits 0. It runs in non-fresh mode, with imports taken from .olean files.
+  - `leanchecker` replays the declarations of all 15 new modules through the Lean kernel, and every module exits 0. It runs in non-fresh mode, with imports taken from .olean files.
   - Not set up: Comparator, and the independent nanoda kernel that the original development uses.
   - A grep of the new files finds no `set_option`, `unsafe`, `opaque`, `extern`, `macro`/`elab`, `sorry`, `axiom`, `native_decide` or `implemented_by`.
 - **The clean-room build was run twice.**
