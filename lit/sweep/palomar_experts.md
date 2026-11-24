@@ -14,7 +14,7 @@ I could not create REPORT.md: the harness blocks subagents from writing report `
 - **Formal verification effort:** OpenAI's announcement of 2026-10-26 set up an examination group led by Impagliazzo, Paturi and Ryan Williams, with a site (ethdiscussion.blog), a shared repository, and a conference that OpenAI will fund. The three say: "Our involvement should not be taken as certification of the claim."
 - **Fortnow (2026-10-28):** "I have not verified the proof myself, but it is safe to assume now that the exponential-time hypothesis is toast."
 - **Statement faithfulness:** Stefan Szeider (Zenodo, 2026-10-27) says OpenAI's Lean statement "is a correct statement of the intended result, for a weaker but still subexponential bound."
-- **Errors:** no named expert has reported an error in either proof. The only reported gap is in a non-specialist blog comment.
+- **Errors:** no named expert has reported an error in either proof. The only reported gap is in one blog comment (Arefiev, below), which the reader did not assess.
 - **What the authors say now:** the current `eth` README no longer says no human has checked it. The `vp-vnp` README does: "no human mathematician has checked the proof." anthropic.com has no announcement of either result.
 
 **VP ≠ VNP.** Fortnow (2026-11-24) calls Anthropic's paper "for now, the most important computational complexity result of the year". Kalai (2026-11-24) reports that Claude and ChatGPT proved it. Neither says they checked it.
@@ -150,7 +150,7 @@ Some quotes came through the fetch tool, which caps excerpts at 125 characters; 
   - He replayed both Lean proofs with Comparator, Lean's kernel and nanoda: "CERTIFIED", "It does not mean that a Lean statement is its paper's theorem".
   - He bridged both statements to a textbook ETH in Lean.
   - His tools were written with Claude.
-- **Alexander Arefiev** (comment, 2026-10-30), PRIMARY through the fetch tool: "the Lean 4 formalization didn't even check the actual Word RAM complexity claimed in the paper". This is a non-expert claim.
+- **Alexander Arefiev** (comment, 2026-10-30), PRIMARY through the fetch tool: "the Lean 4 formalization didn't even check the actual Word RAM complexity claimed in the paper". The reader did not assess this claim.
 - **Scott Aaronson** (2026-10-26, ?p=10239), PRIMARY through the fetch tool: "an OpenAI model has now refuted the Exponential Time Hypothesis". He makes no statement about checking it.
 - **Leads I could not confirm (SNIPPET):** Jelani Nelson read Claude's proof before release; an NYT quote of Impagliazzo dated 2026-11-07; Williams on Bluesky; Peter Jonsson in WIRED; Aaronson raising his odds of P = NP to 5%.
 
@@ -192,7 +192,7 @@ Some quotes came through the fetch tool, which caps excerpts at 125 characters; 
 - carlostoledo.co/eth/
 - Subercaseaux's result NTIME(T) ⊆ DTIME(2^{O(T(log log T)^3/√log T)}), from an X post cited by Fortnow and O'Donnell.
 - Fortnow's page lance.fortnow.com/openai-math-tcs.htm.
-- Arefiev's Zenodo records 23840074 and 24136643 (low credibility).
+- Arefiev's Zenodo records 23840074 and 24136643 (not assessed).
 
 ### 7. Not done
 - Blogs and people: Tao (blog and Mathstodon), Windows on Theory, Barak, Gowers, Wigderson.

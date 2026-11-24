@@ -7,8 +7,8 @@
 > - the literature survey missed the venues where most follow-up work had been posted. A sweep of
 >   those venues was done on the evening of 2026-11-24; `lit/SURVEY.md` §5 and §6 are the result.
 > - **Human checking of the 2026 results:** an expert group is examining OpenAI's ETH proof and
->   disclaims certification; no named expert has said they checked either proof or reported an
->   error (`lit/SURVEY.md` §6.1).
+>   disclaims certification. In the sources swept, no named expert has said they checked either
+>   proof in full or reported a technical error (`lit/SURVEY.md` §6.1).
 
 ## Where the work is
 
@@ -95,11 +95,11 @@ Any document here that reads like a resolution claim should be treated as a bug.
     - Coloured partitions are best at one colour.
     - The trade-off obstructions are partially proved. An adversarial referee (`lit/STAGE2_REFEREE.md`) found both proofs correct **with gaps**, and they do not close Majdoddin's Open problem 1.
   - **Outcome:** no improvement, and no claim of one. The open directions are general Def.-7 pieces whose true rank is far below their bit count, and levels with three or more merges.
-  - **A concrete open sub-problem exists (review):** pieces built from Pauli strings at local dimension 8 or more. Others have been working on it since 2026-10-30. See `REVIEW.md` §6.4.
+  - **A concrete open sub-problem exists (review):** pieces built from Pauli strings at local dimension 8 or more. Others worked on it from 2026-10-30 to about 2026-11-03 and report no construction. See `REVIEW.md` §6.4.
 
 ## Caveats
 
-- **Unchecked foundations:** every Lean result here rests on Anthropic's development, which no human mathematician has checked. The meaning of the statement files was checked by reading them, not by machine.
+- **Unchecked foundations:** every Lean result here rests on Anthropic's development. Its paper says "no person is known to have checked it" (review). The meaning of the statement files was checked by reading them, not by machine.
 - **Builds:** they now live on the persistent disk at `/mnt/data`. The earlier RAM disk at `/mnt/lean` has been released.
 
 ## Spend
@@ -108,7 +108,7 @@ Any document here that reads like a resolution claim should be treated as a bug.
 - **First session, corrected (review):** **$84.58**, not "about $100". The old `tools/spend.py`
   double-counted and left out advisor calls; the rewritten one gives $50.76 at the console
   checkpoint. Details in `REVIEW.md` §4.
-- **Review session:** about $112 for the review (`REVIEW.md` §7.4) and about $65 for the
-  literature sweep (`REVIEW.md` §7.6). Project total about $262 of $489, leaving about $227. Run
+- **Review session:** about $112 for the review (`REVIEW.md` §7.4) and about $68 for the
+  literature sweep (`REVIEW.md` §7.6). Project total about $264 of $489, leaving about $225. Run
   `python3 tools/spend.py` for the current figure.
 - **Google Cloud:** 2 small Gemini calls, about 10 MB of GCS storage, and a 250 GB persistent disk added by the user.

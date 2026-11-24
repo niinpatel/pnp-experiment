@@ -73,9 +73,9 @@ explicitly that they do not settle P vs NP.
      `openai/math`, family 378) [V-primary: paper, `lean/docs/378.md`].
      - Its Lean development covers the counting algorithm at rate 2^{O_k(n (log log n)²/√log n)}.
      - Its Corollary 1.4, on paper only: E^NP ⊄ SIZE(c·n·√log n), at infinitely many lengths.
-   - **Has any human checked either proof?** Not that anyone has said. An expert group is
-     examining OpenAI's proof and explicitly disclaims certification; no named expert has reported
-     an error. Details in §6.1.
+   - **Has any human checked either proof?** Not in full, as far as the sources swept show. An
+     expert group is examining OpenAI's proof and explicitly disclaims certification; no named
+     expert has reported a technical error. Details in §6.1.
 
 **What this repository added.** Lean proofs, on top of Anthropic's development, of
 E^NP ⊄ SIZE(ε·n·√log n) and of three transfer theorems (`experiments/enp-superlinear/RESULT.md`).
@@ -214,9 +214,10 @@ The repository README lists 722 manuscripts in 374 families, produced by an unna
 
 ### 6.1 Has any human checked the proofs?
 
-**Short answer.** An organised examination of OpenAI's proof is under way and has issued no
-verdict. No named expert has said they checked either ETH proof or either VP ≠ VNP proof. No
-named expert has reported an error. Many researchers are already building on the results.
+**Short answer, for the sources swept (§5).** An organised examination of OpenAI's proof is under
+way and has issued no verdict. No named expert has said they checked either ETH proof, or either
+VP ≠ VNP proof, in full. None has reported a technical error. Many researchers are already
+building on the results.
 
 **The examination of OpenAI's proof.**
 - OpenAI's announcement of 2026-10-26 [read]: "This work will be verified and shepherded by a
@@ -257,6 +258,15 @@ named expert has reported an error. Many researchers are already building on the
   primarily AI-generated, with "Human understanding: no parts" [read: provenance statement].
 - Others have posted expositions or comments without claiming to have checked the proofs:
   Kintali, Sellke, Nederlof, Lindzey, Lovett [agent].
+- **A partial check of one step.** Vassilevska Williams and Zamir, arXiv:2611.09764 (2026-11-06),
+  re-prove one lemma "distilled … out of the recent ETH refutation of OpenAI" with a
+  self-contained proof [agent].
+- **An unconfirmed report** [lead]: a search summary says Jelani Nelson read Claude's proof before
+  its release. I could not confirm it.
+- **One reported gap, not assessed.** A commenter on the working group's site (A. Arefiev,
+  2026-10-30) writes that "the Lean 4 formalization didn't even check the actual Word RAM
+  complexity claimed in the paper" [agent]. This concerns what the formalization covers, not a
+  step of the proof.
 
 **Formal re-checks by third parties.** These confirm that Lean accepts the proofs and, in two
 cases, what the Lean statements say. They are not human checks of the mathematics.
@@ -264,8 +274,9 @@ cases, what the Lean statements say. They are not human checks of the mathematic
   (`REVIEW.md` §2.1). Carlos Toledo reports replaying both labs' proofs with Comparator and
   nanoda, and bridging both statements to a textbook form of ETH in Lean [agent].
 - A third-party audit of `eth` (formal-math issue #50) reports only the standard axioms [agent].
-- Of the 54 issues and pull requests on `anthropics/formal-math`, none claims an error in `eth` or
-  `vp-vnp`, and no maintainer has replied to any of them [agent].
+- Of the 54 issues and pull requests on `anthropics/formal-math`, none makes a technical claim of
+  an error in `eth` or `vp-vnp`. One (#52) asserts, without a mathematical argument, that `vp-vnp`
+  cannot work. No maintainer has replied to any of them [agent].
 - `openai/math` has no issue about the ETH or VP ≠ VNP families, and its changelog records no
   withdrawal since 2026-10-07 [agent].
 
@@ -280,7 +291,7 @@ cases, what the Lean statements say. They are not human checks of the mathematic
 | S. Szeider | Arithmetic circuits of size 2^{o(n)} for weighted model counts of 3-CNFs; IPS refutations of size 2^{o(n)}; on Anthropic's development | Zenodo 10.5281/zenodo.24243987, v2 of 2026-11-16 | [read: abstract and introduction] |
 | I. Rudich, L.-M. Rousseau | Deterministic factoring in time N^{o(1)}, re-proving Anthropic's counting engine | hexagon:2610.00600; PALOMAR-2026-10-28-000015 | [agent]; "the authors audited the statement, not the proof" |
 | `1337isnot1337` | Factoring with "saving exponent 1/2" | `1337isnot1337/integer-factoring`, README | [read: README status table] |
-| K. Khoruzhii | A crossing decomposition from a fermionic model; circuits of size O(n^{5/3}) for symmetric noncommutative quartics; (Σa_i²)(Σb_j²) as n^{√2+o(1)} squares of complex bilinear forms | Lemmata 2611.00001, 2026-11-02, revised 11-04; six results kernel-checked in Lean v4.35.0 | [read: the entry] |
+| K. Khoruzhii | A crossing decomposition from a fermionic model; circuits of size O(n^{5/3}) for symmetric noncommutative quartics; (Σa_i²)(Σb_j²) as n^{√2+o(1)} squares of complex bilinear forms | Lemmata 2611.00001, first version 2026-11-02, last revised 11-04; six results kernel-checked in Lean v4.35.0 | [read: the entry] |
 | A. Singh | Linear lower bounds for Naslund's crossing number, such as P(n) ≥ 4n/3 | PALOMAR-2026-11-16-000011 | [agent] |
 | TSavo; C. Toledo | Bridges between the two labs' statements of ETH and a textbook form; a port of `eth` to Lean v4.36.0-rc2 (48 of 812 files changed) | formal-math issue #36 | [agent] |
 
@@ -293,6 +304,10 @@ cases, what the Lean statements say. They are not human checks of the mathematic
   `DecidedAt`, `HasCircuits`); a formalization built on different definitions would be missed.
 - Nothing of the kind is registered on Palomar (1,349 results), posted on Hexagon (1,530 works) or
   on Lemmata (22 entries) [agent; Lemmata list read by me].
+- `anthropics/formal-math` has 130 forks. 29 have commits of their own, and none of those adds a
+  Lean file on circuit lower bounds, judging by file paths [read: fork list and file trees].
+- **Limits of this search.** GitHub's code search needs an account and was not used. Five
+  repositories that turned up were not cloned. Fork contents were compared by path, not read.
 - Rate-parametric transfers exist **on paper**: a "fixed-point law" in `MJIFmc/eth-2026-notes`
   (H. Chen, 2026-11-08), a note in `jhune-yim/ETH`, and a remark in Tulsyan's circuit note [agent].
 
@@ -311,9 +326,9 @@ where ρ measures the cost of the "pieces" that decompose a crossing. Its Append
 so α' = 1/2. A simple pigeonhole argument gives ρ ≥ 1/2. Anything in between would speed up the
 algorithm.
 
-**State on 2026-11-24.** Nobody has posted pieces with ρ < 1/√2, an improved rate by any other
-route, or an unconditional lower bound on ρ above 1/2. All five readers looked for these and found
-none.
+**State on 2026-11-24.** In the sources swept, nobody has posted pieces with ρ < 1/√2, an
+improved rate by any other route, or an unconditional lower bound on ρ above 1/2. All five readers
+looked for these and found none.
 
 **Lower bounds and barriers.**
 - **ρ ≥ 1/2.** Anthropic's Appendix H; Majdoddin's Propositions 4.6 and 4.8. Tulsyan's Theorem 4.1
@@ -331,11 +346,22 @@ none.
 - **Decompositions whose terms are not products.** Tulsyan's Proposition 4.12, on paper [read]:
   ρ ≥ 3/8 for decompositions of a full grid level into row and column networks. His
   Conjecture 4.15 would give ρ ≥ 1/2 for all of them.
-- **A conditional claim that 1/√2 is optimal.** Y. Liu, hexagon:2611.00994, 2026-11-24 [read: the
-  passage "Two crossing cuts"]. If no planar crossing admits a strict shortening, then writing
-  the crossing as two tensors, one of low rank across each cut, needs rank at least q^{√2−o(1)},
-  which matches Khoruzhii's upper bound. The page says the text is primarily AI-generated, with
-  "Human understanding: no parts". Nobody has reviewed it.
+- **A link to OpenAI's VP ≠ VNP proof, which is not a barrier.** Y. Liu, hexagon:2611.00994,
+  2026-11-24 [read: its §2 and the passage "Two crossing cuts"].
+  - A "strict shortening" of the crossing is a way to write it as a sum of tensor networks in a
+    disk that are cheaper, in a geometric cost model, than the two straight cables.
+  - The paper states: if no planar crossing admits a strict shortening, then writing the crossing
+    as two tensors, one of low rank across each cut, needs rank at least q^{√2−o(1)}.
+  - By the paper's own argument, a two-cut decomposition of lower rank would itself be a strict
+    shortening. So the hypothesis already assumes that nothing of that kind exists. The statement
+    is not evidence that 1/√2 is optimal.
+  - What it gives is a connection: beating √2 in the two-cut sense would put the crossing in the
+    "a shortening exists" case of the case distinction on which OpenAI's VP ≠ VNP manuscript
+    turns.
+  - Reading a two-cut rank bound as a bound on ρ for Definition-7 families is my inference, not
+    the paper's.
+  - The page says the text is primarily AI-generated, with "Human understanding: no parts".
+    Nobody has reviewed it.
 
 **Work in progress by others, by their own account.** Neither body of notes has been refereed, and
 I did not check either.
@@ -360,15 +386,16 @@ I did not check either.
     support sizes of a function and of its Walsh transform), dated 2026-10-30 [read].
 
 **The upper-bound side.**
-- Khoruzhii's entry [read] gives a second derivation of the √2 exponent, from a finite fermionic
-  model with two colours, and has it kernel-checked. Majdoddin's paper had argued that a fermionic
-  Fock space gives no such pieces; the two are not the same construction.
+- Khoruzhii's entry [read] gives a second derivation of the sum-of-squares exponent √2, from a
+  finite fermionic model with two colours, and has it kernel-checked. It does not state a value
+  of ρ. Majdoddin's paper had argued that a fermionic Fock space gives no such pieces; the two are
+  not the same construction.
 
 **The sum-of-squares connection.** Anthropic's Appendix G relates pieces to the least number P(N)
 of row- or column-rank-one terms summing to the crossing, and quotes Hrubeš's bound of about
 N^{1.62}.
-- Appendix B implies P(N) ≤ N^{√2+o(1)}. Khoruzhii's entry of 2026-11-02 states and kernel-checks
-  the corresponding sum-of-squares bound [read].
+- Appendix B implies P(N) ≤ N^{√2+o(1)}. Khoruzhii's entry states the corresponding
+  sum-of-squares bound and had it kernel-checked by 2026-11-04 [read].
 - J. Siemaszko posted the same observation on 2026-11-07 (formal-math issue #45; Zenodo
   10.5281/zenodo.24024689), saying he "has not verified the mathematical argument"; an independent
   re-derivation was posted on 2026-11-23 [read: issue; agent: note].
@@ -407,9 +434,10 @@ pieces (`lit/SQRTLOG_BARRIER.md`) and a small search over the simplest Pauli-typ
     t/√log t, using Anthropic's pieces.
 - **What replaces ETH.** MIT Hardness Group, arXiv:2611.02650, "ETH is Dead, Long Live SH" [read:
   Theorem 2.4]: the Satisfiability Hypothesis is equivalent to a weak form of ETH.
-- **Other hypotheses refuted since, by other algorithms** [read: abstracts]: the Hyperclique
-  Hypothesis (Fischer, arXiv:2611.03880; Alman, Li, Pant, Pratt and Williams, arXiv:2611.05082;
-  Chan, Itakura, Ma and Yu, arXiv:2611.06813).
+- **Other hypotheses refuted since** [read: abstracts, which do not say whether the ETH
+  algorithms' ideas are used]: the Hyperclique Hypothesis (Fischer, arXiv:2611.03880; Alman, Li,
+  Pant, Pratt and Williams, arXiv:2611.05082; Chan, Itakura, Ma and Yu, arXiv:2611.06813) and the
+  k-Clique conjecture (Vassilevska Williams and Zamir, arXiv:2611.09764).
 - **Applications** [agent; abstracts only]: counting problems (Tulsyan's five Hexagon notes; Kozma,
   arXiv:2610.41048; Wu and Wang, arXiv:2611.02548), factoring (Rudich and Rousseau; Shunia,
   hexagon:2610.00711), fixed-parameter results, and learning theory (X. Li, three Hexagon notes).

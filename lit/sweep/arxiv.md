@@ -37,7 +37,7 @@ I could not write `/mnt/data/review/sweep/arxiv/REPORT.md`: the harness refused 
   - k×k Clique Hypothesis, now v3 of 11-09.
   - 24299623, a Lean-proved 2^{o(n)} IPS refutation of every unsatisfiable 3-CNF. It says of the two ETH proofs: "widely accepted, but not yet published in refereed form" (line 33).
   - 23981772, the klam value.
-- **Other new records:** Toledo's Lean kernel exports of OpenAI's family 378 (23991348); Çıracıoğlu (23895435); Lin (23724560); Geiger (24024062); Vinaik (24042872); Bhattacharjee, an E^NP wire lower bound (24163297, description only); Yianni and Allahyar (23925452); many P vs NP crank records (Islam, Storm and others).
+- **Other new records:** Toledo's Lean kernel exports of OpenAI's family 378 (23991348); Çıracıoğlu (23895435); Lin (23724560); Geiger (24024062); Vinaik (24042872); Bhattacharjee, an E^NP wire lower bound (24163297, description only); Yianni and Allahyar (23925452); many records claiming to resolve P vs NP (Islam, Storm and others), none assessed.
 
 **5. Corrections to SURVEY.md**
 - **Line 36:** 2611.01774 (Gaspers) is not a follow-up. It mentions the ETH preprints only in §2.5 (lines 749-755).

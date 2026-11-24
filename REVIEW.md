@@ -59,7 +59,8 @@ Labels used below:
   "E^NP ⊄ SIZE(ε n √log n)". It is **not** an almost-everywhere bound.
 - **What it still rests on.**
   - Lean's own kernel while compiling, and Mathlib's prebuilt cache, which nobody here re-checked.
-  - Anthropic's `eth` development (9768 build jobs), which no human has checked.
+  - Anthropic's `eth` development (9768 build jobs). Its paper says "no person is known to have
+    checked it".
 - **Agent, then re-run by me: an independent kernel accepts it.** The first thread listed this as
   "not set up".
   - The upstream acceptance script (`comparator-check.sh`, unmodified) was run on a challenge file
@@ -87,8 +88,9 @@ Labels used below:
   - The one thing taken on trust is the commit date. Details in `lit/SURVEY.md` §6.
 - **What I could not find elsewhere:** a transfer theorem whose hypothesis is an arbitrary Turing
   machine with a clause rate (`generalTransfer`), or the two forms added in this session (§6.1).
-  Everything in those five files is fixed at the rate 1/√log. I did not search the rest of that
-  repository.
+  Everything in those five files is fixed at the rate 1/√log. The later sweep searched that whole
+  repository, 26 others and the forks of upstream, and found none (`lit/SURVEY.md` §6.2, which
+  also states the limits of that search).
 
 ### 2.2 The computations reproduce
 
@@ -282,8 +284,9 @@ same for all of them: none moves P vs NP.
 These are outward-facing, so I have not done them.
 
 - **Offer the transfer theorems upstream.** They are the part I could not find elsewhere, and the
-  sweep looked hard for them: 27 cloned repositories, Palomar, Hexagon and Lemmata
-  (`lit/SURVEY.md` §6.2). Tulsyan's own note says his module "is not parametric in the SAT time".
+  sweep looked for them in 27 cloned repositories, the 130 forks of upstream, Palomar, Hexagon
+  and Lemmata (`lit/SURVEY.md` §6.2). GitHub's code search was not available, so this is strong
+  but not conclusive. Tulsyan's own note says his module "is not parametric in the SAT time".
   - The natural places are an issue or pull request on `anthropics/formal-math`, or on
     `xennygrimmato/eth-hamiltonicity`, whose author already has the base theorem.
   - Note that no maintainer has replied to any of the 54 issues and pull requests on
@@ -305,16 +308,17 @@ These are outward-facing, so I have not done them.
 - **What it found that changes this review:**
   - **Human examination.** OpenAI announced on 2026-10-26 that a group led by Impagliazzo, Paturi
     and Ryan Williams would examine its proof. The group says its involvement "should not be
-    taken as certification" and has posted no verdict. No named expert has said they checked
-    either proof, and none has reported an error. The first survey had none of this.
+    taken as certification" and has posted no verdict. In the sources swept, no named expert has
+    said they checked either proof in full, and none has reported a technical error. The first
+    survey had none of this.
   - **The transfer theorems still look unclaimed** (§6.2).
   - **The research bet has more company than I knew** (§6.4).
-  - **The sum-of-squares bound was kernel-checked by someone else on 2026-11-02,** five days before
-    the issue thread I cited (§6.5).
+  - **The sum-of-squares bound was kernel-checked by someone else by 2026-11-04,** before the
+    issue thread I cited (§6.5).
   - **Two more venues the first survey never looked at:** Zenodo and the Lemmata repository.
 - **What it did not cover:** ECCC after TR26-265, which blocked automated access; social media;
   and the correctness of anything. The full list is in `lit/SURVEY.md` §5.
-- **Cost:** see §7.6. It was well above the $10–15 I first estimated.
+- **Cost:** about $68, well above the $10–15 I first estimated (§7.6).
 
 ### 6.4 The one research bet, which I do not recommend
 
@@ -341,24 +345,27 @@ These are outward-facing, so I have not done them.
     1/2 for every level with two merges, names three or more merges as the only door to beating
     1/log, and paused that work on 2026-11-06. On 2026-11-24 it added a list of eight routes to a
     faster 3-SAT, as ideas only.
-  - **A second construction reaches the same exponent.** Khoruzhii's Lean-checked entry of
-    2026-11-02 derives it from a fermionic model.
+  - **A second construction gives the same sum-of-squares exponent.** Khoruzhii's Lean-checked
+    entry derives it from a fermionic model. It does not state a ρ.
   - **Two more barrier notes** for graded constructions (Fradj) and for decompositions that are
     not products (Tulsyan: ρ ≥ 3/8 on paper).
-  - **A conditional claim that 1/√2 cannot be beaten,** in an unreviewed AI-written preprint of
-    2026-11-24 (Liu). If it holds, and if its hypothesis holds, the bet is lost in advance.
+  - **A link to OpenAI's VP ≠ VNP proof** (Liu, 2026-11-24; AI-written and unreviewed). Beating
+    the exponent √2 for two-cut decompositions would amount to what that proof calls a "strict
+    shortening" of the crossing. This is a connection, not a barrier: the paper's lower bound
+    assumes that no shortening exists.
 - **Why I do not recommend it.**
-  - At least two groups have worked on exactly this for weeks, with far more effort than the
-    remaining budget buys, and have not succeeded.
+  - Two other efforts are on record. Both were short and both stopped without a lead. The notes
+    repository worked on crossings for about five days and reports no construction below 1/√2.
+    Tulsyan's attack ran for about three days, on the harder target ρ < 1/2, and was paused.
   - The lower-bound side is tied to a known hard problem. Any proof that ρ must exceed 1/2 would
     answer a question of Naslund on sum-of-squares-type identities, so a clean negative answer is
     not within reach either.
   - Even a success would improve an algorithm's exponent. It would then need thousands of lines
     of Lean to reach a machine-checked statement (the existing family took about 4,600).
 - **If you want to buy the ticket anyway:** cap it, and read before searching. In order:
-  Liu's conditional lower bound (hexagon:2611.00994), since it decides whether there is anything
-  to find; Tulsyan's `research/engine3-STATUS.md` and his list of eight routes; then the digest in
-  `lit/sweep/crossing.md`. Accept only an exact certificate.
+  Tulsyan's `research/engine3-STATUS.md` and his list of eight routes; the digest in
+  `lit/sweep/crossing.md`; and §2 of Liu's paper (hexagon:2611.00994) for the link to the
+  VP ≠ VNP case distinction. Accept only an exact certificate.
 
 ### 6.5 Non-starters
 
@@ -372,8 +379,8 @@ These are outward-facing, so I have not done them.
   already has 65,536 entries. The third party reports excluding Pauli-type seeds at dimensions 2
   and 4.
 - **Writing up that the paper's Appendix B improves the sum-of-squares bound** (P(N) ≤ N^{√2+o(1)}
-  against the previous 1.62). Already done by others: kernel-checked in Lean by K. Khoruzhii on
-  2026-11-02 (Lemmata 2611.00001), and posted again on 2026-11-07 (formal-math issue #45).
+  against the previous 1.62). Already done by others: kernel-checked in Lean by K. Khoruzhii by
+  2026-11-04 (Lemmata 2611.00001), and posted again on 2026-11-07 (formal-math issue #45).
 
 ### 6.6 My recommendation
 
@@ -457,15 +464,15 @@ If you do go on with §6.4, the sweep's reading list above is the place to start
 
 - **What ran:** five reader subagents on the cheaper Opus model, told not to consult the advisor;
   then my own verification of their consequential claims from the saved texts; then the rewrite.
-- **Cost: about $65,** against the $25–35 I told you at the start and the $10–15 I first
-  estimated. Where it went:
+- **Cost: about $68** ($67.18 measured just before the last commit), against the $25–35 I told
+  you at the start and the $10–15 I first estimated. Where it went:
   - the five readers, about $17;
-  - two advisor checks, about $11;
-  - my own turns, about $37. Most of that is one effect I had not allowed for: each time I woke
+  - two advisor checks, about $12;
+  - my own turns, about $39. Most of that is one effect I had not allowed for: each time I woke
     up to a reader's result after more than five minutes, the whole of this long transcript had
     to be re-read at full price, about $5 a time.
-- **Running total for the project** after the sweep: about $262 of $489, leaving about $227. The
-  exact figure is in the closing message; `python3 tools/spend.py` prints the current total.
+- **Running total for the project** after the sweep: about $264 of $489, leaving about $225.
+  `python3 tools/spend.py` prints the current total.
 - **Lesson for a future session:** start a fresh session for a new task instead of continuing a
   long one.
 

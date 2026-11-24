@@ -13,5 +13,9 @@ the survey is the corrected one.
 - `arxiv.md`: arXiv, ECCC (blocked after TR26-265) and Zenodo.
 - `palomar_experts.md`: the Palomar registry and expert commentary.
 
-The readers' downloads, clones and scripts are on the data disk under `/mnt/data/review/sweep/`
-and are not in this repository.
+**One edit was made to these copies.** Five phrases in which a reader characterised a named
+person or their work dismissively were replaced by neutral wording. Nothing else was changed.
+
+The readers' downloads and scripts are on the data disk under `/mnt/data/review/sweep/` and, apart
+from the cloned repositories, in the bucket as `sweep-2026-11-24.tar.gz`. `CLONES.tsv` lists the
+repositories that were cloned, with the commit each was at.

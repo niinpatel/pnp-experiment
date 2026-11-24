@@ -24,7 +24,7 @@ I could not write `/mnt/data/review/sweep/github/REPORT.md`: the harness blocks 
 - **#50 (3453-315h):** an audit reporting a clean axiom closure.
 - **#51:** comments are only "lgtm" plus an "@codex verify." request.
 - **#54:** README-only change, no comments.
-- **#32–#47, #52 (frintroper):** crank threads; #52 claims vp-vnp "CANNOT work" because Mathlib uses ZFC. No technical content.
+- **#32–#47, #52 (frintroper):** threads without a mathematical argument; #52 claims vp-vnp "CANNOT work" because Mathlib uses ZFC. No technical content.
 
 ## openai/math (FULL)
 
