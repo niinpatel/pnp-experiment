@@ -14,7 +14,7 @@
   - `Arith2.lean` contains the asymptotics.
   - `Chain.lean` contains the diagonal chain argument for a general size function.
   - `MainSqrtLog.lean` proves the theorem.
-- **Scale:** the full library is 1488 lines.
+- **Scale:** 1488 lines measured with `wc -l`: 780 for the first milestone, 694 for the √log form, and the 14-line axioms script.
 - **Earlier result:** the weaker n·√log n / log log n version below was the first milestone, and the new theorem implies it (`corCircuitsSuperlinInf_of_sqrtLog`).
 - **Clean-room check:** `verify.sh` checks both theorems; see `verify-output.log`.
 
@@ -40,7 +40,7 @@ gates. The circuits may use any 2-input gate.
 
 ## What is in this directory
 
-- `lean/proof/superlinear/Superlinear/`: 780 lines for the first milestone, plus 623 for the √log form (1488 in total, counting a small addition to the axioms script).
+- `lean/proof/superlinear/Superlinear/`: 780 lines for the first milestone (the files below) and 694 for the √log form (StatementSqrtLog, FormC, Chain, Arith2, Host2, MainSqrtLog). Together with `PrintAxiomsSuperlinear.lean` (14 lines) that makes 1488.
   - `Statement.lean`: definitions only. It imports Mathlib and the development's two Mathlib-only statement files.
   - `Engine.lean`: extracts the explicit-rate engine.
   - `Arith.lean`: monotonicity of n·r(n) and the time bound.

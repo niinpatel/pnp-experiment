@@ -23,7 +23,7 @@ The two strongest late-2026 results near the problem were both found by AI model
      - **Technique:** contracting tensor networks on the complete graph K_K. The recursion is e(9K^16) ≤ 0.9·e(K) + O(1/K), and it uses an "eight-square identity" decomposition of SWAP (SWAP = I − 2·singlet).
      - **Practicality:** none. For m = 5n clauses there is no improvement over 2^n unless n > 10^{10000}. The bound in n alone gives none unless n > 10^{10^8}. I re-read these figures with `pdftotext -raw`.
      - **Consequences stated in §7:** SETH, NSETH and #ETH are false; Independent Set, Clique, Vertex Cover, Dominating Set and k-Coloring run in 2^{δn}; **E^NP has no linear-size circuits** (via Williams [Wil13, Thm 6.1] and Jahanjou–Miles–Viola [JMV15]).
-   - **OpenAI** ("The Exponential Time Hypothesis is False", 2026-10-25) [secondary]. Its Corollary 1.4 reportedly gives **E^NP ⊄ SIZE(c·n·√log n)** infinitely often. That corollary is said to be outside its Lean file [secondary: W. DeMeo blog].
+   - **OpenAI** ("The Exponential Time Hypothesis is False", 2026-10-25) [V-primary: openai/math preprints/…/paper.pdf, plus lean/docs/378.md]. Its Corollary 1.4 gives **E^NP ⊄ SIZE(c·n·√log n)** infinitely often, over fan-in-2 gates, on paper only. Its Lean development covers only the counting algorithm, at rate 2^{O_k(n(log log n)²/√log n)}.
    - **Follow-up, Wu & Wang, arXiv:2611.02560** [secondary: a paraphrase of the abstract page by the fetch tool]:
      - E^NP needs Ω(m√log m / log log m) gates over unbounded AND/OR with binary XOR.
      - It needs Ω(m√log m) gates over binary bases with a linear budget of XOR or symmetric gates.
@@ -33,7 +33,7 @@ The two strongest late-2026 results near the problem were both found by AI model
      - arXiv:2611.01774, monotone local search.
      - arXiv:2611.06231, "Exhaustive search is hard to beat in constant depth for Hyperclique and OV". Orthogonal Vectors (OV) is **not** refuted.
 
-**My own sketch, not written out; it matches a reported result.** The m-dependence 2^{O(m/√log m)} plus the Tseitin transform gives #CircuitSAT for size-s circuits in 2^{O(s/√log s)}. Feeding this into Williams' E^NP argument gives E^NP ⊄ SIZE(ε n √log n). This holds only if the overhead in Williams Thm 6.1 / JMV stays linear for superlinear sizes, which I have not yet checked. It is OpenAI's Cor 1.4 [V-primary: the PDF in openai/math preprints/, c·n·√log n infinitely often, fan-in-2 gates, no Lean]. This session formalized a version weakened by a log log factor (experiments/enp-superlinear/). The argument appears and the starting point of Wu–Wang, so **it is not new**.
+**From sketch to Lean proof (this session).** The m-dependence 2^{O(m/√log m)}, plus the Tseitin transform (4 clauses per gate), gives SAT for size-s circuits in 2^{O(s/√log s)}. Feeding this into Williams' E^NP argument gives E^NP ⊄ SIZE(ε·n·√log n), infinitely often. This is OpenAI's Cor 1.4 [V-primary], and the Wu–Wang extensions start from it, so **the mathematics is not new**. This session **machine-checked it in Lean**: `Superlinear.corCircuitsSqrtLogInf`; see experiments/enp-superlinear/RESULT.md. The overhead question is settled in the formal proof, because the host formula has at most 3·gates + O(m) variables and at most 4·Nv + 1 clauses.
 
 ## 1. Other 2025–2026 results near the problem
 
@@ -122,3 +122,17 @@ The repository README lists 722 manuscripts in 374 families, produced by an unna
   returned HTTP 404 when I tried it.
 - **Assessment:** this is a Lean proof that uses extra axioms, so it proves nothing until those
   axioms are inspected. I found no sign of expert acceptance. [secondary: registry page]
+
+## 5. Follow-ups on the ETH algorithms
+
+Label for this section: [V-primary: arXiv abstract pages, read via a fetch tool; full papers not read].
+
+- **arXiv:2611.00517**, Dias & Lima, "Limits and Constants of OpenAI's Claimed ETH Refutation" (2026-10-31).
+  - The algorithm only beats 2^n for n ≈ 10^{32} or larger, and for the tensor route only when log₂(n+m) > 10^9.
+  - The interpolation scheme costs 2^{Ω(√tw)}, and 2^{Ω(√n)} on random 3-CNF above density 3. That limit applies to the scheme, not to the tensor route, which the authors say "escapes these limits".
+  - The paper does **not** claim an error in the proof.
+- **arXiv:2610.41622**, Majdoddin, "Lowered crossover points of Anthropic's subexponential 3-SAT algorithm" (2026-10-30).
+  - Lowers the crossover to about 2^{420} clauses at density 1.
+  - Counting assignments that satisfy exactly j clauses runs in 2^{O(m/√log m)}, which refutes the Sparse Max-3-SAT hypothesis.
+  - Model-specific limits: no gain below about 2^{6000} variables for a "rewrite-and-merge" class, and two balanced homogeneous merges cannot give 2^{n^{1−c}}.
+- **Bottom line:** no general lower bound on the exponent is known. Whether 2^{m/√log m} can be improved, which would give stronger E^NP bounds through the Lean theorem of this session, is open.

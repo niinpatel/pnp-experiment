@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Clean-room check of the superlinear E^NP lower bound.
-# Fresh copy of anthropics/formal-math (default branch; developed against commit 11b6c7e), overlay ONLY the new
+# Fresh copy of anthropics/formal-math pinned at commit 11b6c7e, overlay ONLY the new
 # files from experiments/enp-superlinear/lean/, build, and print axioms.
 # Usage: verify.sh BUILD_DIR   (BUILD_DIR should be on a volume with ~15 GB free)
 set -u
@@ -9,9 +9,9 @@ HERE=$(dirname "$(readlink -f "$0")")
 ROOT=$(readlink -f "$HERE/../..")
 export PATH="$HOME/.elan/bin:$PATH"; export XDG_CACHE_HOME="$BUILD/.cache"
 mkdir -p "$BUILD"
-python3 "$ROOT/tools/fetch_tarball.py" anthropics/formal-math "$BUILD" || exit 1
+python3 "$ROOT/tools/fetch_tarball.py" anthropics/formal-math "$BUILD" 11b6c7e || exit 1
 SRC=$(ls -d "$BUILD"/anthropics-formal-math-*/ | head -1); echo "source tree: $SRC"
-case "$SRC" in *11b6c7e*) ;; *) echo "WARNING: upstream moved past 11b6c7e; results may differ";; esac
+case "$SRC" in *11b6c7e*) ;; *) echo "ERROR: source is not commit 11b6c7e"; exit 1;; esac
 cp -r "$HERE/lean/proof/superlinear" "$SRC/eth/proof/"
 grep -q "name = \"superlinear\"" "$SRC/eth/lakefile.toml" || printf '\n[[lean_lib]]\nname = "superlinear"\nsrcDir = "proof/superlinear"\nglobs = ["Superlinear.+"]\n' >> "$SRC/eth/lakefile.toml"
 cd "$SRC/eth"

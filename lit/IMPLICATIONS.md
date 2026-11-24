@@ -55,7 +55,8 @@ This is my own reasoning (Claude, 2026-11-24), built on the sources in `SURVEY.m
   - This gives E^NP ⊄ SIZE(c·n·√log n) infinitely often [OpenAI paper, Cor 1.4; I read the
     statement and proof in the PDF; there is no Lean].
   - Anthropic's Lean development proves the linear version, E^NP ⊄ SIZE(O(n)).
-  - **This session machine-checked** E^NP ⊄ SIZE(ε·n·√log n / log log n) infinitely often.
+  - **This session machine-checked** E^NP ⊄ SIZE(ε·n·√log n) infinitely often
+    (`Superlinear.corCircuitsSqrtLogInf`; Lean, standard axioms).
     See `experiments/enp-superlinear/RESULT.md`.
 - **Reasoning: distance to P ≠ NP.** E^NP ⊄ P/poly would itself be a major breakthrough. It
   would still not give P ≠ NP, which needs *NP* ⊄ P (or NP ⊄ P/poly).
