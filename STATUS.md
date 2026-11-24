@@ -67,6 +67,6 @@ Any document here that reads like a resolution claim should be treated as a bug.
 ## Spend (estimated)
 
 - **Claude tokens:** about $72 for this session's tokens, including subagents, at published Opus 5.5 prices ($4/$20 per Mtok, cache reads $0.20). Advisor calls are not in the logs; estimate about $15 more.
-- **Total:** about **$85–90 of the $489** budget.
+- **Total:** I estimated about $85–90 of the $489 budget. **Actual, per the Anthropic console on 2026-11-24, was about $51**: $438 of credit remained. My estimate overstated the spend.
 - **Google Cloud:** 2 small Gemini calls, and about 10 MB of GCS storage.
 - **Measurement:** `tools/spend.py` gives the token counts.
