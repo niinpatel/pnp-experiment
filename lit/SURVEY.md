@@ -160,24 +160,36 @@ I did not re-fetch it.
     on the same upstream definitions.
   - It also has `no_circuits_io`, generic in the size function, with the same architecture as
     `Superlinear/Chain.lean` here.
-  - The five files contain no `sorry` or `axiom`. I did not build it.
+  - The five files contain no `sorry` or `axiom`. I built them against the upstream tree used here: they compile; the theorem depends on the three standard axioms only; it uses upstream's `ENP.InENP` and `ENP.DecidedAt`; and Lean accepts it and `ENP.CorCircuitsSqrtLogInf` as interchangeable in both directions (`/mnt/data/review/prior/CheckTulsyan.lean`). I used my own lake setup, not that repository's.
   - **Consequence:** the claim "first machine-checked superlinear circuit lower bound for E^NP"
     in the first session's report is wrong by three weeks.
-  - What that repository does not appear to have: a transfer theorem whose hypothesis is an
-    arbitrary 3-SAT or #k-SAT Turing machine with a clause rate, or one from a family of pieces
-    [agent-primary; two of its files were not read].
+  - What those five files do not have: a transfer theorem whose hypothesis is an arbitrary 3-SAT
+    or #k-SAT Turing machine with a clause rate, or one from a family of pieces. Everything in
+    them is fixed at the rate 1/√log [V-primary: grep]. I did not search the rest of that
+    repository.
 
 **Limits on the pieces (the ρ question).**
 - Carlos Stein Naves de Brito, hexagon:2610.00692 v1 (2026-10-31), "The partition exponent in the
   graded pieces of the Claude 3-SAT algorithm is optimal for pieces of that shape" [V-primary:
-  abstract page].
-  - For graded families of the Appendix-B shape the count never goes below
+  full text read, 5 pages; proofs not checked].
+  - Theorem 2.2: a rank count for families of the Appendix-B shape. Corollary 2.3: growth
+    exponents α < ½ are impossible. Proposition 3.1: the weight count never goes below
     max(2^{α−1}, 2^{−α}) ≥ 1/√2, with equality only at α = ½.
-  - "Theorem B of the paper is rank-tight up to a polynomial factor."
-  - Heisenberg Fock spaces on a sparse set of modes "do not carry Lemma 9".
+  - "Rank-tight up to a polynomial factor" there means that the *total* rank budget of all pieces
+    exceeds the rank of the crossing only by a factor O(h²). It is not a statement about the rank
+    of each piece.
+  - Remark 3.2 states what is out of scope: "a family whose pieces had rank far below these
+    dimensions … is not covered". It names two escapes: operators of smaller weight than the
+    states (weight count down to 2^{−α}), and growth profiles that are not regularly varying. It
+    argues that vertex-algebra-type constructions cannot use the first.
+  - Section 4: Heisenberg Fock spaces on a sparse set of modes "do not carry Lemma 9".
   - "The floor ρ ≥ 1/2 remains open."
-  - **Consequence:** this predates and covers the first session's rank computation
-    (`SQRTLOG_BARRIER.md`, Conjecture 2) and most of its Stage 2 (`STAGE2_GRADED.md`).
+  - **Consequence for the first session's work:**
+    - It anticipates `RHO_SPEC.md`'s analysis of the Appendix-B shape, including escape classes
+      1 and 2, and the first tier of `STAGE2_GRADED.md`.
+    - It does **not** contain the per-piece rank computation (`SQRTLOG_BARRIER.md`, Conjecture
+      2), which addresses exactly what the note leaves out of scope, nor Stage 2's
+      product-character lemma.
 - Vaibhav Tulsyan, hexagon:2611.00149 v1 (2026-11-06), "What the ETH refutations do not give:
   barriers for the counting engines, with machine-checked lemmas" [V-primary: abstract page].
   - ρ ≥ 1/2 for pieces is machine-checked in Lean; on paper, ρ ≥ 3/8 for correlated
@@ -188,12 +200,13 @@ I did not re-fetch it.
     P ⊗ P over Pauli strings P, the two cut ranks are the support sizes of a function on F_2^{2m}
     and of its Walsh transform; the crossing is the function (−1)^{x·z}; every decomposition has
     Σ_i min(r_i, c_i) ≥ d. One 64-label dictionary is excluded.
-  - `research/bell-diagonal-crossings.md` (2026-10-31): symmetric tensor powers of such seeds
-    cannot beat 1/√2 at physical dimension 2 or 4 (floors 0.7744 and 0.70713). At dimension 8 the
-    argument gives only 0.657, so dimension 8 and above are open.
-  - `research/beyond-half-research-checkpoint.md` (2026-11-01): a formal profile with rate below
-    0.707 exists, but "no polynomial crossing realizing that profile is known"; the best actual
-    construction there certifies ρ < 18/25.
+  - `research/bell-diagonal-crossings.md` (2026-10-31) reports that symmetric tensor powers of
+    such seeds cannot beat 1/√2 at physical dimension 2 or 4 (floors 0.7744 and 0.70713), and
+    that at dimension 8 the argument gives only 0.657, so dimension 8 and above are open. The
+    note says it has had no independent proof review; I did not check it.
+  - `research/beyond-half-research-checkpoint.md` (2026-11-01) reports a formal profile with rate
+    below 0.707 for which "no polynomial crossing realizing that profile is known", and an
+    actual construction that it says certifies ρ < 18/25. Not checked here.
   - Its README still lists an exponent above 1/2 as not established [agent-primary].
 
 **The sum-of-squares connection.**

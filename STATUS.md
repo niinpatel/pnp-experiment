@@ -50,7 +50,8 @@ Any document here that reads like a resolution claim should be treated as a bug.
      parameter ρ, giving E^NP ⊄ SIZE(ε·n·(log n)^{log₂(1/ρ)}). Conditional: no pieces better than
      the known ones exist, so today it only returns the √log theorem.
    - **Size:** 2464 lines of Lean in 20 modules on top of Anthropic's `eth` development, commit
-     11b6c7e: 1918 from the first session and 546 from the review session.
+     11b6c7e: 1918 from the first session and 546 from the review session (541 of them in five
+     new modules).
    - **Verification:**
      - a from-scratch rebuild with upstream pinned;
      - exact type match with the Mathlib-only statement files;
@@ -64,14 +65,16 @@ Any document here that reads like a resolution claim should be treated as a bug.
    - **Novelty (review):** the mathematics is OpenAI's paper-only Corollary 1.4, so it is not new.
      - The machine check is **not the first** either. V. Tulsyan's public repository
        `xennygrimmato/eth-hamiltonicity` has had a Lean proof of the same statement since
-       2026-11-04 (`lit/SURVEY.md` §6). The claim of priority that stood here was wrong.
+       2026-11-04 (`lit/SURVEY.md` §6). The review session built it against the same upstream
+       tree: it compiles and is interchangeable with ours. The claim of priority that stood here
+       was wrong.
      - What I could not find elsewhere are the transfer theorems.
      - Its distance to P vs NP is large; see `lit/IMPLICATIONS.md` §3.
 5. **Where the √log comes from** (`lit/SQRTLOG_BARRIER.md`, sourced).
    - **Formula** (our derivation): the rate exponent is log(1/ρ)/log β. In Anthropic's analysis β = 2 and ρ = 1/√2, which traces back to the Hardy–Ramanujan partition count.
    - **No proven barrier** exists at √log.
    - **Computational check, negative:** I computed exact ranks of the paper's Appendix B pieces for h ≤ 9. They give no gain in ρ (`experiments/sqrtlog/`).
-   - **Already known (review):** a note of 2026-10-31 (Naves de Brito, hexagon:2610.00692) states the same conclusion as a theorem.
+   - **Related prior work (review):** a note of 2026-10-31 (Naves de Brito, hexagon:2610.00692) analyses the same construction but explicitly leaves this rank question out of scope, so the check is not redundant.
 
 ## Not attempted (open; judged not achievable or not checkable within this budget)
 
@@ -83,7 +86,7 @@ Any document here that reads like a resolution claim should be treated as a bug.
     - three of Majdoddin's limits (Prop 4.6/4.8, Thm 4.13, Prop 4.24) were re-derived and hold under their hypotheses; his other results were not re-checked (review);
     - three classes of construction escape every proven bound, but none has a known candidate.
   - **Stage 2** (`lit/STAGE2_GRADED.md`): the natural generalizations are worse than Appendix B.
-    - Already known (review): the same note of 2026-10-31 covers this question.
+    - Partly anticipated (review): that note already has the power-profile floor, the same two escapes, and an argument that vertex-algebra constructions cannot use narrower windows. It does not have the product-character lemma.
     - Plane partitions and d-dimensional analogues give ρ ≈ 0.79–0.87.
     - Coloured partitions are best at one colour.
     - The trade-off obstructions are partially proved. An adversarial referee (`lit/STAGE2_REFEREE.md`) found both proofs correct **with gaps**, and they do not close Majdoddin's Open problem 1.

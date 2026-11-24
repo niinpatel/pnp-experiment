@@ -5,7 +5,7 @@
 > - **Lemma L** needs F < ∞. Its bridge to exact counts is false for λ-dependent c_n, so "ρ ≥ 1/√2 for all product characters" is **unproven**. In numeric tests the conclusion still held, with a minimum D(2h*)/λ of 1.48 > √2.
 > - **Read the bottom line below as:** no gain found in these families, and the obstructions are partially proved. It is not a theorem that the class is closed.
 
-> **Review note (2026-11-24, second session).** The body below is corrected in three marked places to match the referee verdict above. Prior work this note did not know: Naves de Brito, hexagon:2610.00692 (2026-10-31), "The partition exponent in the graded pieces of the Claude 3-SAT algorithm is optimal for pieces of that shape", covers the same question, including the failure of Lemma 9 on sparse sets of modes. See `SURVEY.md` §6.
+> **Review note (2026-11-24, second session).** The body below is corrected in three marked places to match the referee verdict above. Prior work this note did not know: Naves de Brito, hexagon:2610.00692 (2026-10-31), "The partition exponent in the graded pieces of the Claude 3-SAT algorithm is optimal for pieces of that shape". It has the power-profile floor, names the same two escapes, argues that vertex-algebra-type constructions cannot use narrower windows (the conclusion of tier 1 below, by a different argument), and shows that sparse Heisenberg algebras fail Lemma 9. It does not have Lemma L. See `SURVEY.md` §6.
 
 # STAGE 2: graded generalizations of App. B pieces (RHO_SPEC escape classes #1, #2)
 

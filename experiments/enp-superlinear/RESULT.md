@@ -1,7 +1,7 @@
 # Result: a machine-checked superlinear circuit lower bound for E^NP
 
 > **Corrections from the review session (2026-11-24); see `REVIEW.md`.**
-> - **Not the first.** A public Lean proof of the same statement, also on Anthropic's development, dates from 2026-11-04 (V. Tulsyan, `xennygrimmato/eth-hamiltonicity`; `lit/SURVEY.md` §6). The claim of priority that stood in this file was wrong and is removed below.
+> - **Not the first.** A public Lean proof of the same statement, also on Anthropic's development, dates from 2026-11-04 (V. Tulsyan, `xennygrimmato/eth-hamiltonicity`; `lit/SURVEY.md` §6). The review session built it against the same upstream tree: it compiles, uses the standard axioms only, and Lean accepts it as interchangeable with the statement here. The claim of priority that stood in this file was wrong and is removed below.
 > - **Second kernel.** The upstream acceptance check (comparator with the independent `nanoda` kernel) now passes for all five theorems; see `comparator/README.md`.
 > - **Two theorems added:** `countTransferThm` and `piecesTransfer`, in the section "Counting rates and pieces" below.
 

@@ -18,11 +18,12 @@ Labels used below:
   acceptance check with an independent kernel (§2.1).
 - **Its headline novelty claim is wrong.** The same theorem, with the same statement, was
   formalized publicly three weeks earlier by someone else (§3, defect 1).
-- **Its exploratory mathematics was reproducible but already known.** The two negative results on
-  improving the 3-SAT algorithm had been published on 2026-10-31, on a preprint server the
-  literature search never looked at (§3, defect 2).
-- **About twenty factual errors** in the notes, none of which changes a conclusion. All are
-  corrected in place and marked (§3).
+- **Its exploratory mathematics was reproducible, and partly anticipated.** A note published on
+  2026-10-31, on a preprint server the literature search never looked at, had already analysed the
+  same family of constructions and named the same two open escapes. That note does not cover the
+  rank computation (§3, defect 2).
+- **About twenty factual errors** in the notes, none of which changes a conclusion. Nearly all are
+  corrected in place and marked; the table in §3 says which are not.
 - **Spend was misreported.** The first thread cost $84.58, not "about $100" (§4).
 - **Process:** verification discipline was excellent; the literature search was too narrow; and the
   thread stopped twice with most of the budget unused (§5).
@@ -76,13 +77,18 @@ Labels used below:
   - **Upstream's own headline theorems pass too** (ETH is false; the Main Theorem), in the same
     run. The first thread's rebuild note had listed this check as not run.
   - Files and how to repeat it: `experiments/enp-superlinear/comparator/README.md`.
-- **Read: it was not the first.** `xennygrimmato/eth-hamiltonicity` has
-  `enp_not_size_n_sqrt_log_shifted`, the same statement with the same size function on the same
-  upstream definitions, in a single commit dated 2026-11-04. I fetched the five Lean files; they
-  contain no `sorry`. I did not build them. Details in `lit/SURVEY.md` §6.
-- **What I could not find elsewhere** (Agent; two files of that repository were not read): a
-  transfer theorem whose hypothesis is an arbitrary Turing machine with a clause rate
-  (`generalTransfer`), or the two forms added in this session (§6.1).
+- **Re-run: it was not the first.** `xennygrimmato/eth-hamiltonicity` has
+  `enp_not_size_n_sqrt_log_shifted` in a single commit dated 2026-11-04.
+  - I fetched its five Lean files and built them against the same upstream tree. They compile.
+  - The theorem depends only on the three standard axioms and uses upstream's own `ENP.InENP` and
+    `ENP.DecidedAt`.
+  - Lean accepts it and `ENP.CorCircuitsSqrtLogInf` as interchangeable, in both directions
+    (`/mnt/data/review/prior/CheckTulsyan.lean`).
+  - The one thing taken on trust is the commit date. Details in `lit/SURVEY.md` §6.
+- **What I could not find elsewhere:** a transfer theorem whose hypothesis is an arbitrary Turing
+  machine with a clause rate (`generalTransfer`), or the two forms added in this session (§6.1).
+  Everything in those five files is fixed at the rate 1/√log. I did not search the rest of that
+  repository.
 
 ### 2.2 The computations reproduce
 
@@ -109,7 +115,7 @@ Severity is about how much a reader could be misled, not about effort to fix.
 | # | Where | Defect | Severity | Fixed here? |
 |---|---|---|---|---|
 | 1 | STATUS, RESULT, SURVEY, IMPLICATIONS | "First machine-checked superlinear circuit lower bound for E^NP." False: a public Lean proof of the same statement dates from 2026-11-04. | High | Yes |
-| 2 | SURVEY | The search covered arXiv, ECCC and the two labs' repositories, and missed the Hexagon preprint server, third-party GitHub repositories and issue threads, and the Palomar registry. Missed items include a paper of 2026-10-31 that covers the rank computation and most of Stage 2. | High | Partly: addendum SURVEY §6 |
+| 2 | SURVEY | The search covered arXiv, ECCC and the two labs' repositories, and missed the Hexagon preprint server, third-party GitHub repositories and issue threads, and the Palomar registry. Missed items include the earlier Lean proof (defect 1) and a note of 2026-10-31 that analyses the same family of constructions as RHO_SPEC and Stage 2 and names the same two escapes. | High | Partly: addendum SURVEY §6 |
 | 3 | STATUS | Spend "about $100"; the tool double-counted and omitted advisor calls. | Medium | Yes (§4) |
 | 4 | STATUS, IMPLICATIONS, closing summary | "A new pieces family would plug in" and give a machine-checked E^NP bound. Two Lean steps were missing, as RHO_SPEC §2 itself said. | Medium | Yes, by proving them (§6.1) |
 | 5 | RHO_SPEC | Wrote the theorem as "E^NP ⊄ i.o.-SIZE(…)", which denotes the stronger almost-everywhere bound. | Medium | Yes |
@@ -214,9 +220,9 @@ Severity is about how much a reader could be misled, not about effort to fix.
      the Palomar registry.
    - The clue was on disk: Majdoddin's reference list cites both a Hexagon preprint and the
      repository that turned out to hold the earlier Lean proof.
-   - Consequences: a false "first" claim; about $35 spent re-deriving two negative results that
-     had been published three weeks earlier; and a rank computation whose conclusion was already
-     a stated theorem.
+   - Consequences: a false "first" claim; and a capped attempt whose spec and first tier largely
+     retraced a published note without knowing it. The rank computation and the
+     product-character lemma are not in that note.
    - The novelty check that was run asked only "have the two labs formalized this?". The right
      question was "has anyone?".
 
@@ -239,8 +245,9 @@ Severity is about how much a reader could be misled, not about effort to fix.
   formalized three weeks earlier. Its statement and its proof are sound.
 - **Possibly new, and modest:** the transfer theorem from an arbitrary machine with a clause rate.
   It is not new mathematics, and the thread said so.
-- **Negatives that were already known:** the rank computation and the graded-family computation
-  are reproducible, but a published note had already proved both conclusions.
+- **Negatives, partly anticipated:** the graded-family analysis overlaps a note published three
+  weeks earlier. The rank computation does not; it is a reproducible data point on a question
+  that note explicitly leaves open.
 - **Distance to P vs NP:** unchanged, and the thread never suggested otherwise. That honesty is the
   thing I would least want a future session to lose.
 
@@ -292,8 +299,6 @@ These are outward-facing, so I have not done them.
   rate-limited, ECCC was not re-checked, and nothing was read in full.
 - **Cost:** about $10–15. **Risk:** none. **Value:** the survey is the part of this repository a
   reader is most likely to rely on, and it is currently known to be incomplete.
-- **Also cheap:** build the earlier Lean proof (defect 1) and compare its statement with ours
-  definition by definition. About $3.
 
 ### 6.4 The one research bet, which I do not recommend
 
@@ -306,9 +311,10 @@ These are outward-facing, so I have not done them.
     Pauli strings, the two costs are the support sizes of a function on F_2^{2m} and of its Walsh
     transform, and the crossing is the function (−1)^{x·z}. I derived this independently in this
     session and then found it already written up by a third party on 2026-10-30.
-  - That party has shown the construction cannot work at local dimension 2 or 4, and that
-    dimension 8 and above are not excluded. They also report a formal cost profile below 1/√2
-    with no known realization.
+  - That party reports that the construction cannot work at local dimension 2 or 4, that
+    dimension 8 and above are not excluded, and that a formal cost profile below 1/√2 exists with
+    no known realization. Its notes say they have had no independent proof review, and I did not
+    check them.
   - A subagent of this session is probing the smallest cases of that sub-problem by computer.
     Its result is in §8.
 - **Why I do not recommend it.**
@@ -328,11 +334,11 @@ These are outward-facing, so I have not done them.
 - **A direct proof of P ≠ NP or P = NP.** Unverifiable here, and it would break "make no mistakes".
 - **Carrying the VP ≠ VNP proof over to Boolean circuits.** The paper shows where it breaks, and
   nothing in this session changes that.
-- **More graded or vertex-algebra families.** Closed by the published note of 2026-10-31 and by
-  Stage 2.
+- **More graded or vertex-algebra families.** The published note of 2026-10-31 and Stage 2 cover
+  the natural ones between them, and the two escapes that both name have no known candidate.
 - **Brute-force search for small identities.** For the simple powering bound, counting alone
   rules out blocks of 3 bits or fewer (my derivation, not refereed), and at 4 bits each piece
-  already has 65,536 entries. The third party has excluded Pauli-type seeds at dimensions 2
+  already has 65,536 entries. The third party reports excluding Pauli-type seeds at dimensions 2
   and 4.
 - **Writing up that the paper's Appendix B improves the sum-of-squares bound** (P(N) ≤ N^{√2+o(1)}
   against the previous 1.62). True as far as I can check, but already posted publicly on
@@ -377,9 +383,10 @@ early to find out what it had missed.
 - **Whether upstream's Lean form of Definition 7 is faithful.** `piecesTransfer` takes
   `AppRunningTime.Exist ρ c` as its hypothesis. I did not compare that definition with the paper
   clause by clause; the first thread's spec says it matches.
-- **The earlier Lean proof by Tulsyan** was read, not built.
-- **The prior work in `lit/SURVEY.md` §6** was read in part only: abstracts and the opening
-  sections of three notes.
+- **The earlier Lean proof by Tulsyan** was built from five fetched files against our upstream
+  tree, not with that repository's own build setup. Its date is a git commit date.
+- **The prior work in `lit/SURVEY.md` §6** was read in part only, except the note of 2026-10-31,
+  which I read in full. I did not check that note's proofs or the third-party notes' claims.
 - **`vp-vnp`:** the comparator check was run for `eth` only.
 - **Majdoddin's proofs** of the results that the notes cite but did not re-derive.
 - **The referee's random searches and the full h = 9 rank run** were not re-run.
@@ -394,6 +401,16 @@ early to find out what it had missed.
 - **Running total for the project:** about $172 of $489.
 - **Google Cloud:** five small Gemini calls by the novelty subagent and a few megabytes of
   storage.
+
+### 7.5 A correction to my own first draft
+
+- My first draft said the note of 2026-10-31 had already proved the conclusion of the first
+  thread's rank computation. I had read only its abstract.
+- The advisor asked me to read the full text. The note's "rank-tight" statement is about the total
+  rank budget of all pieces, and the note says outright that pieces of rank far below the counted
+  dimensions are not covered.
+- The wording in this file, in `STATUS.md` and in the notes is the corrected one. The same
+  advisor pass made me build the earlier Lean proof instead of citing it unbuilt.
 
 ## 8. Result of the computational probe
 

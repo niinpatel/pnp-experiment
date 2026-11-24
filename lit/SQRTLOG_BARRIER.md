@@ -82,7 +82,7 @@ With β = 2 and ρ = 1/√2 this gives α' = ½. The script reproduces Thm A(a),
 
 ## Conjecture 2: computational check
 
-> **Prior work found in review (2026-11-24).** Naves de Brito, hexagon:2610.00692 (2026-10-31), states that Theorem B of [A] is rank-tight up to a polynomial factor. That is the content of this check, as a theorem, three weeks earlier. I read the abstract only. See `SURVEY.md` §6.
+> **Related prior work found in review (2026-11-24).** Naves de Brito, hexagon:2610.00692 (2026-10-31), analyses the same construction. Its "rank-tight up to a polynomial factor" is about the total rank budget of all pieces, and it says that pieces of rank far below the counted dimensions are "not covered". So it does not answer the question this check asks, and this check is not redundant. See `SURVEY.md` §6.
 
 **Verdict: negative.** The true flattening ranks of the App. B pieces fall short of the counted bounds of (54)–(55) only by a lower-order amount, and the shortfall vanishes relative to the bound as h grows. No ρ below 1/√2 shows up.
 
