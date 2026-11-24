@@ -1,0 +1,15 @@
+tensor square {1,d1,d2,d1d2} pieces [1056, 284, 412, 15] dims [4, 2, 2, 0] coefs ['1', '-2', '-2', '4']
+   t=2: types 10, with cancellation 0;  max cost true 9.908 bits (0.6193), union bound 9.908 bits (0.6193), gap 0.000 bits
+   t=3: types 20, with cancellation 0;  max cost true 16.350 bits (0.6812), union bound 16.350 bits (0.6812), gap 0.000 bits
+   t=4: types 35, with cancellation 0;  max cost true 23.560 bits (0.7363), union bound 23.560 bits (0.7363), gap 0.000 bits
+   t=5: types 56, with cancellation 0;  max cost true 29.680 bits (0.7420), union bound 29.680 bits (0.7420), gap 0.000 bits
+(0,2,2,4) with cancellation pieces [1, 683, 789, 1059] dims [0, 2, 2, 4] coefs ['4', '2', '-2', '1']
+   t=2: types 10, with cancellation 2;  max cost true 9.908 bits (0.6193), union bound 9.908 bits (0.6193), gap 0.000 bits
+   t=3: types 20, with cancellation 6;  max cost true 16.422 bits (0.6842), union bound 16.515 bits (0.6881), gap 0.093 bits
+   t=4: types 35, with cancellation 17;  max cost true 23.728 bits (0.7415), union bound 23.820 bits (0.7444), gap 0.091 bits
+   t=5: types 56, with cancellation 30;  max cost true 29.977 bits (0.7494), union bound 30.051 bits (0.7513), gap 0.075 bits
+(0,3,3,3) pieces [0, 821, 838, 855] dims [0, 3, 3, 3] coefs ['4', '-1', '-1', '-1']
+   t=2: types 10, with cancellation 3;  max cost true 9.814 bits (0.6134), union bound 9.814 bits (0.6134), gap 0.000 bits
+   t=3: types 20, with cancellation 10;  max cost true 16.537 bits (0.6890), union bound 16.672 bits (0.6947), gap 0.135 bits
+   t=4: types 35, with cancellation 22;  max cost true 23.986 bits (0.7496), union bound 24.162 bits (0.7551), gap 0.176 bits
+   t=5: types 56, with cancellation 40;  max cost true 30.280 bits (0.7570), union bound 30.464 bits (0.7616), gap 0.184 bits

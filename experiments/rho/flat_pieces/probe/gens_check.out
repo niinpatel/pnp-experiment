@@ -1,0 +1,3 @@
+generators: 35 (28 reflections, 6 twisted translations, 1 Fourier); non-permutations: 0
+images of 176 known 8-solutions under each generator: 6160 tested, rank!=8 (f not in span mod p): 0; exact rational solve OK on sample: 105/105
+mp+md constant on every orbit: True ; (mp,md) on each orbit equals the representative's pair up to swap: True

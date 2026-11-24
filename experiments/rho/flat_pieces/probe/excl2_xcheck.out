@@ -1,0 +1,2 @@
+rep 52288: candidates 2239; C nodes depth2 2239 depth3 376487; numpy depth2 2239 depth3 376487; match True; C nodes all [0, 0, 2239, 376487, 4499769, 4217132, 0] leaves 0
+rep 52289: candidates 4479; C nodes depth2 4479 depth3 1410697; numpy depth2 4479 depth3 1410697; match True; C nodes all [0, 0, 4479, 1410697, 32392661, 28518272, 0] leaves 0

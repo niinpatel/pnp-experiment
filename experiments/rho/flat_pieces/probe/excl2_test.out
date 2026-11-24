@@ -1,0 +1,2 @@
+positive control: known 8-solutions returned by DFS (r=8, cap=4): 60 / 60
+brute force == DFS (count of leaves passing W-filter and cover) on 12 sub-dictionaries: True  total leaves compared: 0

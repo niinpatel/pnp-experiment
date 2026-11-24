@@ -1,0 +1,7 @@
+number of flat pieces on F_2^4 up to scalar: 1072  by dim: {0: 16, 1: 240, 2: 560, 3: 240, 4: 16}
+r=1 solutions: 0
+pairs: 574056  pairs with f in span: 0
+triples examined: 204746640 (= C(1072,3) = 204746640 )  dependent triples (covered by pair check): 18880  independent triples with f in span: 0  time 15.9s
+self-test: det Gram(g1,g5,g900,g1+2g5-g900) = 0  det Gram(g1,g5,g900,f) = 97
+4-piece representation coefficients (exact): [Fraction(1, 1), Fraction(-2, 1), Fraction(-2, 1), Fraction(4, 1)]
+N(2) = 4 CONFIRMED

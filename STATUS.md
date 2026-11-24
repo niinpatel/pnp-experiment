@@ -104,6 +104,6 @@ Any document here that reads like a resolution claim should be treated as a bug.
 - **First session, corrected (review):** **$84.58**, not "about $100". The old `tools/spend.py`
   double-counted and left out advisor calls; the rewritten one gives $50.76 at the console
   checkpoint. Details in `REVIEW.md` §4.
-- **Review session:** about $87–95 (see `REVIEW.md` §7.4), which brings the project total to about
-  $175–180 of $489. Run `python3 tools/spend.py` for the current figure.
+- **Review session:** about $112 (see `REVIEW.md` §7.4), which brings the project total to about
+  $196 of $489 and leaves about $290. Run `python3 tools/spend.py` for the current figure.
 - **Google Cloud:** 2 small Gemini calls, about 10 MB of GCS storage, and a 250 GB persistent disk added by the user.

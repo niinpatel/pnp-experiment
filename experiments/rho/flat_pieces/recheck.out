@@ -1,0 +1,12 @@
+b=2: number of flat pieces up to scalar: 1072 (subagent and orchestrator: 1072)
+b=2: single pieces spanning f: 0; pairs: 0; triples passing both cover conditions: 300800, of which spanning f: 0
+b=2: certificate 1 - 2[a1=b1=1] - 2[a2=b2=1] + 4[all four = 1] equals f: True
+=> N(2) = 4
+b=3: plus-type hyperbolic planes: 280 (expected 280)
+b=3: affine subspaces W checked: 1120 (expected 1120); failures of the restriction lemma: 0
+b=3: flat pieces up to scalar by dimension: {0: 64, 1: 4032, 2: 41664, 3: 89280, 4: 41664, 5: 4032, 6: 64} total 180800 (subagent: 180,800)
+b=3: 8-piece tensor certificate prod_i (1 - 2[a_i=b_i=1]) equals f: True
+
+real	0m6.655s
+user	0m8.723s
+sys	0m0.016s

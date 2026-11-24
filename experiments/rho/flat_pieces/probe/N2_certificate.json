@@ -1,0 +1,48 @@
+{
+ "n": 4,
+ "convention": "x=(a,b), a=high 2 bits, b=low 2 bits; piece = coef * (-1)^{popcount(l&x)} * 1[x in offset+span(basis)]; f=(-1)^{a.b}",
+ "pieces": [
+  {
+   "basis": [
+    8,
+    4,
+    2,
+    1
+   ],
+   "offset": 0,
+   "l": 0,
+   "coef": "1"
+  },
+  {
+   "basis": [
+    4,
+    1
+   ],
+   "offset": 10,
+   "l": 0,
+   "coef": "-2"
+  },
+  {
+   "basis": [
+    8,
+    2
+   ],
+   "offset": 5,
+   "l": 0,
+   "coef": "-2"
+  },
+  {
+   "basis": [],
+   "offset": 15,
+   "l": 0,
+   "coef": "4"
+  }
+ ],
+ "exhaustive": {
+  "num_flat_pieces": 1072,
+  "pairs_with_f_in_span": 0,
+  "triples": 204746640,
+  "dependent_triples": 18880,
+  "independent_triples_with_f_in_span": 0
+ }
+}

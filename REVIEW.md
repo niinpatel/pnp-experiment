@@ -254,7 +254,7 @@ Severity is about how much a reader could be misled, not about effort to fix.
 ## 6. Follow-ups
 
 Each candidate is judged on four things: is the result machine-checkable or an exact finite
-certificate; what it costs against about $310 and the deadline of Nov 28, 11:00 IST; whether
+certificate; what it costs against about $290 and the deadline of Nov 28, 11:00 IST; whether
 someone has already done it; and how far it is from P vs NP. On the last point the answer is the
 same for all of them: none moves P vs NP.
 
@@ -315,11 +315,11 @@ These are outward-facing, so I have not done them.
     dimension 8 and above are not excluded, and that a formal cost profile below 1/√2 exists with
     no known realization. Its notes say they have had no independent proof review, and I did not
     check them.
-  - A subagent of this session is probing the smallest cases of that sub-problem by computer.
-    Its result is in §8.
+  - A subagent of this session probed the smallest cases of that sub-problem by computer. The
+    result is negative as far as it goes (§8).
 - **Why I do not recommend it.**
   - Others have worked on exactly this for three and a half weeks, with far more effort than
-    $310 buys, and have not succeeded.
+    $290 buys, and have not succeeded.
   - The lower-bound side is tied to a known hard problem. Any proof that ρ must exceed 1/2 would
     answer a question of Naslund on sum-of-squares-type identities, so a clean negative answer is
     not within reach either.
@@ -369,7 +369,8 @@ early to find out what it had missed.
 
 - **In the repository (branch `main`):** this file; the corrected notes; the five new Lean files in
   `experiments/enp-superlinear/lean/proof/superlinear/Superlinear/`;
-  `experiments/enp-superlinear/comparator/`; the fresh `verify-output.log`.
+  `experiments/enp-superlinear/comparator/`; `experiments/enp-superlinear/prior-check/`;
+  `experiments/rho/flat_pieces/`; the fresh `verify-output.log`.
 - **On the data disk, not in the repository:**
   - `/mnt/data/papers/`: the papers the notes cite by page (also uploaded to the bucket).
   - `/mnt/data/review/`: raw audit reports, the comparator tools and logs, the Lean probe tree,
@@ -393,12 +394,16 @@ early to find out what it had missed.
 
 ### 7.4 Spend
 
-- **This session: $86.92 when this section was written**, measured with the corrected tool. The
-  final figure is in the session's closing report; `python3 tools/spend.py` prints the current
-  total.
-- **That is more than the $60–70 I planned.** Each subagent consulted the advisor once or twice,
-  and each such call re-sends its whole transcript. Those calls cost about $15 in total.
-- **Running total for the project:** about $172 of $489.
+- **This session: about $112**, measured with the corrected tool just before the last commit
+  ($195.77 for the project, less $84.58 for the first thread). `python3 tools/spend.py` prints the
+  current total.
+- **That is nearly double the $60–70 I planned, and more than the first thread cost.** Where it
+  went:
+  - my own turns at maximum effort on a long transcript, about $45;
+  - the eight subagents, about $41, of which the computational probe was the largest;
+  - advisor calls, about $25: two of mine, and one or two by each subagent, which I had not
+    budgeted for. Each call re-sends a whole transcript uncached.
+- **Running total for the project:** about $196 of $489, leaving about $290.
 - **Google Cloud:** five small Gemini calls by the novelty subagent and a few megabytes of
   storage.
 
@@ -414,4 +419,43 @@ early to find out what it had missed.
 
 ## 8. Result of the computational probe
 
-Still running when this was written. This section will be replaced by its result.
+**What was probed.** The simplest version of the sub-problem in §6.4. A *flat piece* is a piece
+whose cost is exactly at the uncertainty-principle minimum: a character times the indicator of an
+affine subspace of F_2^{2b}. Let N(b) be the least number of flat pieces whose combination is the
+crossing's function (−1)^{a·b} on b bit-pairs. Tensor products give N(b) ≤ 2^b. Beating 1/√2 by
+powering such an identity block by block needs N(b) below about 2^{0.414·b}.
+
+**Established exactly.**
+- **The reduction itself** (Agent; exact integer ranks on 2,034 operators at t = 1 and 2): for
+  operators diagonal in the Bell basis, the row rank is the support size of a function on F_2^{2t}
+  and the column rank is the support size of its Walsh transform.
+- **N(2) = 4** (Re-run by me with independent code, `experiments/rho/flat_pieces/recheck.py`).
+  There are 1072 flat pieces. No one, two or three of them span the target: of the 300,800 triples
+  that pass two necessary covering conditions, none does. An explicit four-piece identity does.
+- **N(3) ≥ 7** (Agent; computer-assisted, not re-run by me). An exhaustive search over the
+  180,800 flat pieces, about 8 billion search nodes, finds no identity with six or fewer pieces.
+  - The search prunes with a lemma: each of 1120 affine subspaces must be met by at least
+    N(2) = 4 pieces. I re-checked that lemma exactly on all 1120, and the dictionary size.
+  - I did not re-run the search. The subagent validated its code against brute force on small
+    sub-dictionaries and on known eight-piece identities.
+
+**Not found, which is weaker than excluded.**
+- **Seven pieces at b = 3:** none in 153,756 restarts of a local search. The same search finds
+  eight-piece identities in about 90% of restarts.
+- **Fifteen pieces at b = 4:** none in 76 restarts. This is weak: sixteen-piece identities were
+  found in only 5 of 8 restarts.
+- **Any powering scheme better than the known 0.896:** none among all 4,705 minimal identities at
+  b = 2 (exhaustive), or among a few thousand sampled larger ones. The exponent used here is the
+  subagent's own upper-bound formula, checked against true ranks only for the known scheme.
+
+**Reading.**
+- Up to b = 4 there is no sign of the saving this route needs. The data fit N(b) = 2^b, and an
+  exact pattern (r flat pieces leave squared distance 4^b − r·2^b), but nothing beyond the three
+  items above is proved.
+- The probe covers flat pieces grouped by type. The third party's open case, local dimension 8
+  with arbitrary recombination of coefficients, is wider and is not settled by this.
+- It gives no reason to change the recommendation in §6.4.
+
+**Files.** `experiments/rho/flat_pieces/`: my re-check and its output, the subagent's report
+(`PROBE_REPORT.md`) and its scripts (`probe/`). The subagent's large data files stayed in
+`/mnt/data/review/abelian/`.

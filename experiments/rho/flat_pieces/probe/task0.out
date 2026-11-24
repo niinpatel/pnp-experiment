@@ -1,0 +1,12 @@
+t=1: 1350 operators tested, all four identities hold: True; sample (rowrank, colrank, |supp g|, |supp ghat|): [(2, 2, 2, 2), (3, 4, 3, 4), (1, 4, 1, 4), (2, 2, 2, 2), (2, 2, 2, 2), (4, 1, 4, 1)]
+t=2: 684 operators tested, all four identities hold: True; sample (rowrank, colrank, |supp g|, |supp ghat|): [(8, 2, 8, 2), (4, 4, 4, 4), (16, 1, 16, 1), (16, 16, 16, 16), (14, 10, 14, 10), (1, 16, 1, 16)]
+single-bit identity R + C = crossing: OK; ranks row/col: R 4 1  C 1 4
+t=1: sum A_i = crossing OK; (i, rowrank, colrank, predicted row, predicted col, (c_row+c_col)/4t): [(0, 4, 1, 4, 1, 0.5), (1, 1, 4, 1, 4, 0.5)]
+t=2: sum A_i = crossing OK; (i, rowrank, colrank, predicted row, predicted col, (c_row+c_col)/4t): [(0, 16, 1, 16, 1, 0.5), (1, 7, 7, 7, 7, 0.7018), (2, 1, 16, 1, 16, 0.5)]
+t=3: sum A_i = crossing OK; (i, rowrank, colrank, predicted row, predicted col, (c_row+c_col)/4t): [(0, 64, 1, 64, 1, 0.5), (1, 37, 10, 37, 10, 0.7109), (2, 10, 37, 10, 37, 0.7109), (3, 1, 64, 1, 64, 0.5)]
+t=4: sum A_i = crossing OK; (i, rowrank, colrank, predicted row, predicted col, (c_row+c_col)/4t): [(0, 256, 1, 256, 1, 0.5), (1, 175, 13, 175, 13, 0.697), (2, 67, 67, 67, 67, 0.7583), (3, 13, 175, 13, 175, 0.697), (4, 1, 256, 1, 256, 0.5)]
+scheme ranks match sum_{z>=i} C(t,z)3^(t-z) and sum_{z<=i} C(t,z)3^z: True
+t 40 max_i (log2 rowrank + log2 colrank)/(4t) = 0.86537  log2(12)/4 = 0.89624
+t 400 max_i (log2 rowrank + log2 colrank)/(4t) = 0.89115  log2(12)/4 = 0.89624
+t 2000 max_i (log2 rowrank + log2 colrank)/(4t) = 0.89493  log2(12)/4 = 0.89624
+REDUCTION OK
