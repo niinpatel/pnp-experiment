@@ -1,0 +1,11 @@
+=== eth start Tue Nov 24 08:09:02 UTC 2026
+leanprover/lean4:v4.33.1
+=== build exit 0
+'MainResults.ethIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainResults.mainTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+=== axioms exit 0 end Tue Nov 24 08:13:35 UTC 2026
+Build completed successfully (9768 jobs).
+=== build exit 0
+'MainResults.ethIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MainResults.mainTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
+=== axioms exit 0 end Tue Nov 24 08:13:35 UTC 2026
