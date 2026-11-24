@@ -3,6 +3,7 @@
 > - The labels (S1)–(S6) and (F1)/(F2) are this note's own. [M] uses the same labels for other things; only (L1)–(L5) are [M]'s.
 > - "Re-checked line by line" covers three results of [M]: Prop 4.6/4.8, Thm 4.13 and Prop 4.24. The others cited here were not re-derived.
 > - Prior work this note did not know: Naves de Brito, hexagon:2610.00692 (2026-10-31), proves the power-profile floor max(2^{α−1}, 2^{−α}) ≥ 1/√2 for graded families of the App.-B shape, and its Remark 3.2 names the same two escapes as classes 1 and 2 of §5. See `SURVEY.md` §6.
+> - Further work by others found in the sweep of 2026-11-24 (`SURVEY.md` §6.3): a barrier note for code-based graded spaces (Fradj), barriers for non-product decompositions (Tulsyan), a fermionic construction with the same exponent (Khoruzhii), and a conditional claim that 1/√2 is optimal (Liu).
 
 # RHO_SPEC: what "ρ < 1/√2" means, what excludes it, what is left (Stage 1)
 

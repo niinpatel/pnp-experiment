@@ -27,9 +27,9 @@ Labels used below:
 - **Spend was misreported.** The first thread cost $84.58, not "about $100" (§4).
 - **Process:** verification discipline was excellent; the literature search was too narrow; and the
   thread stopped twice with most of the budget unused (§5).
-- **Follow-ups:** the cheap, certain ones are now done (§6.1). What is left is a decision for you
-  about publishing, one inexpensive literature sweep, and one long-shot research bet that I do not
-  recommend (§6.2–6.4).
+- **Follow-ups:** the cheap, certain ones are done (§6.1), and so is the literature sweep (§6.3,
+  added the same evening). What is left is a decision for you about publishing (§6.2) and one
+  long-shot research bet that I do not recommend (§6.4).
 
 ## 2. What I re-verified
 
@@ -115,7 +115,7 @@ Severity is about how much a reader could be misled, not about effort to fix.
 | # | Where | Defect | Severity | Fixed here? |
 |---|---|---|---|---|
 | 1 | STATUS, RESULT, SURVEY, IMPLICATIONS | "First machine-checked superlinear circuit lower bound for E^NP." False: a public Lean proof of the same statement dates from 2026-11-04. | High | Yes |
-| 2 | SURVEY | The search covered arXiv, ECCC and the two labs' repositories, and missed the Hexagon preprint server, third-party GitHub repositories and issue threads, and the Palomar registry. Missed items include the earlier Lean proof (defect 1) and a note of 2026-10-31 that analyses the same family of constructions as RHO_SPEC and Stage 2 and names the same two escapes. | High | Partly: addendum SURVEY §6 |
+| 2 | SURVEY | The search covered arXiv, ECCC and the two labs' repositories, and missed the Hexagon preprint server, third-party GitHub repositories and issue threads, and the Palomar registry. Missed items include the earlier Lean proof (defect 1) and a note of 2026-10-31 that analyses the same family of constructions as RHO_SPEC and Stage 2 and names the same two escapes. | High | Yes, by the sweep of §6.3, except ECCC after TR26-265 |
 | 3 | STATUS | Spend "about $100"; the tool double-counted and omitted advisor calls. | Medium | Yes (§4) |
 | 4 | STATUS, IMPLICATIONS, closing summary | "A new pieces family would plug in" and give a machine-checked E^NP bound. Two Lean steps were missing, as RHO_SPEC §2 itself said. | Medium | Yes, by proving them (§6.1) |
 | 5 | RHO_SPEC | Wrote the theorem as "E^NP ⊄ i.o.-SIZE(…)", which denotes the stronger almost-everywhere bound. | Medium | Yes |
@@ -127,7 +127,7 @@ Severity is about how much a reader could be misled, not about effort to fix.
 | 11 | RHO_SPEC | "P(N) ≥ s ≥ N" cited the paper for a step it does not make, with a wrong page. The needed bound P(N) ≥ N has a two-line direct proof. | Low | Yes |
 | 12 | RHO_SPEC | Thm 4.12 quoted without "balanced, homogeneous"; Cor 4.19 quoted where Thm 4.18 is the general result; Prop 4.23 not cited; the note's own labels (S1)–(S6) collide with Majdoddin's. | Low | Yes |
 | 13 | SQRTLOG_BARRIER | Prop 4.24 described with fixed windows, and its unnumbered remarks presented as part of the proved proposition. "Fits all 55 cases" omitted that h = 8, 9 were only partly run. | Low | Yes |
-| 14 | SURVEY §5 | Dias–Lima's 10^32 is conditional on a constant C = 2; Majdoddin's 2^6000 holds for grid algorithms only. | Low | Yes |
+| 14 | SURVEY §5 (now §6.4) | Dias–Lima's 10^32 is conditional on a constant C = 2; Majdoddin's 2^6000 holds for grid algorithms only. | Low | Yes |
 | 15 | STATUS, memory | "Not merged into main": stale since you merged at 13:09 UTC. | Low | Yes |
 | 16 | Housekeeping | Committed verify log two lines behind the script; the papers cited by page lived in a temporary directory; the backup bundled one branch; two empty output files; three scripts hard-code `/mnt/data` paths; one check is unseeded. | Low | First three yes; the rest noted only |
 
@@ -281,24 +281,40 @@ same for all of them: none moves P vs NP.
 
 These are outward-facing, so I have not done them.
 
-- **Offer the transfer theorems upstream.** They are the part I could not find elsewhere. The
-  natural places are an issue or pull request on `anthropics/formal-math`, or on
-  `xennygrimmato/eth-hamiltonicity`, whose author already has the base theorem. Preparing a clean
-  patch and description would cost about $5–10. It needs your GitHub identity.
-- **Register on Palomar.** Not worth it now. Palomar requires Lean v4.35.0-rc2 or later, and the
-  whole upstream development is on v4.33.1, so this needs a port of a 9,768-job project. A
-  third party reports having done such a port by editing 47 of 809 files. I would estimate
-  $30–60, with a real chance of failure.
+- **Offer the transfer theorems upstream.** They are the part I could not find elsewhere, and the
+  sweep looked hard for them: 27 cloned repositories, Palomar, Hexagon and Lemmata
+  (`lit/SURVEY.md` §6.2). Tulsyan's own note says his module "is not parametric in the SAT time".
+  - The natural places are an issue or pull request on `anthropics/formal-math`, or on
+    `xennygrimmato/eth-hamiltonicity`, whose author already has the base theorem.
+  - Note that no maintainer has replied to any of the 54 issues and pull requests on
+    `anthropics/formal-math`.
+  - Preparing a clean patch and description would cost about $5–10.
+- **Register on Palomar.** Not worth it now, for two reasons.
+  - Palomar requires Lean v4.35.0-rc2 or later, and the upstream development is on v4.33.1. A
+    third party reports a port to v4.36.0-rc2 that changes 48 of 812 files.
+  - Palomar's policy forbids any project-specific source in the Challenge file's imports. Our
+    statements import upstream's statement files, so every definition would have to be written
+    out in one Challenge file of at most 1,000 lines.
 
-### 6.3 Worth doing if you want the record to be right: a proper literature sweep
+### 6.3 The literature sweep: done on the evening of 2026-11-24, at your request
 
-- **What:** a systematic pass over Hexagon, the GitHub issue threads and repositories around the
-  two ETH papers, and Palomar, reading the relevant items in full. Then rewrite `SURVEY.md` §0, §5
-  and §6 as one consistent account.
-- **Why:** the addendum I wrote comes from one targeted check. The arXiv date sweeps were
-  rate-limited, ECCC was not re-checked, and nothing was read in full.
-- **Cost:** about $10–15. **Risk:** none. **Value:** the survey is the part of this repository a
-  reader is most likely to rely on, and it is currently known to be incomplete.
+- **What was done:** five reader subagents covered Hexagon, GitHub, one repository of notes,
+  arXiv with Zenodo, and Palomar with expert commentary. I then opened the passages behind every
+  consequential sentence and rewrote `lit/SURVEY.md` §0, §5 and §6. The readers' raw reports are
+  in `lit/sweep/`.
+- **What it found that changes this review:**
+  - **Human examination.** OpenAI announced on 2026-10-26 that a group led by Impagliazzo, Paturi
+    and Ryan Williams would examine its proof. The group says its involvement "should not be
+    taken as certification" and has posted no verdict. No named expert has said they checked
+    either proof, and none has reported an error. The first survey had none of this.
+  - **The transfer theorems still look unclaimed** (§6.2).
+  - **The research bet has more company than I knew** (§6.4).
+  - **The sum-of-squares bound was kernel-checked by someone else on 2026-11-02,** five days before
+    the issue thread I cited (§6.5).
+  - **Two more venues the first survey never looked at:** Zenodo and the Lemmata repository.
+- **What it did not cover:** ECCC after TR26-265, which blocked automated access; social media;
+  and the correctness of anything. The full list is in `lit/SURVEY.md` §5.
+- **Cost:** see §7.6. It was well above the $10–15 I first estimated.
 
 ### 6.4 The one research bet, which I do not recommend
 
@@ -311,23 +327,38 @@ These are outward-facing, so I have not done them.
     Pauli strings, the two costs are the support sizes of a function on F_2^{2m} and of its Walsh
     transform, and the crossing is the function (−1)^{x·z}. I derived this independently in this
     session and then found it already written up by a third party on 2026-10-30.
-  - That party reports that the construction cannot work at local dimension 2 or 4, that
-    dimension 8 and above are not excluded, and that a formal cost profile below 1/√2 exists with
-    no known realization. Its notes say they have had no independent proof review, and I did not
-    check them.
+  - That party reports that the construction cannot work at local dimension 2 or 4 and that
+    dimension 8 and above are not excluded. Its notes say they have had no independent proof
+    review, and I did not check them.
+  - Corrected after the sweep: a "formal cost profile below 1/√2" that I cited from that
+    repository is excluded by its own later notes. It now reports that its basic criterion cannot
+    help on any alphabet of at most 12 letters, and it reports no construction below 1/√2. Its
+    work on crossings stopped around 2026-11-03.
   - A subagent of this session probed the smallest cases of that sub-problem by computer. The
     result is negative as far as it goes (§8).
+- **What the sweep added** (`lit/SURVEY.md` §6.3, with sources).
+  - **A second group has attacked the rate and paused.** Tulsyan's repository reports a floor of
+    1/2 for every level with two merges, names three or more merges as the only door to beating
+    1/log, and paused that work on 2026-11-06. On 2026-11-24 it added a list of eight routes to a
+    faster 3-SAT, as ideas only.
+  - **A second construction reaches the same exponent.** Khoruzhii's Lean-checked entry of
+    2026-11-02 derives it from a fermionic model.
+  - **Two more barrier notes** for graded constructions (Fradj) and for decompositions that are
+    not products (Tulsyan: ρ ≥ 3/8 on paper).
+  - **A conditional claim that 1/√2 cannot be beaten,** in an unreviewed AI-written preprint of
+    2026-11-24 (Liu). If it holds, and if its hypothesis holds, the bet is lost in advance.
 - **Why I do not recommend it.**
-  - Others have worked on exactly this for three and a half weeks, with far more effort than
-    $290 buys, and have not succeeded.
+  - At least two groups have worked on exactly this for weeks, with far more effort than the
+    remaining budget buys, and have not succeeded.
   - The lower-bound side is tied to a known hard problem. Any proof that ρ must exceed 1/2 would
     answer a question of Naslund on sum-of-squares-type identities, so a clean negative answer is
     not within reach either.
   - Even a success would improve an algorithm's exponent. It would then need thousands of lines
     of Lean to reach a machine-checked statement (the existing family took about 4,600).
-- **If you want to buy the ticket anyway:** cap it at $100. Start by reading that repository's
-  crossing notes in full and reproducing its dimension-8 computation. Only then search, and
-  accept only an exact certificate.
+- **If you want to buy the ticket anyway:** cap it, and read before searching. In order:
+  Liu's conditional lower bound (hexagon:2611.00994), since it decides whether there is anything
+  to find; Tulsyan's `research/engine3-STATUS.md` and his list of eight routes; then the digest in
+  `lit/sweep/crossing.md`. Accept only an exact certificate.
 
 ### 6.5 Non-starters
 
@@ -341,14 +372,14 @@ These are outward-facing, so I have not done them.
   already has 65,536 entries. The third party reports excluding Pauli-type seeds at dimensions 2
   and 4.
 - **Writing up that the paper's Appendix B improves the sum-of-squares bound** (P(N) ≤ N^{√2+o(1)}
-  against the previous 1.62). True as far as I can check, but already posted publicly on
-  2026-11-07 (anthropics/formal-math issue #45).
+  against the previous 1.62). Already done by others: kernel-checked in Lean by K. Khoruzhii on
+  2026-11-02 (Lemmata 2611.00001), and posted again on 2026-11-07 (formal-math issue #45).
 
 ### 6.6 My recommendation
 
-Do §6.3 if you want the survey fixed, decide §6.2, and otherwise stop. The remaining budget cannot
-buy progress on P vs NP, and the first thread was right about that even though it stopped too
-early to find out what it had missed.
+Decide §6.2, and otherwise stop. The remaining budget cannot buy progress on P vs NP, and the
+first thread was right about that even though it stopped too early to find out what it had missed.
+If you do go on with §6.4, the sweep's reading list above is the place to start.
 
 ## 7. This session
 
@@ -370,12 +401,15 @@ early to find out what it had missed.
 - **In the repository (branch `main`):** this file; the corrected notes; the five new Lean files in
   `experiments/enp-superlinear/lean/proof/superlinear/Superlinear/`;
   `experiments/enp-superlinear/comparator/`; `experiments/enp-superlinear/prior-check/`;
-  `experiments/rho/flat_pieces/`; the fresh `verify-output.log`.
+  `experiments/rho/flat_pieces/`; the fresh `verify-output.log`; and, from the sweep, the
+  rewritten `lit/SURVEY.md` and the readers' raw reports in `lit/sweep/`.
 - **On the data disk, not in the repository:**
   - `/mnt/data/papers/`: the papers the notes cite by page (also uploaded to the bucket).
   - `/mnt/data/review/`: raw audit reports, the comparator tools and logs, the Lean probe tree,
     the computational probe, and copies of the third-party files quoted in `lit/SURVEY.md` §6.
   - `/mnt/data/verify-review/` and `/mnt/data/verify-review2/`: the two clean-room build trees.
+  - `/mnt/data/review/sweep/`: everything the sweep's readers downloaded or cloned, including 27
+    repositories and the full texts quoted in `lit/SURVEY.md`.
 - **In the bucket:** `pnp-work.bundle` (all branches), `papers-2026-11-24.tar.gz`, and the pinned
   upstream tarball.
 
@@ -383,11 +417,13 @@ early to find out what it had missed.
 
 - **Whether upstream's Lean form of Definition 7 is faithful.** `piecesTransfer` takes
   `AppRunningTime.Exist ρ c` as its hypothesis. I did not compare that definition with the paper
-  clause by clause; the first thread's spec says it matches.
+  clause by clause; the first thread's spec says it matches. One outside author (Ben Daniel,
+  arXiv:2611.01884) writes that its time clause "is formalized only in a weak form".
 - **The earlier Lean proof by Tulsyan** was built from five fetched files against our upstream
   tree, not with that repository's own build setup. Its date is a git commit date.
-- **The prior work in `lit/SURVEY.md` §6** was read in part only, except the note of 2026-10-31,
-  which I read in full. I did not check that note's proofs or the third-party notes' claims.
+- **The work of others in `lit/SURVEY.md` §6** was read in part only, except the note of
+  2026-10-31, which I read in full. Each line there says what was read and by whom. I did not
+  check any of its proofs or the third-party notes' claims.
 - **`vp-vnp`:** the comparator check was run for `eth` only.
 - **Majdoddin's proofs** of the results that the notes cite but did not re-derive.
 - **The referee's random searches and the full h = 9 rank run** were not re-run.
@@ -416,6 +452,22 @@ early to find out what it had missed.
   dimensions are not covered.
 - The wording in this file, in `STATUS.md` and in the notes is the corrected one. The same
   advisor pass made me build the earlier Lean proof instead of citing it unbuilt.
+
+### 7.6 The literature sweep (added on the evening of 2026-11-24)
+
+- **What ran:** five reader subagents on the cheaper Opus model, told not to consult the advisor;
+  then my own verification of their consequential claims from the saved texts; then the rewrite.
+- **Cost: about $65,** against the $25–35 I told you at the start and the $10–15 I first
+  estimated. Where it went:
+  - the five readers, about $17;
+  - two advisor checks, about $11;
+  - my own turns, about $37. Most of that is one effect I had not allowed for: each time I woke
+    up to a reader's result after more than five minutes, the whole of this long transcript had
+    to be re-read at full price, about $5 a time.
+- **Running total for the project** after the sweep: about $262 of $489, leaving about $227. The
+  exact figure is in the closing message; `python3 tools/spend.py` prints the current total.
+- **Lesson for a future session:** start a fresh session for a new task instead of continuing a
+  long one.
 
 ## 8. Result of the computational probe
 

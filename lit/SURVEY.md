@@ -1,52 +1,97 @@
 # Literature survey: P vs NP as of 2026-11-24
 
+**History of this file.** Written by the first session on the morning of 2026-11-24 from arXiv, ECCC
+and the two labs' repositories. Corrected by the review session the same day. Sections 0, 5 and 6
+were rewritten on 2026-11-24 (evening, UTC) after a sweep of the venues the first pass had missed:
+the Hexagon preprint server, third-party GitHub repositories and issue threads, the Palomar
+registry, Zenodo, the Lemmata repository, and expert commentary. Section 5 says how the sweep was
+done and what it did not cover.
+
 How claims are labelled:
-- **[V-primary]** means I read the primary source myself: the paper PDF, the repository statement file, or the ECCC/arXiv abstract page.
-- **[V-listing]** means the title and authors are confirmed in the ECCC 2026 index, but I have not read the paper.
-- **[secondary]** means the claim comes only from news, a blog, or a Gemini search summary. Such claims are unverified.
+- **[read]** means I opened the primary text myself and read the passage I quote or summarise.
+  "Full" is said only where I read the whole document.
+- **[agent]** means a reader subagent of the sweep fetched the primary text and quoted it to me.
+  The saved copies are under `/mnt/data/review/sweep/`. I did not open the text myself.
+- **[V-primary]**, **[V-listing]** and **[secondary]** are the first session's labels and remain in
+  sections 1 to 4: read in the primary source; title and authors seen in an index; and news, blog
+  or search summary only.
+- **[lead]** means a search summary only. A lead is not a fact.
+
+Nothing below was checked for mathematical correctness unless a line says so.
 
 ## 0. Headline
 
-P vs NP is **open** as of 2026-11-24. I found no claimed resolution that any expert has accepted. Several arXiv and Zenodo preprints claim a resolution, for example arXiv:2512.11820, arXiv:2508.13166 and a Zenodo record. None has any sign of expert endorsement [secondary, search results].
+P vs NP is **open**. No claimed resolution since 2026-10-01 has drawn expert attention [agent]. The
+Clay Mathematics Institute's news page has nothing on it [agent]. Several arXiv and Zenodo
+preprints claim a resolution (for example arXiv:2512.11820, arXiv:2508.13166, and a number of
+Zenodo records); none shows any sign of expert endorsement [secondary; agent for Zenodo].
 
-The two strongest late-2026 results near the problem were both found by AI models, and both explicitly say they do *not* settle P vs NP:
+The two strongest results near the problem were both found by AI models in late 2026. Both say
+explicitly that they do not settle P vs NP.
 
-1. **VP ≠ VNP over every field**, by Claude (Anthropic), posted 2026-11-23. [V-primary for content: I read anthropics/formal-math/vp-vnp README, Statement.lean and paper.pdf §1–2. The 11-23 date is from news coverage.]
-   - **Result:** every arithmetic circuit for PERM_m (char ≠ 2) or HC_m (any field) has more than m^{c (log m)^{1/3}} gates. The bound also holds for border (approximate) complexity.
-   - **Verification status:** per its README, formalized in Lean 4 / Mathlib with the standard axioms only and re-checked by the nanoda kernel. I **rebuilt it**: the standard axioms only (experiments/lean-rebuild/). *No human mathematician has checked it*, according to the authors.
-   - **Technique:** spectral points (Strassen's asymptotic spectrum; existence comes from Zorn's lemma, so they are non-explicit). The proof splits into a "flat" case and a "contracting" case. The contracting case ends in a diagonalization against "accelerators".
-   - **Why it does not reach Boolean circuits (paper §2.5):** two steps look at the *formal polynomial* at each gate. One is the block-multilinear part (lem_balanced); the other is the low-degree part (lem_lowdeg). A Boolean circuit only needs to agree on {0,1}, so it may compute HC + Σ(x_i² − x_i)h_i, whose parts are unrelated.
-   - **Barriers:** the authors have *not* analysed relativization or algebrization for their proof.
-2. **ETH is false.** Two papers, posted within a day of each other.
-   - **Anthropic** [V-primary: formal-math/eth, paper.pdf]: Claude, "A 2^{o(n)} Time Algorithm for 3-SAT", 2026-10-26.
-     - **Main theorem:** #k-SAT runs in time 2^{O(min{k² n log log n/√log n, k m/√log m})}. Per its README, machine-checked in Lean against Mathlib's Turing.FinTM2 model. I **rebuilt it**: the standard axioms only.
-     - **Technique:** contracting tensor networks on the complete graph K_K, after writing each crossing of two edges as a signed sum of cheaper "pieces". Three versions exist and should not be mixed up (corrected in review, 2026-11-24; the sentence first written here fused the first two):
-       - the README's condensed sketch: a one-bit identity (SWAP = I − 2·singlet) and the recursion e(9K^16) ≤ 0.9·e(K) + O(1/K);
-       - the paper's main text: the eight-square identity, with factor 11/12;
-       - the stated rate 2^{O(m/√log m)}: Theorem A with the Appendix B pieces (factor 1/√2, K squared per level).
-     - **Practicality:** none. For m = 5n clauses there is no improvement over 2^n unless n > 10^{10000}. The bound in n alone gives none unless n > 10^{10^8}. I re-read these figures with `pdftotext -raw`.
-     - **Consequences stated in §7:** SETH, NSETH and #ETH are false; Independent Set, Clique, Vertex Cover, Dominating Set and k-Coloring run in 2^{δn}; **E^NP has no linear-size circuits** (via Williams [Wil13, Thm 6.1] and Jahanjou–Miles–Viola [JMV15]).
-   - **OpenAI** ("The Exponential Time Hypothesis is False", 2026-10-25) [V-primary: openai/math preprints/…/paper.pdf, plus lean/docs/378.md]. Its Corollary 1.4 gives **E^NP ⊄ SIZE(c·n·√log n)** infinitely often, over fan-in-2 gates, on paper only. Its Lean development covers only the counting algorithm, at rate 2^{O_k(n(log log n)²/√log n)}.
-   - **Follow-up, Wu & Wang, arXiv:2611.02560** [secondary: a paraphrase of the abstract page by the fetch tool]:
-     - E^NP needs Ω(m√log m / log log m) gates over unbounded AND/OR with binary XOR.
-     - It needs Ω(m√log m) gates over binary bases with a linear budget of XOR or symmetric gates.
-   - **Other follow-ups** [secondary, titles only]:
-     - arXiv:2611.00517, "Limits and constants of OpenAI's claimed ETH refutation".
-     - arXiv:2610.41622, crossover points.
-     - arXiv:2611.01774, monotone local search.
-     - arXiv:2611.06231, "Exhaustive search is hard to beat in constant depth for Hyperclique and OV". Orthogonal Vectors (OV) is **not** refuted.
+1. **VP ≠ VNP over every field** (Claude, Anthropic; posted 2026-11-23; `anthropics/formal-math`,
+   folder `vp-vnp`; hexagon:2611.00954).
+   - **Result** [read: Theorem 1.1 in the Hexagon text]: there is an absolute constant c > 0 such
+     that every arithmetic circuit for HC_m, and for PERM_m in characteristic other than 2, has
+     more than m^{c (log m)^{1/3}} gates. The bound extends to border complexity.
+   - **Verification:** formalized in Lean 4 with the standard axioms only; rebuilt in the first
+     session (`experiments/lean-rebuild/`). The paper says: "No human mathematician has checked the
+     proofs" [read].
+   - **Technique** [V-primary: paper §1–2]: spectral points (Strassen's asymptotic spectrum; their
+     existence comes from Zorn's lemma). The proof splits into a "flat" case and a "contracting"
+     case.
+   - **Why it does not reach Boolean circuits** [V-primary: paper §2.5]: two steps look at the
+     formal polynomial at each gate. A Boolean circuit only has to agree on {0,1}.
+   - **Barriers** [read]: "We have not analysed how it relates to relativization and algebrization."
+   - **OpenAI's parallel manuscript,** "VP and VNP are different" (family 379 of `openai/math`).
+     OpenAI's changelog says it "was obtained on November 6, 2026" and added on 2026-11-23 [read].
+     Anthropic's paper does not mention it [agent].
+   - **Reaction** [read: Fortnow's post of 2026-11-24]: "This is, for now, the most important
+     computational complexity result of the year"; "VP ≠ VNP does not imply this Boolean
+     separation"; "settling the P v NP question remains far out of reach for man or machine."
+2. **The Exponential Time Hypothesis is false.** Two papers, a day apart.
+   - **Anthropic** (Claude, "A 2^{o(n)} Time Algorithm for 3-SAT", 2026-10-26;
+     `anthropics/formal-math`, folder `eth`; hexagon:2610.00577) [V-primary: paper].
+     - **Main theorem:** #k-SAT in time 2^{O(min{k² n log log n/√log n, k m/√log m})}, on Mathlib's
+       Turing machines. Machine-checked in Lean; rebuilt here, and re-checked here with an
+       independent kernel (`REVIEW.md` §2.1).
+     - **Technique:** contracting tensor networks on a complete graph, after writing each crossing
+       of two edges as a signed sum of cheaper "pieces". Three versions exist and should not be
+       mixed up: the README's condensed sketch (a one-bit identity, SWAP = I − 2·singlet, with
+       e(9K^16) ≤ 0.9·e(K) + O(1/K)); the paper's main text (the eight-square identity, factor
+       11/12); and the stated rate, which comes from Theorem A with the Appendix B pieces
+       (factor ρ = 1/√2, K squared per level).
+     - **Practicality:** none. For m = 5n there is no gain over 2^n unless n > 10^{10000}.
+     - **Consequences stated in its §7,** all formalized upstream: SETH, NSETH and #ETH are false;
+       several graph problems in 2^{δn}; E^NP has no linear-size circuits.
+     - **Human checking, in the paper's own words** [read: App. E]: the Lean development "was
+       written by AI models and reviewed by other instances of the same models; at the time of
+       writing no person is known to have checked it".
+     - **Provenance** [read: Hexagon page]: "The core algorithm was found on October 16 by an
+       internal Claude research model with 14M output tokens and no human input."
+   - **OpenAI** ("The Exponential Time Hypothesis is False", 2026-10-17, revised 2026-10-25;
+     `openai/math`, family 378) [V-primary: paper, `lean/docs/378.md`].
+     - Its Lean development covers the counting algorithm at rate 2^{O_k(n (log log n)²/√log n)}.
+     - Its Corollary 1.4, on paper only: E^NP ⊄ SIZE(c·n·√log n), at infinitely many lengths.
+   - **Has any human checked either proof?** Not that anyone has said. An expert group is
+     examining OpenAI's proof and explicitly disclaims certification; no named expert has reported
+     an error. Details in §6.1.
 
-**From sketch to Lean proof (this session).** The m-dependence 2^{O(m/√log m)}, plus the Tseitin transform (4 clauses per gate), gives SAT for size-s circuits in 2^{O(s/√log s)}. Feeding this into Williams' E^NP argument gives E^NP ⊄ SIZE(ε·n·√log n), infinitely often. This is OpenAI's Cor 1.4 [V-primary], and the Wu–Wang extensions start from it, so **the mathematics is not new**. This session **machine-checked it in Lean**: `Superlinear.corCircuitsSqrtLogInf`; see experiments/enp-superlinear/RESULT.md. It was **not the first** machine check: a public Lean proof of the same statement, also on Anthropic's development, has existed since 2026-11-04 (§6). The overhead question is settled in the formal proof, because the host formula has at most 3·gates + O(m) variables and at most 4·Nv + 1 clauses.
+**What this repository added.** Lean proofs, on top of Anthropic's development, of
+E^NP ⊄ SIZE(ε·n·√log n) and of three transfer theorems (`experiments/enp-superlinear/RESULT.md`).
+The first is not new even as a formalization: V. Tulsyan's public Lean proof of the same statement
+is dated 2026-11-04 (§6.2). The transfer theorems were not found anywhere else (§6.2).
 
 ## 1. Other 2025–2026 results near the problem
 
 All entries below are [V-listing] in the ECCC 2026 index (eccc.weizmann.ac.il/year/2026), unless marked otherwise. Only TR26-173 to TR26-339 were in the part of the index I fetched. The one-line summaries come from search snippets; I have not read the papers.
 
 **Boolean circuit size**
-- TR26-260, Mishra & Santhanam: an explicit 3.5n − o(n) lower bound for general B_2 circuits. The previous record was 3.1n, from Li–Yang (STOC 2022).
+- TR26-260, Mishra & Santhanam: an explicit 3.5n − o(n) lower bound for general B_2 circuits. The previous record was 3.1n, from Li–Yang (STOC 2022). A later paper cites a revision of 2026-11-03 with 4n − O(log n) [lead; not checked].
+- arXiv:2611.30887, Yianni & Allahyar (2026-11-23): a (17/7)n − o(n) lower bound over the full binary basis for one binary encoding of 3-SAT [read: abstract].
 
 **Threshold and constant-depth circuits**
-- TR26-039 [secondary; outside the part of the index I fetched], Chen, Tal & Wang: lower bounds for THR∘THR beyond the quadratic barrier, proved via new circuit-analysis algorithms. This is the algorithms-to-lower-bounds route.
+- TR26-039, Chen, Tal & Wang, "Super-quadratic Lower Bounds for Depth-2 Linear Threshold Circuits" [agent: archived index]. That it goes through circuit-analysis algorithms is [secondary].
 - TR26-248, Chukhin: "Breaking the Parity Barrier for Constant-Depth Circuits".
 - TR26-221, Korten: "Top-Down Lower Bounds for All Depths".
 - TR26-302, Korten: "Tight Depth Lower Bounds for Stretch Amplification".
@@ -54,7 +99,7 @@ All entries below are [V-listing] in the ECCC 2026 index (eccc.weizmann.ac.il/ye
 - TR26-330, Reitwießner: improved bounds for depth-2 threshold circuits computing Andreev's function.
 
 **Exponential-time classes, range avoidance and TFNP**
-- TR26-118 [secondary; outside the part of the index I fetched], Ren & Williams: near-maximum circuit lower bounds for exponential time with MA queries, via range avoidance (arXiv:2607.09963).
+- TR26-118, Ren & Williams: circuit lower bounds for exponential time with MA queries (arXiv:2607.09963) [agent: archived index for authors and title]. "Near-maximum" and "via range avoidance" are [secondary].
 - TR26-233, Li & Tell: hardness of range avoidance gives "plasticity".
 - TR26-270, Li: derandomizing fragments of AM with range avoidance.
 - TR26-319, Ghentiyala, Korten & Pitassi: power and limitations of TFNP hierarchies.
@@ -104,6 +149,7 @@ Known non-relativizing, non-naturalizing successes:
 
 Label for this section: **[catalogue summary read, paper not read]** unless noted otherwise.
 The repository README lists 722 manuscripts in 374 families, produced by an unnamed internal model. About 42% of the top-line results are formalized in Lean.
+- **Changelog** [read: `history.md`]. The entry of 2026-10-26 says of the ETH paper: "An independent working group of computer scientists led by Russell Impagliazzo, Ramamohan Paturi, and Ryan Williams will examine and explain the proof." The entry of 2026-11-23 says the VP ≠ VNP result "was obtained on November 6, 2026". See §6.1.
 - **Family 378, "The Exponential Time Hypothesis is False" (2026-10-25).**
   - Claim: #k-SAT in (n+m)^{O_k(1)}·2^{n/(log n)^{1/2+o(1)}}, plus superlinear circuit lower bounds for E^NP.
   - Lean scope [V-primary: lean/docs/378.md]: formalizes only the counting algorithm, at rate 2^{O_k(n (log log n)²/√log n)}. **The E^NP circuit lower bound is not formalized there.**
@@ -126,110 +172,264 @@ The repository README lists 722 manuscripts in 374 families, produced by an unna
 - **Assessment:** this is a Lean proof that uses extra axioms, so it proves nothing until those
   axioms are inspected. I found no sign of expert acceptance. [secondary: registry page]
 
-## 5. Follow-ups on the ETH algorithms
+## 5. How this survey was made, and what it does not cover
 
-Label for this section: [V-primary: arXiv abstract pages, read via a fetch tool; full papers not read].
+**Three passes.**
+- **First pass** (first session, morning of 2026-11-24): arXiv, ECCC reports TR26-173 to TR26-339,
+  `anthropics/formal-math`, `openai/math`, and web search. It produced sections 0 to 4.
+- **Review addendum** (second session, same day): one targeted check found that most follow-up work
+  is not on arXiv or ECCC.
+- **Sweep** (second session, evening): five reader subagents, one per venue, each told to save full
+  texts, quote verbatim with locations, and dump the reference lists of what they read. I then
+  opened the passages behind every sentence below that says "proves", "first", "nobody" or the
+  like.
 
-- **arXiv:2611.00517**, Dias & Lima, "Limits and Constants of OpenAI's Claimed ETH Refutation" (2026-10-31).
-  - If the hidden constant is C = 2, the algorithm only beats 2^n for n ≈ 10^{32} or larger (10^{126} for C = 3); for the tensor route only when log₂(n+m) > 10^9. (Corrected in review: the 10^{32} figure is conditional on C = 2.)
-  - The interpolation scheme costs 2^{Ω(√tw)}, and 2^{Ω(√n)} on random 3-CNF above density 3. That limit applies to the scheme, not to the tensor route, which the authors say "escapes these limits".
-  - The paper does **not** claim an error in the proof.
-- **arXiv:2610.41622**, Majdoddin, "Lowered crossover points of Anthropic's subexponential 3-SAT algorithm" (2026-10-30).
-  - Lowers the crossover to about 2^{420} clauses at density 1.
-  - Counting assignments that satisfy exactly j clauses runs in 2^{O(m/√log m)}, which refutes the Sparse Max-3-SAT hypothesis.
-  - Model-specific limits: no gain below about 2^{6000} variables for *grid* algorithms in a "rewrite-and-merge" class, in the paper's main-term model (corrected in review: for the wider balanced homogeneous two-merge class the threshold is only about 2^{29}); and two balanced homogeneous merges cannot give 2^{n^{1−c}}.
-- **Bottom line:** no general lower bound on the exponent is known. Whether 2^{m/√log m} can be improved, which would give stronger E^NP bounds through the Lean theorem of this session, is open.
+**Coverage of the sweep.**
 
-## 6. Addendum from the review session (2026-11-24): follow-up work this survey missed
+| Venue | What was covered | Evidence |
+|---|---|---|
+| Hexagon (hexagonmath.org) | All 1,530 works on the server; 20 relevant papers downloaded; one read line by line by the reader, and passages of seven read by me | `/mnt/data/review/sweep/hexagon/` |
+| GitHub | All 54 issues and pull requests of `anthropics/formal-math`; `openai/math`; 27 repositories cloned and searched | `/mnt/data/review/sweep/github/` |
+| One notes repository (`1337isnot1337/integer-factoring`) | Inventory of 858 notes on crossings; result sections of about 30 read by the reader | `/mnt/data/review/sweep/crossing/` |
+| arXiv | 2,469 records from 2026-10-15 to 11-25 (all of cs.CC, cs.DS, cs.LO, plus keyword queries); 17 papers downloaded | `/mnt/data/review/sweep/arxiv/` |
+| Zenodo | Keyword searches; four records read | same |
+| Palomar registry | All 1,349 registered results | `/mnt/data/review/sweep/palomar_experts/` |
+| Lemmata repository (lemmata.iol.berlin) | All 22 entries listed; one read by me | `/mnt/data/review/sweep/verify/lemmata/` |
+| Expert commentary | The working group's site, the Computational Complexity blog (all posts of October and November), one news article, the labs' announcements | `/mnt/data/review/sweep/palomar_experts/`, `verify/` |
 
-The survey above searched arXiv, ECCC and the two labs' repositories. Much of the follow-up work on
-the ETH algorithms is elsewhere: on the Hexagon preprint server (hexagonmath.org), in third-party
-GitHub repositories and issue threads, and in the Palomar registry of Lean proofs. Majdoddin's
-reference list, which the first session had on disk, already pointed to two of these places.
+**Not covered.**
+- **ECCC after TR26-265.** The site blocked automated access during the sweep, and only an archived
+  index of 2026-10-20 was available. The first session's list (TR26-173 to TR26-339) therefore
+  stands as it was, and reports after TR26-339 are unchecked.
+- **arXiv categories math.CO and cs.AI** were covered by keyword queries only.
+- **Social media** (X, Bluesky, Mathstodon), where some of the experts' remarks were made.
+- **The working group's shared document repository,** and the blogs of Tao, Barak, Gowers and
+  Wigderson. Several other blogs refused automated fetches.
+- **News outlets** other than one TechCrunch article.
+- **Most of the 858 crossing notes** in §6.3: only their result sections were read, by a reader.
+- **Correctness.** No proof in any follow-up was checked. Third-party Lean code was not built,
+  except the one proof named in §6.2.
 
-Labels: **[V-primary]** means I fetched the page or file in the review session and read the part
-quoted. **[agent-primary]** means a subagent of the review session fetched it and quoted it to me;
-I did not re-fetch it.
+## 6. Follow-up work on the ETH refutations and on VP ≠ VNP (consolidated 2026-11-24)
 
-**A prior Lean proof of the same E^NP theorem.**
-- `xennygrimmato/eth-hamiltonicity` (Vaibhav Tulsyan), directory
-  `lean-bridge-anthropic/bridge/EthFollowup/Circuits/`, one commit `9e5dfc8` dated 2026-11-04
-  [V-primary: five files fetched; commit date from the GitHub API].
-  - `enp_not_size_n_sqrt_log_shifted : ∃ L ε, 0 < ε ∧ InENP L ∧ ∀ N, ∃ n ≥ N, ¬DecidedAt L ⌊ε·(n+1)·√log₂(n+2)⌋ n`.
-    This is the same statement as `ENP.CorCircuitsSqrtLogInf` here, with the same size function,
-    on the same upstream definitions.
-  - It also has `no_circuits_io`, generic in the size function, with the same architecture as
-    `Superlinear/Chain.lean` here.
-  - The five files contain no `sorry` or `axiom`. I built them against the upstream tree used here: they compile; the theorem depends on the three standard axioms only; it uses upstream's `ENP.InENP` and `ENP.DecidedAt`; and Lean accepts it and `ENP.CorCircuitsSqrtLogInf` as interchangeable in both directions (`/mnt/data/review/prior/CheckTulsyan.lean`). I used my own lake setup, not that repository's.
-  - **Consequence:** the claim "first machine-checked superlinear circuit lower bound for E^NP"
-    in the first session's report is wrong by three weeks.
-  - What those five files do not have: a transfer theorem whose hypothesis is an arbitrary 3-SAT
-    or #k-SAT Turing machine with a clause rate, or one from a family of pieces. Everything in
-    them is fixed at the rate 1/√log [V-primary: grep]. I did not search the rest of that
-    repository.
+### 6.1 Has any human checked the proofs?
 
-**Limits on the pieces (the ρ question).**
-- Carlos Stein Naves de Brito, hexagon:2610.00692 v1 (2026-10-31), "The partition exponent in the
-  graded pieces of the Claude 3-SAT algorithm is optimal for pieces of that shape" [V-primary:
-  full text read, 5 pages; proofs not checked].
-  - Theorem 2.2: a rank count for families of the Appendix-B shape. Corollary 2.3: growth
-    exponents α < ½ are impossible. Proposition 3.1: the weight count never goes below
-    max(2^{α−1}, 2^{−α}) ≥ 1/√2, with equality only at α = ½.
-  - "Rank-tight up to a polynomial factor" there means that the *total* rank budget of all pieces
-    exceeds the rank of the crossing only by a factor O(h²). It is not a statement about the rank
-    of each piece.
-  - Remark 3.2 states what is out of scope: "a family whose pieces had rank far below these
-    dimensions … is not covered". It names two escapes: operators of smaller weight than the
-    states (weight count down to 2^{−α}), and growth profiles that are not regularly varying. It
-    argues that vertex-algebra-type constructions cannot use the first.
-  - Section 4: Heisenberg Fock spaces on a sparse set of modes "do not carry Lemma 9".
-  - "The floor ρ ≥ 1/2 remains open."
-  - **Consequence for the first session's work:**
-    - It anticipates `RHO_SPEC.md`'s analysis of the Appendix-B shape, including escape classes
-      1 and 2, and the first tier of `STAGE2_GRADED.md`.
-    - It does **not** contain the per-piece rank computation (`SQRTLOG_BARRIER.md`, Conjecture
-      2), which addresses exactly what the note leaves out of scope, nor Stage 2's
-      product-character lemma.
-- Vaibhav Tulsyan, hexagon:2611.00149 v1 (2026-11-06), "What the ETH refutations do not give:
-  barriers for the counting engines, with machine-checked lemmas" [V-primary: abstract page].
-  - ρ ≥ 1/2 for pieces is machine-checked in Lean; on paper, ρ ≥ 3/8 for correlated
-    decompositions of full grid levels. Nothing above 1/2.
-- `1337isnot1337/integer-factoring`, a repository of about 1230 AI-assisted research notes, last
-  commit 2026-11-22 [V-primary: three notes fetched, read in part].
-  - `research/pauli-walsh-dictionary.md` (2026-10-30): for pieces that are combinations of
-    P ⊗ P over Pauli strings P, the two cut ranks are the support sizes of a function on F_2^{2m}
-    and of its Walsh transform; the crossing is the function (−1)^{x·z}; every decomposition has
-    Σ_i min(r_i, c_i) ≥ d. One 64-label dictionary is excluded.
-  - `research/bell-diagonal-crossings.md` (2026-10-31) reports that symmetric tensor powers of
-    such seeds cannot beat 1/√2 at physical dimension 2 or 4 (floors 0.7744 and 0.70713), and
-    that at dimension 8 the argument gives only 0.657, so dimension 8 and above are open. The
-    note says it has had no independent proof review; I did not check it.
-  - `research/beyond-half-research-checkpoint.md` (2026-11-01) reports a formal profile with rate
-    below 0.707 for which "no polynomial crossing realizing that profile is known", and an
-    actual construction that it says certifies ρ < 18/25. Not checked here.
-  - Its README still lists an exponent above 1/2 as not established [agent-primary].
+**Short answer.** An organised examination of OpenAI's proof is under way and has issued no
+verdict. No named expert has said they checked either ETH proof or either VP ≠ VNP proof. No
+named expert has reported an error. Many researchers are already building on the results.
 
-**The sum-of-squares connection.**
-- anthropics/formal-math issue #45 (2026-11-07, J. Siemaszko) [V-primary: issue fetched]: Theorem B
-  of [A] gives P(N) ≤ N^{√2+o(1)} for Naslund's crossing width, improving the exponent 1.62 of
-  Hrubeš (2024) that [A] App. G quotes. A note with a Zenodo DOI is linked, and an independent
-  re-derivation was posted on 2026-11-23 [agent-primary]. No expert has replied.
-- `Arth-Singh/crossing-lower-bounds`, registered as PALOMAR-2026-11-16-000011 [agent-primary]: Lean
-  proofs of linear lower bounds such as P(n) ≥ 4n/3. They do not answer Naslund's question.
+**The examination of OpenAI's proof.**
+- OpenAI's announcement of 2026-10-26 [read]: "This work will be verified and shepherded by a
+  group led by Russell Impagliazzo (UC San Diego), Ramamohan Paturi (UC San Diego), and Ryan
+  Williams (MIT)." OpenAI also agreed to fund a conference on the implications.
+- The group's site, ethdiscussion.blog [read: home page and feed, 2026-11-24]: "Our involvement
+  should not be taken as certification of the claim. A result of this significance requires
+  careful, independent scrutiny and an understanding that others can reconstruct, question, and
+  build upon."
+  - It has five posts, from 2026-10-26 to 2026-11-12. None reports a conclusion.
+  - It proposes a virtual meeting before the end of 2026 and keeps a shared repository of
+    follow-up documents, which I did not read.
+  - A post of 2026-10-30 by Francis Zane [read] notes that several people have compiled the Lean
+    proofs locally, and adds: "someone besides the original author should probably check the
+    proof".
 
-**State of the repositories on 2026-11-24** [agent-primary].
-- anthropics/formal-math: no commit after 11b6c7e. `eth/` was last changed on 2026-10-27.
-- openai/math: `lean/docs/378.md` is unchanged; it still covers only the counting algorithm.
-- Majdoddin, arXiv:2610.41622: still v1.
-- Palomar has no registered entry for a superlinear E^NP bound. A submission needs Lean
-  v4.35.0-rc2 or later, and Anthropic's `eth` is on v4.33.1, so it would need a port.
-- No improvement of the rate 2^{O(m/√log m)} and no pieces with ρ < 1/√2 were found anywhere.
+**What named people have said.**
+- Lance Fortnow, 2026-10-28 [read]: "I have not verified the proof myself, but it is safe to
+  assume now that the exponential-time hypothesis is toast."
+- Bill Gasarch, 2026-11-01 [read]: "All of these results are being looked at by experts."
+- Ryan Williams, quoted by TechCrunch on 2026-10-27 [read]: "there are two or three alien-looking
+  parts, and it's exactly these parts that I saw that made me think, wow, this is something that
+  the whole community needs to work on together".
+- Stefan Szeider, Zenodo note of 2026-10-27 [read]: "This note does not judge the correctness of
+  the proof." It does check OpenAI's Lean statement: "a correct statement of the intended result,
+  for a weaker but still subexponential bound". His note of 2026-11-16 [read] says of the two
+  proofs: "They are widely accepted, but not yet published in refereed form."
+- Sebastian Ben Daniel, arXiv:2611.01884v2, 2026-11-23 [read], on Anthropic's paper: "The preprint
+  is not refereed, and as far as we know no person has checked its proofs."
+  - He reports having checked the printed argument of its Appendix B for the one bound he uses,
+    and the identity of its Theorem B by computation for h ≤ 7.
+  - He notes that in Anthropic's Lean development "the time clause of Definition 7 is formalized
+    only in a weak form". That bears on the hypothesis of `piecesTransfer` in this repository.
+- Scott Kominers, hexagon:2610.00574, 2026-10-27, a reading of OpenAI's proof [read: provenance
+  statement]: "I have read and understood each component individually, but I am still far from
+  having fully 'grokked' the argument as a whole."
+- Ryan O'Donnell posted an exposition of OpenAI's proof (hexagon:2610.00572). Its page says it is
+  primarily AI-generated, with "Human understanding: no parts" [read: provenance statement].
+- Others have posted expositions or comments without claiming to have checked the proofs:
+  Kintali, Sellke, Nederlof, Lindzey, Lovett [agent].
 
-**Wu and Wang, arXiv:2611.02560 v1** (2026-11-02) [agent-primary: abstract from the arXiv API,
-replacing the paraphrase in §0]. "Circuit Lower Bounds for Extended Gate Bases from Subexponential
-Counting": an E^NP language requiring Ω(m√log m / log log m) gates over unbounded AND/OR with
-binary XOR, and Ω(m√log m) gates over a bounded binary base with a linear budget of arbitrary XOR
-and symmetric gates, both infinitely often.
+**Formal re-checks by third parties.** These confirm that Lean accepts the proofs and, in two
+cases, what the Lean statements say. They are not human checks of the mathematics.
+- Several independent rebuilds, including this repository's, with an independent kernel
+  (`REVIEW.md` §2.1). Carlos Toledo reports replaying both labs' proofs with Comparator and
+  nanoda, and bridging both statements to a textbook form of ETH in Lean [agent].
+- A third-party audit of `eth` (formal-math issue #50) reports only the standard axioms [agent].
+- Of the 54 issues and pull requests on `anthropics/formal-math`, none claims an error in `eth` or
+  `vp-vnp`, and no maintainer has replied to any of them [agent].
+- `openai/math` has no issue about the ETH or VP ≠ VNP families, and its changelog records no
+  withdrawal since 2026-10-07 [agent].
 
-**Not done in this addendum:** arXiv date-window sweeps (the API rate-limited), ECCC since
-2026-10-25, and a full read of any of the items above.
+### 6.2 What has been machine-checked, and by whom
+
+| Who | What | Where and when | Evidence |
+|---|---|---|---|
+| V. Tulsyan | E^NP ⊄ SIZE(ε·n·√log n) at infinitely many lengths, on Anthropic's development | `xennygrimmato/eth-hamiltonicity`, `lean-bridge-anthropic/bridge/EthFollowup/Circuits/`, one commit of 2026-11-04 | [read], and built here: `experiments/enp-superlinear/prior-check/` |
+| This repository | The same statement, proved independently on 2026-11-24 | `experiments/enp-superlinear/` | `REVIEW.md` §2.1 |
+| This repository | Three transfer theorems: from any 3-SAT machine with a clause rate, from any counting machine with a clause rate, and from any family of pieces | same | `REVIEW.md` §6.1 |
+| V. Tulsyan | Rank bounds for barriers, including the rank form of ρ ≥ 1/2 for pieces; 45 theorems cited | hexagon:2611.00149, 2026-11-06 | [read: abstract, Theorem 4.1 remark, limitations] |
+| S. Szeider | Arithmetic circuits of size 2^{o(n)} for weighted model counts of 3-CNFs; IPS refutations of size 2^{o(n)}; on Anthropic's development | Zenodo 10.5281/zenodo.24243987, v2 of 2026-11-16 | [read: abstract and introduction] |
+| I. Rudich, L.-M. Rousseau | Deterministic factoring in time N^{o(1)}, re-proving Anthropic's counting engine | hexagon:2610.00600; PALOMAR-2026-10-28-000015 | [agent]; "the authors audited the statement, not the proof" |
+| `1337isnot1337` | Factoring with "saving exponent 1/2" | `1337isnot1337/integer-factoring`, README | [read: README status table] |
+| K. Khoruzhii | A crossing decomposition from a fermionic model; circuits of size O(n^{5/3}) for symmetric noncommutative quartics; (Σa_i²)(Σb_j²) as n^{√2+o(1)} squares of complex bilinear forms | Lemmata 2611.00001, 2026-11-02, revised 11-04; six results kernel-checked in Lean v4.35.0 | [read: the entry] |
+| A. Singh | Linear lower bounds for Naslund's crossing number, such as P(n) ≥ 4n/3 | PALOMAR-2026-11-16-000011 | [agent] |
+| TSavo; C. Toledo | Bridges between the two labs' statements of ETH and a textbook form; a port of `eth` to Lean v4.36.0-rc2 (48 of 812 files changed) | formal-math issue #36 | [agent] |
+
+**Is anyone else's transfer theorem already out there?** I found none.
+- Tulsyan's own note says of his module: it "is **not** parametric in the SAT time" [read:
+  `research/circuit-lower-bounds.md`]. His five Lean files fix the rate at 1/√log [read].
+- A reader searched the Lean sources of 27 cloned repositories for an E^NP circuit bound with a
+  general rate, a general machine hypothesis, or a pieces hypothesis. Outside upstream's own files
+  the only hits were Tulsyan's five files [agent]. The search keys on upstream's names (`InENP`,
+  `DecidedAt`, `HasCircuits`); a formalization built on different definitions would be missed.
+- Nothing of the kind is registered on Palomar (1,349 results), posted on Hexagon (1,530 works) or
+  on Lemmata (22 entries) [agent; Lemmata list read by me].
+- Rate-parametric transfers exist **on paper**: a "fixed-point law" in `MJIFmc/eth-2026-notes`
+  (H. Chen, 2026-11-08), a note in `jhune-yim/ETH`, and a remark in Tulsyan's circuit note [agent].
+
+**Palomar.** Nothing from `anthropics/formal-math`, `openai/math` or Tulsyan's repository is
+registered, and no circuit lower bound for E^NP or statement about ETH is [agent]. A submission
+needs Lean v4.35.0-rc2 or later, Lean's module system in every file, and files of at most 10,000
+lines [agent]. Its policy also says: "No other project-specific source may occur in the
+Challenge's transitive import closure" beyond Lean core, Mathlib, Tau Ceti and CSLib [read]. That
+rule matters here: this repository's statements import upstream's statement files, so a submission
+would need a Challenge file with every definition written out in it.
+
+### 6.3 Can the rate be improved? The question of the pieces
+
+**The question.** Anthropic's algorithm runs in time 2^{O(k·m/(log m)^{α'})} with α' = log₂(1/ρ),
+where ρ measures the cost of the "pieces" that decompose a crossing. Its Appendix B has ρ = 1/√2,
+so α' = 1/2. A simple pigeonhole argument gives ρ ≥ 1/2. Anything in between would speed up the
+algorithm.
+
+**State on 2026-11-24.** Nobody has posted pieces with ρ < 1/√2, an improved rate by any other
+route, or an unconditional lower bound on ρ above 1/2. All five readers looked for these and found
+none.
+
+**Lower bounds and barriers.**
+- **ρ ≥ 1/2.** Anthropic's Appendix H; Majdoddin's Propositions 4.6 and 4.8. Tulsyan's Theorem 4.1
+  checks the rank form in Lean [read].
+- **Grid algorithms.** Majdoddin, arXiv:2610.41622 (still v1): α' ≤ 1 for all grid recursions in
+  his model, and no gain below about 2^{6000} variables for them. See `lit/RHO_SPEC.md` §4.
+- **Graded families shaped like Appendix B.**
+  - C. S. Naves de Brito, hexagon:2610.00692, 2026-10-31 [read: full]. The weight count is at
+    least max(2^{α−1}, 2^{−α}) ≥ 1/√2 for regularly varying growth. It names two escapes and says
+    that pieces of rank far below the counted dimensions are "not covered".
+  - M. Fradj, hexagon:2611.00627, 2026-11-19 [read: abstract and scope remarks]. For graded
+    spaces of "Kleinian codes", a prescribed-window cost of at least 1/√2 + η. The paper says
+    this concerns "window dimensions, not intrinsic matrix ranks".
+  - This repository's `lit/RHO_SPEC.md` and `lit/STAGE2_GRADED.md` overlap both.
+- **Decompositions whose terms are not products.** Tulsyan's Proposition 4.12, on paper [read]:
+  ρ ≥ 3/8 for decompositions of a full grid level into row and column networks. His
+  Conjecture 4.15 would give ρ ≥ 1/2 for all of them.
+- **A conditional claim that 1/√2 is optimal.** Y. Liu, hexagon:2611.00994, 2026-11-24 [read: the
+  passage "Two crossing cuts"]. If no planar crossing admits a strict shortening, then writing
+  the crossing as two tensors, one of low rank across each cut, needs rank at least q^{√2−o(1)},
+  which matches Khoruzhii's upper bound. The page says the text is primarily AI-generated, with
+  "Human understanding: no parts". Nobody has reviewed it.
+
+**Work in progress by others, by their own account.** Neither body of notes has been refereed, and
+I did not check either.
+- **V. Tulsyan's repository** [read: `research/engine3-STATUS.md`, in full]. It reports that every
+  level with two merges has ρ ≥ 1/2 whatever the pieces; that three or more merges are "the only
+  door left" for α' > 1; exact negative searches at small block sizes; and that the attack was
+  paused on 2026-11-06. A file of 2026-11-24 lists "eight routes" to a faster 3-SAT as ideas only
+  [read: headings].
+- **`1337isnot1337/integer-factoring`** [agent digest; README and one note read by me]. About 860
+  notes, nearly all from 2026-10-29 to 11-03; only housekeeping after 11-14.
+  - Its README at the last commit (2026-11-22) lists "Saving exponent above 1/2" as "Not
+    established" [read].
+  - It works with pieces over a fixed finite field, for factoring. Nowhere does it map them back to
+    Anthropic's integer Definition 7 or to 3-SAT [agent].
+  - It reports lower floors for particular certificates, not for actual ranks. One note says its
+    basic criterion "cannot give a half-rate improvement" on any alphabet of at most 12 letters,
+    and that 13 letters "remains open" [read].
+  - It reports no construction below 1/√2. The best it certifies is ρ < 18/25 [agent].
+  - A "formal profile" below 0.707 that its checkpoint of 2026-11-01 mentions is excluded by its
+    own later notes; the checkpoint was not updated [agent].
+  - It contains the reformulation for pieces built from Pauli strings (the two costs are the
+    support sizes of a function and of its Walsh transform), dated 2026-10-30 [read].
+
+**The upper-bound side.**
+- Khoruzhii's entry [read] gives a second derivation of the √2 exponent, from a finite fermionic
+  model with two colours, and has it kernel-checked. Majdoddin's paper had argued that a fermionic
+  Fock space gives no such pieces; the two are not the same construction.
+
+**The sum-of-squares connection.** Anthropic's Appendix G relates pieces to the least number P(N)
+of row- or column-rank-one terms summing to the crossing, and quotes Hrubeš's bound of about
+N^{1.62}.
+- Appendix B implies P(N) ≤ N^{√2+o(1)}. Khoruzhii's entry of 2026-11-02 states and kernel-checks
+  the corresponding sum-of-squares bound [read].
+- J. Siemaszko posted the same observation on 2026-11-07 (formal-math issue #45; Zenodo
+  10.5281/zenodo.24024689), saying he "has not verified the mathematical argument"; an independent
+  re-derivation was posted on 2026-11-23 [read: issue; agent: note].
+- On the lower side only linear bounds are known (A. Singh, above). A bound of N^{1+ε} would give
+  ρ ≥ (1+ε)/2.
+
+**This repository's own contributions to the question** are a rank computation for the Appendix B
+pieces (`lit/SQRTLOG_BARRIER.md`) and a small search over the simplest Pauli-type identities
+(`REVIEW.md` §8). Both are negative.
+
+### 6.4 Limits, constants and practicality
+
+- **Dias and Lima, arXiv:2611.00517** [V-primary: abstract]. OpenAI's interpolation scheme costs
+  2^{Ω(√tw)}; the tensor route "escapes these limits". If the hidden constant is C = 2, the
+  algorithm beats 2^n only for n of about 10^{32} or more.
+- **Szeider, Zenodo 10.5281/zenodo.23688832** [read]. OpenAI's algorithms are exhaustive search
+  on every input with fewer than 2^{131071} variables and clauses. Its addendum on Anthropic's
+  algorithm says that evaluating the paper's recurrence numerically "raises these necessary sizes
+  to 2^275616 clauses and 2^(1.7·10^10) variables".
+- **Majdoddin, arXiv:2610.41622** [V-primary]. Lowers Anthropic's crossover to about 2^{420}
+  clauses at density 1.
+- **Fortnow, 2026-11-04** [read], on practical SAT solving: "Spoiler alert: It will never beat
+  CDCL."
+
+### 6.5 Consequences others have drawn, assuming the refutations hold
+
+- **Circuit lower bounds for E^NP.**
+  - OpenAI's Corollary 1.4 (paper only), then the two Lean proofs of §6.2.
+  - Wu and Wang, arXiv:2611.02560 [read: Theorems 1 and 2]. More than c·m·√log m / log log m gates
+    over unbounded AND/OR with binary XOR; and c·m·√log m gates over a binary basis with a linear
+    budget of XOR and symmetric gates. Both at infinitely many lengths, on paper.
+- **Simulations.**
+  - Strassle and Subercaseaux, arXiv:2611.11832 [read: Theorem 1]:
+    NTIME[t] ⊆ DTIME[2^{O(t/√log t)}]. It rests on OpenAI's Theorem D.1 [agent].
+  - Ben Daniel, arXiv:2611.01884 [read: title and status paragraph]: time t in deterministic space
+    t/√log t, using Anthropic's pieces.
+- **What replaces ETH.** MIT Hardness Group, arXiv:2611.02650, "ETH is Dead, Long Live SH" [read:
+  Theorem 2.4]: the Satisfiability Hypothesis is equivalent to a weak form of ETH.
+- **Other hypotheses refuted since, by other algorithms** [read: abstracts]: the Hyperclique
+  Hypothesis (Fischer, arXiv:2611.03880; Alman, Li, Pant, Pratt and Williams, arXiv:2611.05082;
+  Chan, Itakura, Ma and Yu, arXiv:2611.06813).
+- **Applications** [agent; abstracts only]: counting problems (Tulsyan's five Hexagon notes; Kozma,
+  arXiv:2610.41048; Wu and Wang, arXiv:2611.02548), factoring (Rudich and Rousseau; Shunia,
+  hexagon:2610.00711), fixed-parameter results, and learning theory (X. Li, three Hexagon notes).
+- **Two items the first pass listed as follow-ups are not.** Gaspers, arXiv:2611.01774, only
+  mentions the ETH preprints in passing. Chukhin, arXiv:2611.06231, concerns constant-depth
+  circuits, and says the Orthogonal Vectors conjecture "remains open" [agent].
+
+### 6.6 VP ≠ VNP: reactions and follow-ups
+
+- Fortnow's post of 2026-11-24 is quoted in §0. Gil Kalai wrote the same day that Claude "and a
+  few hours later ChatGPT" proved it [agent]. Neither says they checked it.
+- Y. Liu, hexagon:2611.00994 [read: abstract and Theorem 1.1], uses OpenAI's VP ≠ VNP manuscript
+  for lower bounds on the noncommutative permanent and determinant. It is the paper with the
+  conditional claim of §6.3.
+- No arXiv paper addresses either VP ≠ VNP manuscript yet [agent].
+
+### 6.7 State of the repositories on 2026-11-24
+
+- `anthropics/formal-math`: no commit after 11b6c7e; `eth` was last changed on 2026-10-27 [agent].
+- `openai/math`: the Lean scope of family 378 is unchanged [agent].
+- `xennygrimmato/eth-hamiltonicity`: 280 commits, the latest on 2026-11-24; the circuit files are
+  unchanged since 2026-11-04 [agent].
+- `1337isnot1337/integer-factoring`: last commit 2026-11-22 [read].

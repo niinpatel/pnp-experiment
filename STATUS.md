@@ -4,7 +4,11 @@
 > It re-verifies this report, lists what was wrong in it, and ranks follow-ups. Lines changed by
 > the review are marked "(review)". The two largest corrections:
 > - the Lean theorem below was **not the first** machine check of this bound;
-> - the literature survey missed the venues where most follow-up work had been posted.
+> - the literature survey missed the venues where most follow-up work had been posted. A sweep of
+>   those venues was done on the evening of 2026-11-24; `lit/SURVEY.md` §5 and §6 are the result.
+> - **Human checking of the 2026 results:** an expert group is examining OpenAI's ETH proof and
+>   disclaims certification; no named expert has said they checked either proof or reported an
+>   error (`lit/SURVEY.md` §6.1).
 
 ## Where the work is
 
@@ -104,6 +108,7 @@ Any document here that reads like a resolution claim should be treated as a bug.
 - **First session, corrected (review):** **$84.58**, not "about $100". The old `tools/spend.py`
   double-counted and left out advisor calls; the rewritten one gives $50.76 at the console
   checkpoint. Details in `REVIEW.md` §4.
-- **Review session:** about $112 (see `REVIEW.md` §7.4), which brings the project total to about
-  $196 of $489 and leaves about $290. Run `python3 tools/spend.py` for the current figure.
+- **Review session:** about $112 for the review (`REVIEW.md` §7.4) and about $65 for the
+  literature sweep (`REVIEW.md` §7.6). Project total about $262 of $489, leaving about $227. Run
+  `python3 tools/spend.py` for the current figure.
 - **Google Cloud:** 2 small Gemini calls, about 10 MB of GCS storage, and a 250 GB persistent disk added by the user.
