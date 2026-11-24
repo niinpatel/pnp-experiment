@@ -48,6 +48,9 @@ like such a claim should be treated as a bug.
    - **Formula** (our derivation from the paper): the rate exponent is α' = log(1/ρ)/log β. Anthropic has β = 2 and ρ = 1/√2, and the 1/√2 traces back to the Hardy–Ramanujan partition count.
    - **No proven barrier** exists at 1/2. Majdoddin shows that grid algorithms are capped at α' ≤ 1.
    - **The only lever** is cheaper "pieces", with ρ < 1/√2. Through `generalTransfer`, that would give E^NP ⊄ SIZE(n·(log n)^{log₂(1/ρ)}). This is a conjecture; nothing was proved.
+   - **Computational check, negative.** Exact ranks of the paper's Appendix B pieces for h ≤ 9 fall
+     only slightly below the paper's counted bounds, and the gap shrinks with h. A fitted law,
+     which is not proved, gives no improvement to ρ. Scripts are in `experiments/sqrtlog/`.
 
 ## Explicitly not attempted (open, beyond this budget)
 

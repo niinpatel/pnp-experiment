@@ -79,3 +79,47 @@ With β = 2 and ρ = 1/√2 this gives α' = ½. The script reproduces Thm A(a),
 - **Caveats:** small h is dominated by o(λ) terms; ranks need integer factorizations of polynomial bit length ([A] App. G, p.46). Not implemented.
 
 **Bottom line.** Raising the 1/2 in [A]'s framework needs a cheaper crossing decomposition (ρ < 1/√2; [M] Open problem 1), not parameter tuning.
+
+## Conjecture 2: computational check
+
+**Verdict: negative.** The true flattening ranks of the App. B pieces fall short of the counted bounds of (54)–(55) only by a lower-order amount, and the shortfall vanishes relative to the bound as h grows. No ρ below 1/√2 shows up.
+
+**What was computed** (`experiments/sqrtlog/appB_ranks.py`, `appB_scale.py`; outputs `appB_scale_h2-9.out`, `appB_h8.out`, `appB_h9.out`):
+
+- The pieces A_s are implemented literally from [A] App. B (pp.30–32): a[r] via (O2), Q_s via (48), a_µ and b_µ from Lemma 10, A_s via (53).
+- The strings x, y, u, v range over all p(h) partitions of h. The paper uses the first 2^λ of them; a subset can only lower ranks.
+
+**Implementation checks:**
+
+- Σ_s A_s = h!·[x=v][y=u] holds exactly for h ≤ 5 (`appB_scale.py test`).
+- For h ≤ 5, the tensor built from (54) equals the tensor built from (55) (Lemma 9(a)), and both equal direct evaluation of (53) for h ≤ 4.
+- The rank routine reproduces [A] App. H's exact rank formula for the eight-square pieces A_i at t = 1, 2 (e.g. 960 at t = 2, i = 1; `eightsquare_check.out`).
+
+**Field.** Def. 1 (p.14) factors through c bits over **Z**, so the relevant rank is the rank over Q, and log₂ rank_Q is the least possible c.
+
+- For h ≤ 6, ranks are computed exactly over Z (FLINT `fmpz_mat`), and they agree with the ranks mod p.
+- For h ≥ 7, ranks are computed modulo two 62-bit primes, which always agreed. Since rank_p ≤ rank_Q, the reported shortfalls for h ≥ 7 can only *overstate* the true gap. The negative conclusion is therefore the safe direction.
+
+**Results.**
+
+- **Worst piece (s ≈ 0).** For h ≤ 7 it has full rank N² in both directions, so counted, true and full bits coincide: 4.00, 6.34, 9.29, 11.23, 13.84, 15.63 bits for h = 2…7. Small h cannot test the asymptotics: the counted bound only drops below N² for roughly h ≳ 16, where N² ≥ 53,361.
+- **Unsaturated row flattenings (R_row < N²).** Here the true rank is below the counted bound. Selected rows (row/column symmetric under s ↦ −s):
+
+| h | s | counted R_row | true rank | ratio | log₂rank / log₂R |
+|---|---|---|---|---|---|
+| 5 | −3 | 45 | 40 | 0.889 | 0.969 |
+| 6 | −3 | 97 | 89 | 0.918 | 0.981 |
+| 7 | −3 | 195 | 182 | 0.933 | 0.987 |
+| 8 | −3 | 373 | 353 | 0.946 | 0.991 |
+| 9 | −3 | 684 | 653 | 0.955 | 0.993 |
+| 9 | −9 | 97 | 96 | 0.990 | 0.998 |
+
+- **Empirical law.** The following fits all 55 unsaturated (h, s) cases with h ≤ 9 exactly (`deficit_analysis.py`); it was fitted to the data and is *not proved*. With k = s + h:
+  - rank_row(s) = R_row(s) − Σ_{w≤k} p(w) − [k ≥ 1],
+  - and the shortfall is 0 for k < 0.
+  - Read this way, the intermediate weights at most s+h contribute nothing; the rank comes from the top h weights.
+- **Trend.** At fixed s the ratio rises toward 1 as h grows. The gain does not persist.
+
+**Heuristic extrapolation (labelled as such; `law_extrapolation.py`/`.out`).** This assumes the law for all h and ignores the N² cap. The implied worst-piece ρ_rank equals ρ_counted to 5 decimals from h ≈ 64 on: 0.8511 at h = 64, 0.7668 at h = 512, 0.7360 at h = 3000, tending slowly to 1/√2. The log₂ gap at s = 0 is below 10⁻⁴ by h = 128. So rank counting does not change ρ = 1/√2, and does not change α' = ½.
+
+**Not done.** h ≥ 10 (runs stopped at the cap). Also not done: a proof of the law, and an exact-over-Q check for h ≥ 7.

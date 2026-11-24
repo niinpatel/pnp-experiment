@@ -1,0 +1,6 @@
+t=1 i=0: row rank 8 (paper 8); col rank 64 (paper 64)
+t=1 i=1: row rank 64 (paper 64); col rank 8 (paper 8)
+t=2 i=0: row rank 64 (paper 64); col rank 4096 (paper 4096)
+t=2 i=1: row rank 960 (paper 960); col rank 960 (paper 960)
+t=2 i=2: row rank 4096 (paper 4096); col rank 64 (paper 64)
+eight-square cross-validation: OK
