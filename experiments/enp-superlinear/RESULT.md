@@ -1,12 +1,17 @@
 # Result: a machine-checked superlinear circuit lower bound for E^NP
 
+> **Corrections from the review session (2026-11-24); see `REVIEW.md`.**
+> - **Not the first.** A public Lean proof of the same statement, also on Anthropic's development, dates from 2026-11-04 (V. Tulsyan, `xennygrimmato/eth-hamiltonicity`; `lit/SURVEY.md` §6). The claim of priority that stood in this file was wrong and is removed below.
+> - **Second kernel.** The upstream acceptance check (comparator with the independent `nanoda` kernel) now passes for all five theorems; see `comparator/README.md`.
+> - **Two theorems added:** `countTransferThm` and `piecesTransfer`, in the section "Counting rates and pieces" below.
+
 ## Headline (strongest form)
 
 `Superlinear.corCircuitsSqrtLogInf : ENP.CorCircuitsSqrtLogInf`
 
 **In words:** some language L is in E^NP. For some ε > 0 and for infinitely many n, no circuit over the full fan-in-2 basis with at most ⌊ε·(n+1)·√(log₂(n+2))⌋ gates decides L at length n.
 
-- **Relation to the literature:** this matches OpenAI's paper-only Corollary 1.4, c·n·√log n.
+- **Relation to the literature:** this matches OpenAI's paper-only Corollary 1.4, c·n·√log n. Tulsyan's earlier Lean theorem `enp_not_size_n_sqrt_log_shifted` has the same statement.
 - **Non-vacuity:** `sizeT_superlinear` proves it.
 - **Supporting files** (statement in `StatementSqrtLog.lean`):
   - `FormC.lean` bounds the clause count: Tseitin gives 4 clauses per gate.
@@ -30,7 +35,33 @@
 
 **Non-vacuous:** `corCircuitsSqrtLogInf_of_general` derives the √log theorem from it. It instantiates r(m) = 1/√log₂(m+2) using the development's own deciding machine.
 
-**Size:** 427 new lines (`StatementGeneral`, `ArithGen`, `General`). The library now has 1918 lines in total.
+**Size:** 427 new lines (`StatementGeneral`, `ArithGen`, `General`). The library then had 1918 lines in total.
+
+## Counting rates and pieces (added in the review session, 2026-11-24)
+
+Statements in `StatementPieces.lean` (definitions only).
+
+`Superlinear.Pieces.countTransferThm : ENP.CountTransfer`
+
+**In words:** the general transfer theorem with a machine that *counts* in place of one that decides. Let r satisfy `RateOK`. Suppose one Mathlib Turing machine counts the satisfying assignments of every k-CNF with m ≥ 1 clauses, no repeated clause and every variable occurring, within ⌊C·2^{C·k·m·r(m)}⌋ steps (`SatM.CountInRate r`, the form in which the upstream development states its rates). Then some language in E^NP has, for some ε > 0, no circuits of size ⌊ε·(n+1)/r(n)⌋ at infinitely many n.
+
+`Superlinear.Pieces.piecesTransfer : ENP.PiecesTransfer`
+
+**In words:** for all ρ and c, if pieces in the sense of the paper's Definition 7 exist with parameters (ρ, c) (`AppRunningTime.Exist ρ c`), then some language in E^NP has, for some ε > 0, no circuits of size ⌊ε·(n+1)·(log₂(n+2))^{α'}⌋ at infinitely many n, where α' = log₂(1/ρ).
+
+- **Why it was added:** the first session's notes said a new family of pieces "would plug in" and give a machine-checked E^NP bound. Two Lean steps were in fact missing (`lit/RHO_SPEC.md` §2, items 2 and 3). This closes them.
+- **What it does not give:**
+  - It is conditional. The only pieces known are those of Appendix B (ρ = 1/√2), where it returns the √log theorem; `sqrtLog_of_pieces` proves exactly that, so the statement is not vacuous.
+  - `range_of_exist` proves that the hypothesis forces ½ ≤ ρ < 1, hence 0 < α' ≤ 1. The bound can never exceed ε·n·log n.
+  - The hypothesis `AppRunningTime.Exist` is the upstream development's Lean form of Definition 7. Its statement file is not Mathlib-only: it uses the development's own program model.
+- **Supporting files:**
+  - `PiecesRateOK.lean`: `RateOK (rPow α)` for 0 < α ≤ 1.
+  - `PiecesCountTransfer.lean`: the transfer for a counting machine.
+  - `PiecesBridge.lean`: from a counting machine to a deciding machine at the same rate, under an explicit side condition, and a second proof of `piecesTransfer` through `generalTransfer`.
+  - `PiecesMain.lean`: the two theorems and the sanity lemmas.
+- **Size:** 541 new lines. The library now has 2464 lines in 20 modules.
+- **Who did the work:** a subagent of the review session proved these as a feasibility probe; the review session ported them, wrote the statement file, and verified them as below.
+- **Verification:** the same clean-room script as before, from scratch in an empty directory, now over 20 modules (`verify-output.log`); and the comparator check with `nanoda` (`comparator/`).
 
 ## First milestone (weaker, kept)
 
@@ -49,7 +80,7 @@ gates. The circuits may use any 2-input gate.
 ## Status of the claim
 
 - **The mathematics is not new.** It is the standard Williams-style "algorithms to lower bounds" consequence of the explicit #3-SAT rate 2^{O(n log log n/√log n)}. OpenAI's ETH paper (Oct 2026, Cor 1.4, which I read in the PDF) states the stronger c·n·√log n version on paper. The first milestone was weaker by a log log n factor; the headline theorem above removes that factor.
-- **What is new is the machine check.** As of 2026-11-24, to my knowledge, no Lean formalization of any superlinear bound for E^NP existed. Anthropic's development proves only the linear one, and OpenAI's Lean covers only the algorithm (`openai/math` lean/docs/378.md).
+- **The machine check is independent, but not the first** (corrected in review). Anthropic's development proves only the linear bound, and OpenAI's Lean covers only the algorithm (`openai/math` lean/docs/378.md). But V. Tulsyan's repository `xennygrimmato/eth-hamiltonicity` has had a Lean proof of the same statement since 2026-11-04. What I could not find elsewhere are the transfer theorems (`generalTransfer`, `countTransferThm`, `piecesTransfer`).
 - **What it rests on:** Anthropic's `formal-math/eth` development (commit 11b6c7e), which itself has not been checked by a human mathematician.
 
 ## What is in this directory
@@ -73,7 +104,7 @@ gates. The circuits may use any 2-input gate.
 - **Infinitely often only.** The bound holds at infinitely many lengths, which is the standard form for this kind of result.
 - **Kernel checking.**
   - `leanchecker` replays the declarations of all 15 new modules through the Lean kernel, and every module exits 0. It runs in non-fresh mode, with imports taken from .olean files.
-  - Not set up: Comparator, and the independent nanoda kernel that the original development uses.
+  - Comparator with the independent nanoda kernel was not set up in the first session. The review session ran it: all five theorems are accepted (`comparator/README.md`).
   - A grep of the new files finds no `set_option`, `unsafe`, `opaque`, `extern`, `macro`/`elab`, `sorry`, `axiom`, `native_decide` or `implemented_by`.
 - **The clean-room build was run twice.**
   - First run: in a tmpfs that reused the build directory of an earlier check.

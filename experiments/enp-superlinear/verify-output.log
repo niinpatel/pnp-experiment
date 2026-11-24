@@ -1,8 +1,8 @@
-extracted to /mnt/lean/fresh2 ['anthropics-formal-math-11b6c7e']
-source tree: /mnt/lean/fresh2/anthropics-formal-math-11b6c7e/
-✔ [4460/4462] Built Superlinear.MainSqrtLog (1.0s)
-✔ [4461/4462] Built Superlinear.General (2.1s)
-Build completed successfully (4462 jobs).
+extracted to /mnt/data/verify-review2 ['verify-review2.log', 'anthropics-formal-math-11b6c7e']
+source tree: /mnt/data/verify-review2/anthropics-formal-math-11b6c7e/
+✔ [4465/4467] Built Superlinear.PiecesBridge (3.6s)
+✔ [4466/4467] Built Superlinear.PiecesMain (2.3s)
+Build completed successfully (4467 jobs).
 === build exit 0
 Superlinear.corCircuitsSuperlinInf : ENP.CorCircuitsSuperlinInf
 'Superlinear.corCircuitsSuperlinInf' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -13,11 +13,23 @@ Superlinear.corCircuitsSqrtLogInf : ENP.CorCircuitsSqrtLogInf
 Superlinear.generalTransfer : ENP.GeneralTransfer
 'Superlinear.generalTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Superlinear.corCircuitsSqrtLogInf_of_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+Superlinear.rateOK_rPow : ENP.RateOK (SatM.rPow (1 / 2))
+Superlinear.decidesClauseRate_rPow : ENP.DecidesClauseRate (SatM.rPow (1 / 2))
+Superlinear.Pieces.countTransferThm : ENP.CountTransfer
+'Superlinear.Pieces.countTransferThm' depends on axioms: [propext, Classical.choice, Quot.sound]
+Superlinear.Pieces.piecesTransfer : ENP.PiecesTransfer
+'Superlinear.Pieces.piecesTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Superlinear.Pieces.piecesTransfer'' depends on axioms: [propext, Classical.choice, Quot.sound]
+Superlinear.Pieces.sqrtLog_of_pieces : ENP.CorCircuitsSqrtLogInf
+'Superlinear.Pieces.sqrtLog_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Superlinear.Pieces.range_of_exist : ∀ {ρ : ℝ} {c : ℕ},
+  AppRunningTime.Exist ρ c → (1 / 2 ≤ ρ ∧ ρ < 1) ∧ 0 < AppRunningTime.alpha' ρ ∧ AppRunningTime.alpha' ρ ≤ 1
 === check exit 0
 no sorry/axiom/native_decide/implemented_by/set_option/unsafe/opaque/extern/macro/elab in new files
 leanchecker Superlinear.Statement OK
 leanchecker Superlinear.StatementSqrtLog OK
 leanchecker Superlinear.StatementGeneral OK
+leanchecker Superlinear.StatementPieces OK
 leanchecker Superlinear.Engine OK
 leanchecker Superlinear.Arith OK
 leanchecker Superlinear.Arith2 OK
@@ -30,3 +42,8 @@ leanchecker Superlinear.Main OK
 leanchecker Superlinear.MainSqrtLog OK
 leanchecker Superlinear.Sanity OK
 leanchecker Superlinear.General OK
+leanchecker Superlinear.PiecesRateOK OK
+leanchecker Superlinear.PiecesCountTransfer OK
+leanchecker Superlinear.PiecesBridge OK
+leanchecker Superlinear.PiecesMain OK
+EXIT 0

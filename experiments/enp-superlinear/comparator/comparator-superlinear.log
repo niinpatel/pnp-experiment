@@ -1,0 +1,17 @@
+Building SuperlinearChallenge
+⚠ [2556/2557] Replayed SuperlinearChallenge
+warning: SuperlinearChallenge.lean:10:8: declaration uses `sorry`
+warning: SuperlinearChallenge.lean:13:8: declaration uses `sorry`
+warning: SuperlinearChallenge.lean:16:8: declaration uses `sorry`
+warning: SuperlinearChallenge.lean:19:8: declaration uses `sorry`
+warning: SuperlinearChallenge.lean:22:8: declaration uses `sorry`
+Build completed successfully (2557 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Superlinear.corCircuitsSuperlinInf, Superlinear.corCircuitsSqrtLogInf, Superlinear.generalTransfer, Superlinear.Pieces.countTransferThm, Superlinear.Pieces.piecesTransfer, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from SuperlinearChallenge
+Building SuperlinearSolution
+Build completed successfully (4468 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Superlinear.corCircuitsSuperlinInf, Superlinear.corCircuitsSqrtLogInf, Superlinear.generalTransfer, Superlinear.Pieces.countTransferThm, Superlinear.Pieces.piecesTransfer, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from SuperlinearSolution
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!

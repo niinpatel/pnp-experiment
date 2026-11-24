@@ -36,13 +36,14 @@ Labels used below:
 
 - **Re-run, from scratch.** `experiments/enp-superlinear/verify.sh` in an empty directory
   (`/mnt/data/verify-review`): fresh download of upstream at commit 11b6c7e, overlay of only the 15
-  new modules, `lake build` (4462 jobs, exit 0).
+  modules of the first thread, `lake build` (4462 jobs, exit 0).
   - All three theorems have exactly the types of their statement files:
     `corCircuitsSuperlinInf`, `corCircuitsSqrtLogInf`, `generalTransfer`.
   - Axioms: only `propext`, `Classical.choice`, `Quot.sound`.
   - `leanchecker` replays all 15 new modules.
   - The output equals the committed log except for build timings and two `#check` lines that the
-    committed log was missing. I replaced the committed log with the fresh one.
+    committed log was missing. The committed log is now the one from the later 20-module run
+    (§6.1).
 - **Read: the statements mean what STATUS says.** I read the upstream definitions the statements
   rest on (`CircuitLowerBoundStatement.lean`, `CircuitLowerBoundInfinitelyOftenStatement.lean`,
   `ClauseBoundStatement.lean`, `KSatStatement.lean`, `ThreeSatStatement.lean`).
@@ -65,12 +66,15 @@ Labels used below:
     the challenge's statement and uses only the three standard axioms, then replays the proofs in
     the independent `nanoda` kernel and in Lean's kernel.
   - Result: "nanoda kernel accepts the solution … Your solution is okay!" for the three original
-    theorems. Upstream's own configuration (ETH is false; the Main Theorem) passes too.
+    theorems.
   - Negative controls behaved: a swapped proof term makes nanoda fail, and a wrong statement makes
     comparator reject.
   - Limits: the sandbox ran in best-effort mode (this kernel has Landlock ABI 2); host tools were
     not pinned; `nanoda` was linked with `zig cc`.
-  - [[PENDING: run2]]
+  - **Re-run by me** on all five theorems, including the two added in this session (§6.1): same
+    result, "Your solution is okay!" (`experiments/enp-superlinear/comparator/comparator-superlinear.log`).
+  - **Upstream's own headline theorems pass too** (ETH is false; the Main Theorem), in the same
+    run. The first thread's rebuild note had listed this check as not run.
   - Files and how to repeat it: `experiments/enp-superlinear/comparator/README.md`.
 - **Read: it was not the first.** `xennygrimmato/eth-hamiltonicity` has
   `enp_not_size_n_sqrt_log_shifted`, the same statement with the same size function on the same
@@ -90,10 +94,13 @@ Labels used below:
   the same ranks as the committed file (66, 94, 134, 187).
 - **Not re-run:** the full h = 9 rank run and the referee's random searches.
 
-### 2.3 The backup is current
+### 2.3 The backup was current
 
-- **Re-run.** `gs://pnp-experiment/pnp-work.bundle` has the same MD5 as the local bundle and its
-  head is `3f0021c`, the first thread's last commit. The pinned upstream tarball is there too.
+- **Re-run.** At the start of this session `gs://pnp-experiment/pnp-work.bundle` had the same MD5
+  as the local bundle, and its head was `3f0021c`, the first thread's last commit. The pinned
+  upstream tarball was there too.
+- The bundle has since been replaced by one that holds all branches, including this session's
+  commits (§7).
 
 ## 3. Defects found
 
@@ -118,10 +125,13 @@ Severity is about how much a reader could be misled, not about effort to fix.
 | 15 | STATUS, memory | "Not merged into main": stale since you merged at 13:09 UTC. | Low | Yes |
 | 16 | Housekeeping | Committed verify log two lines behind the script; the papers cited by page lived in a temporary directory; the backup bundled one branch; two empty output files; three scripts hard-code `/mnt/data` paths; one check is unseeded. | Low | First three yes; the rest noted only |
 
-- **Where the evidence is.** Defects 5–14 come from two audit subagents that checked 156 statements
-  against the paper texts. A second subagent then tried to refute each of their 23 findings: 15
-  survived and 8 were rejected. Defects 1–2 come from a novelty subagent; I re-fetched the decisive
-  pages myself. Raw reports: `/mnt/data/review/` and this session's job directory.
+- **Where the evidence is.**
+  - Defects 7–14 come from two audit subagents that checked 156 statements against the paper
+    texts. A second subagent then tried to refute each of their 23 findings: 15 survived and 8
+    were rejected.
+  - Defects 1–2 come from a novelty subagent; I re-fetched the decisive pages myself.
+  - Defects 3–6, 15 and 16 I found and checked directly.
+  - Raw reports: `/mnt/data/review/` and this session's job directory.
 - **What the audits confirmed.** 59 statements were confirmed against the sources, including
   Definition 7, Theorem A's recursion, the page citations of Appendices B and H, the F2 powering
   bound, and the three re-derived results of Majdoddin.
@@ -198,7 +208,6 @@ Severity is about how much a reader could be misled, not about effort to fix.
    known", describes the research problem, not a reason to stop working on it. Several cheap,
    certain items were also left undone: the second-kernel check, the Lean glue that the notes
    describe as if it existed, and the corrections in §3.
-
 6. **The literature search: too narrow, and this is the error that cost the most.**
    - It searched arXiv, ECCC, and the two labs' repositories. The follow-up work on these
      algorithms is mostly on Hexagon, in third-party GitHub repositories and issue threads, and in
@@ -215,11 +224,11 @@ Severity is about how much a reader could be misled, not about effort to fix.
 
 - **A brief built on unverified constants.** The orchestrator briefed the √log investigation with
   figures taken from the upstream README's condensed sketch as if they were the paper's recursion.
-  The subagent caught it. The same figures are still in `SURVEY.md` and `IMPLICATIONS.md`.
+  The subagent caught it, but the same figures stayed in `SURVEY.md` until this review.
 - **A plan with two mathematical errors** (`PLAN.md`: a false inequality and a wrong ε). The
   feasibility subagent caught both.
 - **"Proved" claims that were not.** Stage 2 recorded two results as proved; the referee found
-  gaps in both and one false sentence. Only the header of the note was corrected.
+  gaps in both and one false sentence. Only the header of the note was corrected at the time.
 - **Infrastructure.** The first Lean build filled the 10 GB root disk. The source papers that the
   notes cite by page were kept in a temporary job directory. The work sat on an unmerged worktree
   branch until you merged it by hand.
@@ -238,7 +247,7 @@ Severity is about how much a reader could be misled, not about effort to fix.
 ## 6. Follow-ups
 
 Each candidate is judged on four things: is the result machine-checkable or an exact finite
-certificate; what it costs against about $320 and the deadline of Nov 28, 11:00 IST; whether
+certificate; what it costs against about $310 and the deadline of Nov 28, 11:00 IST; whether
 someone has already done it; and how far it is from P vs NP. On the last point the answer is the
 same for all of them: none moves P vs NP.
 
@@ -254,7 +263,10 @@ same for all of them: none moves P vs NP.
     back the √log theorem (`sqrtLog_of_pieces`). It can never give more than ε·n·log n.
   - 541 new lines in five files. A subagent proved them as a feasibility probe; I ported them,
     wrote a definitions-only statement file, and re-verified.
-  - [[PENDING: verify2]]
+  - **Re-run:** the clean-room script from scratch in a second empty directory, now over 20
+    modules: build exit 0 (4467 jobs), both new theorems have exactly their statement-file
+    types, standard axioms only, `leanchecker` replays all 20 modules. The comparator check
+    accepts them as well.
 - **Corrections to the record** (§3), a sourced addendum to the survey, a corrected spend tool, and
   durable copies of the cited papers.
 
@@ -285,8 +297,9 @@ These are outward-facing, so I have not done them.
 
 ### 6.4 The one research bet, which I do not recommend
 
-- **The question.** Is there a family of pieces with ρ < 1/√2? It is equivalent to improving the
-  3-SAT algorithm's rate, and it is open (Majdoddin's Open problem 1).
+- **The question.** Is there a family of pieces with ρ < 1/√2? One would improve the 3-SAT
+  algorithm's rate through the paper's Theorem A. The question is open (Majdoddin's Open
+  problem 1).
 - **What is new since the first thread stopped.** The first thread ended with "no candidate
   object is known". That is no longer accurate.
   - There is a concrete, searchable sub-problem. For pieces that are combinations of P ⊗ P over
@@ -296,10 +309,11 @@ These are outward-facing, so I have not done them.
   - That party has shown the construction cannot work at local dimension 2 or 4, and that
     dimension 8 and above are not excluded. They also report a formal cost profile below 1/√2
     with no known realization.
-  - [[PENDING: abelian]]
+  - A subagent of this session is probing the smallest cases of that sub-problem by computer.
+    Its result is in §8.
 - **Why I do not recommend it.**
   - Others have worked on exactly this for three and a half weeks, with far more effort than
-    $320 buys, and have not succeeded.
+    $310 buys, and have not succeeded.
   - The lower-bound side is tied to a known hard problem. Any proof that ρ must exceed 1/2 would
     answer a question of Naslund on sum-of-squares-type identities, so a clean negative answer is
     not within reach either.
@@ -316,8 +330,10 @@ These are outward-facing, so I have not done them.
   nothing in this session changes that.
 - **More graded or vertex-algebra families.** Closed by the published note of 2026-10-31 and by
   Stage 2.
-- **Brute-force search for small identities.** A counting argument shows no certificate can exist
-  at small block sizes, and the third party has excluded dimensions 2 and 4.
+- **Brute-force search for small identities.** For the simple powering bound, counting alone
+  rules out blocks of 3 bits or fewer (my derivation, not refereed), and at 4 bits each piece
+  already has 65,536 entries. The third party has excluded Pauli-type seeds at dimensions 2
+  and 4.
 - **Writing up that the paper's Appendix B improves the sum-of-squares bound** (P(N) ≤ N^{√2+o(1)}
   against the previous 1.62). True as far as I can check, but already posted publicly on
   2026-11-07 (anthropics/formal-math issue #45).
@@ -330,4 +346,55 @@ early to find out what it had missed.
 
 ## 7. This session
 
-[[PENDING: this session]]
+### 7.1 What was done
+
+- **Read** the first thread's transcript, all six notes, the Lean statement files and the upstream
+  definitions they rest on.
+- **Re-ran** the clean-room verification twice (15 modules, then 20), seven experiment scripts, a
+  partial rank computation, and the backup check.
+- **One workflow of eight subagents:** two source-fidelity audits, two verifiers of their
+  findings, a second-kernel check, a novelty check, a Lean feasibility probe, and a computational
+  probe.
+- **Ported and verified** the Lean probe's result (§6.1), and re-ran the comparator check myself.
+- **Corrected** `STATUS.md`, `RESULT.md`, the five notes in `lit/`, the rebuild note, the spend
+  tool and the backup script. Every corrected line is marked.
+
+### 7.2 Where things are
+
+- **In the repository (branch `main`):** this file; the corrected notes; the five new Lean files in
+  `experiments/enp-superlinear/lean/proof/superlinear/Superlinear/`;
+  `experiments/enp-superlinear/comparator/`; the fresh `verify-output.log`.
+- **On the data disk, not in the repository:**
+  - `/mnt/data/papers/`: the papers the notes cite by page (also uploaded to the bucket).
+  - `/mnt/data/review/`: raw audit reports, the comparator tools and logs, the Lean probe tree,
+    the computational probe, and copies of the third-party files quoted in `lit/SURVEY.md` §6.
+  - `/mnt/data/verify-review/` and `/mnt/data/verify-review2/`: the two clean-room build trees.
+- **In the bucket:** `pnp-work.bundle` (all branches), `papers-2026-11-24.tar.gz`, and the pinned
+  upstream tarball.
+
+### 7.3 What this review did not check
+
+- **Whether upstream's Lean form of Definition 7 is faithful.** `piecesTransfer` takes
+  `AppRunningTime.Exist ρ c` as its hypothesis. I did not compare that definition with the paper
+  clause by clause; the first thread's spec says it matches.
+- **The earlier Lean proof by Tulsyan** was read, not built.
+- **The prior work in `lit/SURVEY.md` §6** was read in part only: abstracts and the opening
+  sections of three notes.
+- **`vp-vnp`:** the comparator check was run for `eth` only.
+- **Majdoddin's proofs** of the results that the notes cite but did not re-derive.
+- **The referee's random searches and the full h = 9 rank run** were not re-run.
+
+### 7.4 Spend
+
+- **This session: $86.92 when this section was written**, measured with the corrected tool. The
+  final figure is in the session's closing report; `python3 tools/spend.py` prints the current
+  total.
+- **That is more than the $60–70 I planned.** Each subagent consulted the advisor once or twice,
+  and each such call re-sends its whole transcript. Those calls cost about $15 in total.
+- **Running total for the project:** about $172 of $489.
+- **Google Cloud:** five small Gemini calls by the novelty subagent and a few megabytes of
+  storage.
+
+## 8. Result of the computational probe
+
+Still running when this was written. This section will be replaced by its result.
