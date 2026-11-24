@@ -1,0 +1,13 @@
+App B a=1/2, W=H=2: 0.7071067811865476 0.7071067811865475
+H=1,W=2,a=0.6309 pigeon_ok=True rho=0.6458
+H=1,W=2,a=0.7000 pigeon_ok=True rho=0.6641
+H=1,W=2,a=0.8000 pigeon_ok=True rho=0.6916
+H=1,W=2,a=1.0000 pigeon_ok=True rho=0.7500
+H=1,W=2,a=0.5 pigeon_ok=False
+kinked concave W=H=2, D(4)= 2.0  rho= 0.6666666666666667
+kinked H=1,W=2, D(3)= 2.0  rho= 0.625
+a=0.50 mu*=2.000 rho=0.7071 2^-a=0.7071
+a=0.60 mu*=1.587 rho=0.6598 2^-a=0.6598
+a=0.75 mu*=1.260 rho=0.5946 2^-a=0.5946
+a=1.00 mu*=1.000 rho=0.5000 2^-a=0.5000
+step profile W=H=2 rho= 0.5

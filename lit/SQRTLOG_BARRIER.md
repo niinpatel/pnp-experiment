@@ -57,7 +57,7 @@ With β = 2 and ρ = 1/√2 this gives α' = ½. The script reproduces Thm A(a),
 - **Two-merge floor (Prop 4.8, p.37):** ρ ≥ ½.
 - **The only √log-specific statement is Prop 4.24 (p.48, proved),** for pieces "in the shape of App. B" (graded space, profile D(E) = log dim V_{≤E}, windows W = H = 2h):
   - any concave profile gives ρ ≥ 2/3;
-  - a power profile D = cE^a gives ρ ≥ max(2^{a−1}, 2^{−a}) ≥ 1/√2, with equality only at a = ½, so **App. B is optimal among power profiles**. The 2^{−a} branch comes from the pigeonhole need for some piece of full rank 2^{2λ} (D(4h) ≥ 2λ);
+  - a power profile D = cE^a gives ρ ≥ max(2^{a−1}, 2^{−a}) ≥ 1/√2, with equality only at a = ½, so **App. B is optimal among power profiles when both windows are at least 2h**. Correction from Stage 1 re-check (`lit/RHO_SPEC.md`): with free windows the bound weakens to ρ ≥ 2^{−a}. For the partition profile (a = ½), no choice of windows beats 1/√2. The 2^{−a} branch comes from the pigeonhole need for some piece of full rank 2^{2λ} (D(4h) ≥ 2λ);
   - a window H = h would give 5/8; going below 1/√2 needs a "kinked profile ... we know no such algebra".
 - **As ceilings (our derivation):** α' ≤ ½ for App.-B shape with power profile, ≤ log₂(3/2) ≈ 0.585 with concave profile, ≤ 1 for all grid algorithms.
 - **Status of ρ.** The window ρ ∈ [½, 1/√2) is open ([M] Open problem 1, p.50). §4.8 (p.49): d-dimensional grids with line merges are worse, and a success with three or more merges "would be a lever on ρ, i.e. on α′".
