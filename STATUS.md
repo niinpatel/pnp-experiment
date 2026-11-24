@@ -74,9 +74,8 @@ Any document here that reads like a resolution claim should be treated as a bug.
 - **Unchecked foundations:** every Lean result here rests on Anthropic's development, which no human mathematician has checked. The meaning of the statement files was checked by reading them, not by machine.
 - **Builds:** they now live on the persistent disk at `/mnt/data`. The earlier RAM disk at `/mnt/lean` has been released.
 
-## Spend (estimated)
+## Spend
 
-- **Claude tokens:** about $72 for this session's tokens, including subagents, at published Opus 5.5 prices ($4/$20 per Mtok, cache reads $0.20). Advisor calls are not in the logs; estimate about $15 more.
-- **Total:** I estimated about $85–90 of the $489 budget. **Actual, per the Anthropic console on 2026-11-24, was about $51**: $438 of credit remained. My estimate overstated the spend.
-- **Google Cloud:** 2 small Gemini calls, and about 10 MB of GCS storage.
-- **Measurement:** `tools/spend.py` gives the token counts.
+- **Console checkpoint:** $438 remained on 2026-11-24, about $51 spent.
+- **After the faster-3-SAT attempt:** about **$100 spent in total**, leaving about $390. This is a calibrated estimate: `tools/spend.py` token counts at Opus 5.5 prices, times 0.7, plus advisor calls.
+- **Google Cloud:** 2 small Gemini calls, about 10 MB of GCS storage, and a 250 GB persistent disk added by the user.
