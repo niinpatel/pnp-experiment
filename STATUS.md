@@ -44,6 +44,11 @@ like such a claim should be treated as a bug.
 
 - Nothing is running. The log log factor was removed within the cap.
 
+5. `lit/SQRTLOG_BARRIER.md` traces where the 1/2 in 2^{m/√log m} comes from.
+   - **Formula** (our derivation from the paper): the rate exponent is α' = log(1/ρ)/log β. Anthropic has β = 2 and ρ = 1/√2, and the 1/√2 traces back to the Hardy–Ramanujan partition count.
+   - **No proven barrier** exists at 1/2. Majdoddin shows that grid algorithms are capped at α' ≤ 1.
+   - **The only lever** is cheaper "pieces", with ρ < 1/√2. Through `generalTransfer`, that would give E^NP ⊄ SIZE(n·(log n)^{log₂(1/ρ)}). This is a conjecture; nothing was proved.
+
 ## Explicitly not attempted (open, beyond this budget)
 
 - Improving the #SAT rate past 2^{m/√log m}, which would give stronger E^NP bounds.
