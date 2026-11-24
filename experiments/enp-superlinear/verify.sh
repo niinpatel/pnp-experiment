@@ -18,11 +18,16 @@ cd "$SRC/eth"
 cat > proof/superlinear/CheckType.lean <<'EOF'
 import Superlinear.Main
 import Superlinear.Sanity
+import Superlinear.MainSqrtLog
 -- The final theorem has exactly the type of the Mathlib-only statement.
 example : ENP.CorCircuitsSuperlinInf := Superlinear.corCircuitsSuperlinInf
 #check @Superlinear.corCircuitsSuperlinInf
 #print axioms Superlinear.corCircuitsSuperlinInf
 #print axioms Superlinear.sizeS_superlinear
+example : ENP.CorCircuitsSqrtLogInf := Superlinear.corCircuitsSqrtLogInf
+#check @Superlinear.corCircuitsSqrtLogInf
+#print axioms Superlinear.corCircuitsSqrtLogInf
+#print axioms Superlinear.sizeT_superlinear
 EOF
 lake exe cache get > "$BUILD/cache.log" 2>&1
 lake build superlinear 2>&1 | tail -3

@@ -26,20 +26,19 @@ like such a claim should be treated as a bug.
 3. `lit/IMPLICATIONS.md`: why none of the 2026 results settles P vs NP.
 
 4. **New result, machine-checked in this session:** E^NP has no circuits of size
-   ε·n·√(log n)/log log n, infinitely often, over all fan-in-2 gates.
-   - **Lean theorem:** `Superlinear.corCircuitsSuperlinInf` (780 lines) on top of Anthropic's
-     `eth` development.
+   **ε·n·√(log n)**, infinitely often, over all fan-in-2 gates
+   (`Superlinear.corCircuitsSqrtLogInf`). A first milestone proved the weaker
+   ε·n·√(log n)/log log n.
+   - **Lean development:** 1488 lines, on top of Anthropic's `eth` development (commit 11b6c7e).
    - **Checked:** a clean-room rebuild passes, using only the standard axioms, and a
      non-vacuity lemma is proved.
-   - **Novelty:** the mathematics is known on paper (OpenAI's Cor 1.4 gives the stronger
-     c·n·√log n). To my knowledge this is the **first machine-checked superlinear circuit
+   - **Novelty:** the mathematics is known on paper (it matches OpenAI's Cor 1.4, c·n·√log n). To my knowledge this is the **first machine-checked superlinear circuit
      lower bound for E^NP**.
    - **Details:** `experiments/enp-superlinear/RESULT.md`.
 
 ## In progress
 
-- Capped attempt to drop the log log factor using the clause rate, to match OpenAI's
-  c·n·√log n.
+- Nothing is running. The log log factor was removed within the cap.
 
 ## Explicitly not attempted (open, beyond this budget)
 

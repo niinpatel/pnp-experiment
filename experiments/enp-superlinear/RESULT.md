@@ -1,5 +1,25 @@
 # Result: a machine-checked superlinear circuit lower bound for E^NP
 
+## Headline (strongest form)
+
+`Superlinear.corCircuitsSqrtLogInf : ENP.CorCircuitsSqrtLogInf`
+
+**In words:** some language L is in E^NP. For some ε > 0 and for infinitely many n, no circuit over the full fan-in-2 basis with at most ⌊ε·(n+1)·√(log₂(n+2))⌋ gates decides L at length n.
+
+- **Relation to the literature:** this matches OpenAI's paper-only Corollary 1.4, c·n·√log n.
+- **Non-vacuity:** `sizeT_superlinear` proves it.
+- **Supporting files** (statement in `StatementSqrtLog.lean`):
+  - `FormC.lean` bounds the clause count: Tseitin gives 4 clauses per gate.
+  - `Host2.lean` makes every variable occur by adding the clauses x ∨ ¬x.
+  - `Arith2.lean` contains the asymptotics.
+  - `Chain.lean` contains the diagonal chain argument for a general size function.
+  - `MainSqrtLog.lean` proves the theorem.
+- **Scale:** the full library is 1488 lines.
+- **Earlier result:** the weaker n·√log n / log log n version below was the first milestone, and the new theorem implies it (`corCircuitsSuperlinInf_of_sqrtLog`).
+- **Clean-room check:** `verify.sh` checks both theorems; see `verify-output.log`.
+
+## First milestone (weaker, kept)
+
 ## Theorem (Lean 4, Mathlib, standard axioms only)
 
 `Superlinear.corCircuitsSuperlinInf : ENP.CorCircuitsSuperlinInf`
@@ -14,13 +34,13 @@ gates. The circuits may use any 2-input gate.
 
 ## Status of the claim
 
-- **The mathematics is not new.** It is the standard Williams-style "algorithms to lower bounds" consequence of the explicit #3-SAT rate 2^{O(n log log n/√log n)}. OpenAI's ETH paper (Oct 2026, Cor 1.4, which I read in the PDF) states the stronger c·n·√log n version on paper. **The bound formalized here is weaker by a log log n factor.**
+- **The mathematics is not new.** It is the standard Williams-style "algorithms to lower bounds" consequence of the explicit #3-SAT rate 2^{O(n log log n/√log n)}. OpenAI's ETH paper (Oct 2026, Cor 1.4, which I read in the PDF) states the stronger c·n·√log n version on paper. The first milestone was weaker by a log log n factor; the headline theorem above removes that factor.
 - **What is new is the machine check.** As of 2026-11-24, to my knowledge, no Lean formalization of any superlinear bound for E^NP existed. Anthropic's development proves only the linear one, and OpenAI's Lean covers only the algorithm (`openai/math` lean/docs/378.md).
 - **What it rests on:** Anthropic's `formal-math/eth` development (commit 11b6c7e), which itself has not been checked by a human mathematician.
 
 ## What is in this directory
 
-- `lean/proof/superlinear/Superlinear/`: 780 new lines.
+- `lean/proof/superlinear/Superlinear/`: 780 lines for the first milestone, plus 623 for the √log form (1488 in total, counting a small addition to the axioms script).
   - `Statement.lean`: definitions only. It imports Mathlib and the development's two Mathlib-only statement files.
   - `Engine.lean`: extracts the explicit-rate engine.
   - `Arith.lean`: monotonicity of n·r(n) and the time bound.
