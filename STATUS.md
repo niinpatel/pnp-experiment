@@ -45,7 +45,8 @@ Any document here that reads like a resolution claim should be treated as a bug.
      - only the axioms propext, Classical.choice and Quot.sound;
      - `leanchecker` replay of all 15 new modules;
      - no sorry, axiom, native_decide, set_option, unsafe or extern in the new files.
-     - To re-run: `experiments/enp-superlinear/verify.sh /mnt/lean/verify-again`. The build directory needs about 15 GB, and the root disk has only 10 GB, so use a tmpfs: `sudo mount -t tmpfs -o size=48G tmpfs /mnt/lean`.
+     - To re-run: `experiments/enp-superlinear/verify.sh /mnt/data/verify-again`. It needs about 15 GB, and the root disk has only 10 GB.
+     - A persistent 250 GB data disk is mounted at `/mnt/data` (added 2026-11-24, in fstab with `nofail`). A built copy is at `/mnt/data/lean/anthropics-formal-math-11b6c7e/eth`; set `XDG_CACHE_HOME=/mnt/data/lean/.cache` when using it.
    - **Novelty:** the mathematics is OpenAI's paper-only Corollary 1.4, so it is not new. To my knowledge this is the **first machine-checked superlinear circuit lower bound for E^NP**.
      Its distance to P vs NP is large; see `lit/IMPLICATIONS.md` §3.
 5. **Where the √log comes from** (`lit/SQRTLOG_BARRIER.md`, sourced).
@@ -62,7 +63,7 @@ Any document here that reads like a resolution claim should be treated as a bug.
 ## Caveats
 
 - **Unchecked foundations:** every Lean result here rests on Anthropic's development, which no human mathematician has checked. The meaning of the statement files was checked by reading them, not by machine.
-- **`/mnt/lean` is RAM:** the build directories there vanish on reboot, but everything needed to rebuild is in the repo and the bucket.
+- **Builds:** they now live on the persistent disk at `/mnt/data`. The earlier RAM disk at `/mnt/lean` has been released.
 
 ## Spend (estimated)
 
