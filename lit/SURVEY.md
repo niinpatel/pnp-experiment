@@ -13,15 +13,15 @@ The two strongest late-2026 results near the problem were both found by AI model
 
 1. **VP ≠ VNP over every field**, by Claude (Anthropic), posted 2026-11-23. [V-primary for content: I read anthropics/formal-math/vp-vnp README, Statement.lean and paper.pdf §1–2. The 11-23 date is from news coverage.]
    - **Result:** every arithmetic circuit for PERM_m (char ≠ 2) or HC_m (any field) has more than m^{c (log m)^{1/3}} gates. The bound also holds for border (approximate) complexity.
-   - **Verification status:** per its README, formalized in Lean 4 / Mathlib with the standard axioms only and re-checked by the nanoda kernel. I am rebuilding it myself; see experiments/lean-rebuild/. *No human mathematician has checked it*, according to the authors.
+   - **Verification status:** per its README, formalized in Lean 4 / Mathlib with the standard axioms only and re-checked by the nanoda kernel. I **rebuilt it**: the standard axioms only (experiments/lean-rebuild/). *No human mathematician has checked it*, according to the authors.
    - **Technique:** spectral points (Strassen's asymptotic spectrum; existence comes from Zorn's lemma, so they are non-explicit). The proof splits into a "flat" case and a "contracting" case. The contracting case ends in a diagonalization against "accelerators".
    - **Why it does not reach Boolean circuits (paper §2.5):** two steps look at the *formal polynomial* at each gate. One is the block-multilinear part (lem_balanced); the other is the low-degree part (lem_lowdeg). A Boolean circuit only needs to agree on {0,1}, so it may compute HC + Σ(x_i² − x_i)h_i, whose parts are unrelated.
    - **Barriers:** the authors have *not* analysed relativization or algebrization for their proof.
 2. **ETH is false.** Two papers, posted within a day of each other.
    - **Anthropic** [V-primary: formal-math/eth, paper.pdf]: Claude, "A 2^{o(n)} Time Algorithm for 3-SAT", 2026-10-26.
-     - **Main theorem:** #k-SAT runs in time 2^{O(min{k² n log log n/√log n, k m/√log m})}. Per its README, machine-checked in Lean against Mathlib's Turing.FinTM2 model. I am rebuilding it myself.
+     - **Main theorem:** #k-SAT runs in time 2^{O(min{k² n log log n/√log n, k m/√log m})}. Per its README, machine-checked in Lean against Mathlib's Turing.FinTM2 model. I **rebuilt it**: the standard axioms only.
      - **Technique:** contracting tensor networks on the complete graph K_K. The recursion is e(9K^16) ≤ 0.9·e(K) + O(1/K), and it uses an "eight-square identity" decomposition of SWAP (SWAP = I − 2·singlet).
-     - **Practicality:** none. There is no improvement over 2^n unless n > 10^{10} (for m = 5n, unless n > 10^{10000}).
+     - **Practicality:** none. For m = 5n clauses there is no improvement over 2^n unless n > 10^{10000}. The bound in n alone gives none unless n > 10^{10^8}. I re-read these figures with `pdftotext -raw`.
      - **Consequences stated in §7:** SETH, NSETH and #ETH are false; Independent Set, Clique, Vertex Cover, Dominating Set and k-Coloring run in 2^{δn}; **E^NP has no linear-size circuits** (via Williams [Wil13, Thm 6.1] and Jahanjou–Miles–Viola [JMV15]).
    - **OpenAI** ("The Exponential Time Hypothesis is False", 2026-10-25) [secondary]. Its Corollary 1.4 reportedly gives **E^NP ⊄ SIZE(c·n·√log n)** infinitely often. That corollary is said to be outside its Lean file [secondary: W. DeMeo blog].
    - **Follow-up, Wu & Wang, arXiv:2611.02560** [secondary: a paraphrase of the abstract page by the fetch tool]:
@@ -33,7 +33,7 @@ The two strongest late-2026 results near the problem were both found by AI model
      - arXiv:2611.01774, monotone local search.
      - arXiv:2611.06231, "Exhaustive search is hard to beat in constant depth for Hyperclique and OV". Orthogonal Vectors (OV) is **not** refuted.
 
-**My own sketch, not written out; it matches a reported result.** The m-dependence 2^{O(m/√log m)} plus the Tseitin transform gives #CircuitSAT for size-s circuits in 2^{O(s/√log s)}. Feeding this into Williams' E^NP argument gives E^NP ⊄ SIZE(ε n √log n). This holds only if the overhead in Williams Thm 6.1 / JMV stays linear for superlinear sizes, which I have not yet checked. It is reportedly OpenAI's Cor 1.4 [secondary] and the starting point of Wu–Wang, so **it is not new**.
+**My own sketch, not written out; it matches a reported result.** The m-dependence 2^{O(m/√log m)} plus the Tseitin transform gives #CircuitSAT for size-s circuits in 2^{O(s/√log s)}. Feeding this into Williams' E^NP argument gives E^NP ⊄ SIZE(ε n √log n). This holds only if the overhead in Williams Thm 6.1 / JMV stays linear for superlinear sizes, which I have not yet checked. It is OpenAI's Cor 1.4 [V-primary: the PDF in openai/math preprints/, c·n·√log n infinitely often, fan-in-2 gates, no Lean]. This session formalized a version weakened by a log log factor (experiments/enp-superlinear/). The argument appears and the starting point of Wu–Wang, so **it is not new**.
 
 ## 1. Other 2025–2026 results near the problem
 
@@ -113,3 +113,12 @@ The repository README lists 722 manuscripts in 374 families, produced by an unna
 - **Family 136:** a quasilinear PCP for PPAD.
 - **Withdrawals** [V-primary: history.md, 2026-10-07]: three Hodge-related manuscripts were withdrawn after a sign error. AI-produced, unformalized claims can therefore be wrong.
 - **P vs NP:** grepping CONTENTS.md for "P vs NP", "P ≠ NP" and "P = NP" turns up **no family that claims to resolve it**.
+
+## 4. Unverified P vs NP claims with a Lean veneer (example)
+
+- **Reservoir package `Mintpath/p_ne_np`** (v0.1.0, 2026-07-25). It claims "Machine-verified
+  proof (0 sorries, **2 axioms**) that P ≠ NP via exponential circuit lower bounds for
+  Hamiltonian Cycle". The registry page does not state the axioms, and the source repository
+  returned HTTP 404 when I tried it.
+- **Assessment:** this is a Lean proof that uses extra axioms, so it proves nothing until those
+  axioms are inspected. I found no sign of expert acceptance. [secondary: registry page]

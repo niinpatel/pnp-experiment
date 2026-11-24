@@ -1,5 +1,7 @@
 # Machine-checked superlinear circuit lower bound for E^NP: plan
 
+> **Superseded by `RESULT.md`.** This plan has two errors: the step "Nv ≥ m" is false, and the ε is wrong. The finished proof handles both through a monotonicity lemma for n·r(n) (`Arith.lean`), with ε = 1/(64·54·(q+1)(D+1)).
+
 ## Goal
 
 Prove in Lean 4 / Mathlib, building on `anthropics/formal-math/eth` at commit `11b6c7e`, that

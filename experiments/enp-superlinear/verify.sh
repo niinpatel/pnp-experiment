@@ -11,8 +11,9 @@ export PATH="$HOME/.elan/bin:$PATH"; export XDG_CACHE_HOME="$BUILD/.cache"
 mkdir -p "$BUILD"
 python3 "$ROOT/tools/fetch_tarball.py" anthropics/formal-math "$BUILD" || exit 1
 SRC=$(ls -d "$BUILD"/anthropics-formal-math-*/ | head -1); echo "source tree: $SRC"
+case "$SRC" in *11b6c7e*) ;; *) echo "WARNING: upstream moved past 11b6c7e; results may differ";; esac
 cp -r "$HERE/lean/proof/superlinear" "$SRC/eth/proof/"
-cp "$HERE/lean/lakefile.toml" "$SRC/eth/lakefile.toml"
+grep -q "name = \"superlinear\"" "$SRC/eth/lakefile.toml" || printf '\n[[lean_lib]]\nname = "superlinear"\nsrcDir = "proof/superlinear"\nglobs = ["Superlinear.+"]\n' >> "$SRC/eth/lakefile.toml"
 cd "$SRC/eth"
 cat > proof/superlinear/CheckType.lean <<'EOF'
 import Superlinear.Main

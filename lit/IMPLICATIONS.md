@@ -21,9 +21,10 @@ This is my own reasoning (Claude, 2026-11-24), built on the sources in `SURVEY.m
   determines a unique multilinear polynomial, but multilinearization is not cheap.
   - The proof would have to apply to some *multilinear-on-the-cube* representative of the
     circuit's function. No known size-preserving way to obtain one exists.
-  - Plausibly none can exist without a known barrier biting. Boolean lower bounds of the form
-    2^{(log n)^{4/3}} for NP-type functions against *general* circuits would give
-    NP ⊄ P/poly, which is far beyond anything known.
+  - On 0/1 inputs over F₂, HC_m computes the *parity* of the number of Hamiltonian cycles,
+    which is a function in ⊕P. A Boolean superpolynomial lower bound for it would give
+    ⊕P ⊄ P/poly. That is also far beyond anything known, though it is not the same as
+    NP ⊄ P/poly.
 - **Reasoning: the natural-proofs barrier.** The "spectral points" come only from Zorn's lemma,
   so they are non-constructive. That is the right shape for evading the natural-proofs
   barrier. A Boolean analogue would still have to evade relativization and algebrization,
@@ -33,9 +34,12 @@ This is my own reasoning (Claude, 2026-11-24), built on the sources in `SURVEY.m
 
 - **Source.** The algorithms run in 2^{O(n log log n/√log n)} time. That is still
   superpolynomial, and it is consistent with P ≠ NP.
-- **Source** (Anthropic ETH paper, §1.2 and App. G). In the Austrin–Kaski–Kubjas model of
-  evaluating one tensor network along one contraction tree, no algorithm for the recursed
-  problem has exponent below about 49. The approach has known structural limits.
+- **Source** (Anthropic ETH paper, §1.2 and App. G, read in full). In the Austrin–Kaski–Kubjas
+  model, which executes *one* tensor network along *one* contraction tree, no algorithm for the
+  recursed problem has an exponent below about 2/9, i.e. 4/9 of brute force.
+  The paper's algorithm lies *outside* that model, because it contracts a signed sum of
+  networks in different orders. So this is **not** a known limit of the new approach. It
+  shows that the approach had to leave the classical model.
 - **Reasoning.** The rate e(9K^16) ≤ 0.9·e(K) + O(1/K) gains only polylogarithmically in the
   exponent. Reaching 2^{n^{1−ε}}, let alone polynomial time, would need a different idea.
   Nothing in either paper suggests one.
@@ -48,8 +52,11 @@ This is my own reasoning (Claude, 2026-11-24), built on the sources in `SURVEY.m
   NEXP ⊄ C, or E^NP ⊄ C.
   - The ETH algorithm, through Tseitin, decides SAT for circuits of size s in
     2^{O(s/√log s)}.
-  - This gives E^NP ⊄ SIZE(c·n·√log n) [OpenAI Cor 1.4, on paper].
+  - This gives E^NP ⊄ SIZE(c·n·√log n) infinitely often [OpenAI paper, Cor 1.4; I read the
+    statement and proof in the PDF; there is no Lean].
   - Anthropic's Lean development proves the linear version, E^NP ⊄ SIZE(O(n)).
+  - **This session machine-checked** E^NP ⊄ SIZE(ε·n·√log n / log log n) infinitely often.
+    See `experiments/enp-superlinear/RESULT.md`.
 - **Reasoning: distance to P ≠ NP.** E^NP ⊄ P/poly would itself be a major breakthrough. It
   would still not give P ≠ NP, which needs *NP* ⊄ P (or NP ⊄ P/poly).
   - Via this route, the SAT algorithm would have to beat 2^n by a superpolynomial factor on

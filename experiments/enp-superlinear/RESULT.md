@@ -14,7 +14,7 @@ gates. The circuits may use any 2-input gate.
 
 ## Status of the claim
 
-- **The mathematics is not new.** It is the standard Williams-style "algorithms to lower bounds" consequence of the explicit #3-SAT rate 2^{O(n log log n/√log n)}. OpenAI's ETH paper (Oct 2026, Cor 1.4) states the n√log n version on paper.
+- **The mathematics is not new.** It is the standard Williams-style "algorithms to lower bounds" consequence of the explicit #3-SAT rate 2^{O(n log log n/√log n)}. OpenAI's ETH paper (Oct 2026, Cor 1.4, which I read in the PDF) states the stronger c·n·√log n version on paper. **The bound formalized here is weaker by a log log n factor.**
 - **What is new is the machine check.** As of 2026-11-24, to my knowledge, no Lean formalization of any superlinear bound for E^NP existed. Anthropic's development proves only the linear one, and OpenAI's Lean covers only the algorithm (`openai/math` lean/docs/378.md).
 - **What it rests on:** Anthropic's `formal-math/eth` development (commit 11b6c7e), which itself has not been checked by a human mathematician.
 

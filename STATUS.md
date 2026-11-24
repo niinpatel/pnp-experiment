@@ -25,14 +25,28 @@ like such a claim should be treated as a bug.
    only the standard axioms** (`experiments/lean-rebuild/README.md`). The comparator was not run.
 3. `lit/IMPLICATIONS.md`: why none of the 2026 results settles P vs NP.
 
+4. **New result, machine-checked in this session:** E^NP has no circuits of size
+   ε·n·√(log n)/log log n, infinitely often, over all fan-in-2 gates.
+   - **Lean theorem:** `Superlinear.corCircuitsSuperlinInf` (780 lines) on top of Anthropic's
+     `eth` development.
+   - **Checked:** a clean-room rebuild passes, using only the standard axioms, and a
+     non-vacuity lemma is proved.
+   - **Novelty:** the mathematics is known on paper (OpenAI's Cor 1.4 gives the stronger
+     c·n·√log n). To my knowledge this is the **first machine-checked superlinear circuit
+     lower bound for E^NP**.
+   - **Details:** `experiments/enp-superlinear/RESULT.md`.
+
 ## In progress
 
-- Feasibility study for a Lean proof that E^NP lacks circuits of size ε·n·√log n/log log n,
-  which would be the first machine-checked superlinear bound
-  (`experiments/enp-superlinear/PLAN.md`).
-- Reading the frontier from primary sources: the OpenAI ETH paper and the Nov 2026 follow-ups.
-  The goal is to pick one bounded, machine-checkable original contribution.
+- Capped attempt to drop the log log factor using the clause rate, to match OpenAI's
+  c·n·√log n.
 
-## Spend log (rough, self-estimated)
+## Explicitly not attempted (open, beyond this budget)
 
-- 2026-11-24 session 1: survey phase. Gemini (Vertex) calls: 2 small ones.
+- Improving the #SAT rate past 2^{m/√log m}, which would give stronger E^NP bounds.
+- Transferring the VP≠VNP proof to Boolean circuits. Paper §2.5 explains why it breaks;
+  `lit/IMPLICATIONS.md` §1 discusses it.
+
+## Spend log (rough, self-estimated from session token counts at guessed prices; advisor calls not counted)
+
+- About $117 by the end of the first Lean result (2026-11-24, ~09:00 UTC). Gemini: 2 small calls.
