@@ -7,7 +7,16 @@ public import CircuitLowerBound.Alg.Time
 public import CountKSat.InOut
 import Mathlib.Tactic
 
-/-! Smoke test: the explicit-rate padded algorithm and the padding machine are reachable. -/
+/-! # The engine with the explicit rate, and the padding machine
+
+* `exists_alg`: the algorithm (A, e) of `RecursionWithPieces.tiedAllCal` for the rates
+  rN(n) = log₂ log₂(n+4)/√(log₂(n+4)) and 1/√(log₂(m+2)), in the sense of
+  `VariableBound.Decide.Alg`: A is a polynomial-time function of (input, pad), correct on the code of
+  every k-CNF when the pad has at least 2^(e x) units, and the steps of the padding machine are
+  within the bound in n.
+* `padded`: the padding machine `CountKSatRate.stPaddedW`.
+The two `example`s check the facts that the host uses: the code `Rename.encN` of a formula is
+`SatM.enc`, and the count `cntN` is `SatK.numSat`. -/
 
 public section
 

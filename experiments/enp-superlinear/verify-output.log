@@ -1,0 +1,11 @@
+extracted to /mnt/lean/verify ['anthropics-formal-math-11b6c7e']
+source tree: /mnt/lean/verify/anthropics-formal-math-11b6c7e/
+✔ [4438/4440] Built Superlinear.Main (2.2s)
+✔ [4439/4440] Built Superlinear.Sanity (3.2s)
+Build completed successfully (4440 jobs).
+=== build exit 0
+Superlinear.corCircuitsSuperlinInf : ENP.CorCircuitsSuperlinInf
+'Superlinear.corCircuitsSuperlinInf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Superlinear.sizeS_superlinear' depends on axioms: [propext, Classical.choice, Quot.sound]
+=== check exit 0
+no sorry/axiom/native_decide/implemented_by in new files

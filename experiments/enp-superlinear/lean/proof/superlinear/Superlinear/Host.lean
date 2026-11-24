@@ -1,14 +1,25 @@
 module
 
-public import Superlinear.Smoke
+public import Superlinear.Engine
+public import Superlinear.Arith
 public import CircuitLowerBound.Closed
 public import VariableBound.Paper.Rename.Cert
 public import SplitSat.Leaf
 import Mathlib.Tactic
 
-/-! Smoke test: the host algorithm as a padded function (no machine cut into steps), and its
-polynomial-time certificates, and the soundness half of the new `StAlg` (`exists_sound_machine`).
-The completeness half (time bound) is NOT here yet. -/
+/-! # The algorithm of the circuit lower bound, with the engine of the explicit rate
+
+The machine of `CircuitLowerBound.StAlg` is built here without a machine cut into steps: the host is
+a padded function. On input x it writes the formula `Alg.pre F fb x` of the existing proof
+(proof/consequences/CircuitLowerBound/Alg/Machine.lean) as the code of a 3-CNF on Nv + 1
+variables (`hostEnc`; one spare variable so that n ≥ 1), and answers «the count is 0» by the
+algorithm A of the explicit rate with the pad of 2^(e (hostEnc x)) units (`hostB`, `hostE`). The
+padding machine `CountKSatRate.stPaddedW` makes one Turing machine of it.
+
+* `sound`: the machine accepts 1^m 0 y only if `Phi m` is satisfiable.
+* `StAlgS ε`: `CircuitLowerBound.StAlg` with the size bound c₀·(m+1) replaced by `sizeS ε m`.
+* `stAlgS`: `StAlgS ε` for some ε > 0. The machine depends on (A, e, F, fb) only, and ε on the
+  constants q (of the machine) and D (of the engine) only; both are fixed before the table e. -/
 
 @[expose] public section
 
@@ -93,13 +104,47 @@ theorem sound {rn rm : ℕ → ℝ} {A : List Bool × PaddedDescent.F.U → List
   have h7 := Alg.sat_Phi_of_pre hF hb _ (hbi.1 h6)
   rwa [Parse.ones_unary_append] at h7
 
-/-- The machine of the new `StAlg` exists and is sound; N depends on (A, e, F, fb) only. -/
-theorem exists_sound_machine : ∃ N : TM2ComputableAux Bool Bool, (∀ k, Finite (N.tm.Γ k)) ∧
-    ∀ m T : ℕ, Acc N m T → Sat (Phi m) := by
+/-- `CircuitLowerBound.StAlg` with the size bound `sizeS ε m` in place of c₀·(m+1): ONE machine N:
+(1) if N accepts 1^m 0 y, then `Phi m` is satisfiable; (2) for every table e there is m₀ such that
+for all m ≥ m₀ on a chain of e: if a circuit with at most `sizeS ε m` gates computes a satisfying
+assignment of `Phi m`, then N accepts 1^m 0 y for some y within 2^(m/8) steps. -/
+def StAlgS (ε : ℝ) : Prop := ∃ N : TM2ComputableAux Bool Bool, (∀ k, Finite (N.tm.Γ k)) ∧
+  (∀ m T : ℕ, Acc N m T → Sat (Phi m)) ∧
+  ∀ e : MCode, ∃ m₀ : ℕ, ∀ m : ℕ, m₀ ≤ m → codeOf (nu m) = e → pos m ≤ top (nu m) →
+    ∀ C : Circuit, C.length ≤ ENP.sizeS ε m → (∀ D ∈ Phi m, ∃ l ∈ D, eval C (toWord m l.1) = l.2) → Acc N m (2 ^ (m / 8))
+
+/-- **The algorithm**, with the engine of the explicit rate: `StAlgS ε` for some ε > 0. -/
+theorem stAlgS : ∃ ε : ℝ, 0 < ε ∧ StAlgS ε := by
   obtain ⟨A, e, hA⟩ := exists_alg
   obtain ⟨a₀, g, F, hFp, hF⟩ := stForm
   obtain ⟨fb, hbp, hb⟩ := stFlip
-  obtain ⟨N, _, hfin, hN⟩ := CountKSatRate.stPaddedW (hostE e F fb) (hostB A F fb) (hostE_polyT hA.polyE hFp hbp) (hostB_polyT hA.polyA hFp hbp)
-  exact ⟨N, hfin, sound hA (show Alg.FormOK a₀ g F from hF) (show Alg.FlipOK fb from hb) hN⟩
+  have hF' : Alg.FormOK a₀ g F := hF
+  have hb' : Alg.FlipOK fb := hb
+  obtain ⟨N, q, hfin, hN⟩ := CountKSatRate.stPaddedW (hostE e F fb) (hostB A F fb) (hostE_polyT hA.polyE hFp hbp) (hostB_polyT hA.polyA hFp hbp)
+  obtain ⟨D, hD⟩ := hA.timeN 1
+  obtain ⟨ε, hε, -, hth⟩ := threshold q D a₀
+  refine ⟨ε, hε, N, hfin, sound hA hF' hb' hN, fun e' => ?_⟩
+  obtain ⟨m₀, hm₀⟩ := hth (g e')
+  refine ⟨max m₀ 1, fun m hm he hpos C hCl hC => ?_⟩
+  obtain ⟨y, hy, hns, hNv⟩ := Alg.exists_guess hF' hb' stNorm (le_of_max_le_right hm) hpos C hC
+  rw [he] at hNv
+  obtain ⟨ev⟩ := hN (unary m ++ y)
+  obtain ⟨b, hbe, hbi⟩ := hostB_eq (fb := fb) hA hF' (unary m ++ y)
+  obtain rfl : b = true := hbi.2 hns
+  rw [hbe] at ev
+  -- the pad is within the bound of the engine on Nv + 1 variables
+  obtain ⟨φ, hk, henc, -⟩ := hostEnc_spec (fb := fb) hF' (unary m ++ y)
+  have hpad : 2 ^ hostE e F fb (unary m ++ y) ≤ SatM.boundNK (SatK.rN 1 (1 / 2)) D 3 ((Alg.pre F fb (unary m ++ y)).1.length + 1) := by
+    have h1 := hD 3 _ φ (by norm_num) (by omega) hk
+    simp only [one_mul, pow_one] at h1
+    unfold hostE
+    rw [henc]
+    omega
+  have h8 := hm₀ m (le_of_max_le_left hm) C.length _ _ hCl hNv hpad
+  have h9 : (unary m ++ y).length = m + 1 + ((m + C.length) + 1 + C.length * (4 + 2 * (m + C.length))) := by
+    rw [List.length_append, hy]
+    simp [unary]
+  rw [← h9] at h8
+  exact ⟨y, ⟨⟨ev.toEvalsTo, ev.steps_le_m.trans h8⟩⟩⟩
 
 end Superlinear
